@@ -1,301 +1,408 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>[Your Name] — Portfolio</title>
+  <meta name="description" content="Portfolio — Graphic Designer & Digital Artist" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
   <style>
-    /* ===== Reset and Base ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ===== Reset ===== */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;min-height:100vh;line-height:1.5}
+
+    /* ===== Theme variables ===== */
+    :root{
+      --bg:#0f0f10; --card:#151516; --text:#f5f5f5; --muted:#bdbdbd;
+      --accent:#ff4081; --accent-2:#00a8ff; --glass:rgba(255,255,255,0.04);
+      --radius:14px; --shadow:0 10px 30px rgba(0,0,0,0.45)
     }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #121212;
-      color: #f0f0f0;
-      line-height: 1.6;
-      overflow-x: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    img {
-      max-width: 100%;
-      display: block;
+    body.light{
+      --bg:#f6f7fb; --card:#fff; --text:#111; --muted:#556; --accent:#0b76ff; --accent-2:#ff4081; --glass:rgba(0,0,0,0.03);
     }
 
-    /* ===== Hero Section ===== */
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      color: white;
-      overflow: hidden;
-    }
-    .hero-bg {
-      background: url('images/hero-bg.jpg') center/cover no-repeat;
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 1;
-    }
-    #particles-js {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-    .hero img.profile {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      border: 3px solid #fff;
-    }
-    .typing {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      color: #ff4081;
-      min-height: 1.5rem;
-    }
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
 
-    /* ===== Carousel ===== */
-    .carousel {
-      position: relative;
-      overflow: hidden;
-      max-width: 1000px;
-      margin: auto;
+    /* ===== Navbar ===== */
+    nav{
+      position:fixed;inset:0 0 auto 0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;
+      backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(0,0,0,0.25),transparent);z-index:1200
     }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    .carousel-slide {
-      min-width: 100%;
-      flex-shrink: 0;
-    }
-    .carousel-slide img {
-      border-radius: 10px;
-    }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      font-size: 2rem;
-      padding: 10px;
-      cursor: pointer;
-      z-index: 10;
-      transition: background 0.3s ease;
-    }
-    .carousel-btn:hover {
-      background: rgba(0,0,0,0.8);
-    }
-    .carousel-btn.prev { left: 10px; }
-    .carousel-btn.next { right: 10px; }
+    .brand{font-weight:900;color:var(--accent);letter-spacing:.4px}
+    .nav-links{display:flex;gap:18px;align-items:center;list-style:none}
+    .nav-links a{color:var(--text);font-weight:600;position:relative;padding:6px 2px}
+    .nav-links a::after{content:'';position:absolute;left:0;right:0;height:2px;background:transparent;bottom:-4px;transition:background .2s}
+    .nav-links a:hover::after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+    .controls{display:flex;gap:12px;align-items:center}
 
-    /* ===== Buttons ===== */
-    .contact-btn, .resume-btn, .mode-toggle {
-      background-color: #ff4081;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      display: inline-block;
-      margin: 10px;
-    }
-    .contact-btn:hover, .resume-btn:hover, .mode-toggle:hover {
-      background-color: #e73370;
-      transform: scale(1.05);
-    }
+    .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;cursor:pointer;color:var(--text)}
+    .icon-btn:active{transform:scale(.98)}
 
-    /* ===== Reveal Animation ===== */
-    .hidden {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .hamburger{display:none;font-size:20px;padding:8px;border-radius:10px}
 
-    /* ===== Light Mode ===== */
-    body.light {
-      background: #f0f0f0;
-      color: #121212;
+    /* ===== Hero ===== */
+    header.hero{
+      min-height:100vh;padding-top:64px;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;
+      background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;animation:grad 18s ease infinite;
+      overflow:hidden
     }
-    body.light .hero::after {
-      background: rgba(255,255,255,0.2);
+    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    .hero-inner{max-width:1080px;padding:32px;position:relative;z-index:2}
+    .profile{display:flex;flex-direction:column;gap:18px;align-items:center}
+    .profile-pic{
+      width:160px;height:160px;border-radius:50%;object-fit:cover;border:5px solid rgba(255,255,255,0.12);box-shadow:var(--shadow);
+      transform:translateY(8px) scale(.96);opacity:0;animation:picIn .9s cubic-bezier(.2,.9,.2,1) forwards .3s
     }
+    @keyframes picIn{to{transform:none;opacity:1}}
+
+    .hero h1{font-size:2.7rem;margin-bottom:6px;letter-spacing:-0.6px}
+    .hero .name{color:var(--accent)}
+    .hero h2{font-weight:600;color:var(--muted);margin-bottom:18px;font-size:1.15rem}
+    .typing{display:inline-block;border-right:3px solid rgba(255,255,255,0.15);padding-right:6px;white-space:nowrap}
+
+    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn{padding:10px 18px;border-radius:999px;border:none;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+    .btn.ghost{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.06)}
+
+    /* hero overlays for depth */
+    .hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.15),transparent);}
+    .hero::after{content:'';position:absolute;right:-20%;bottom:-10%;width:60vmax;height:60vmax;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent);pointer-events:none}
+
+    /* ===== Main sections ===== */
+    main{max-width:1200px;margin:30px auto;padding:10px 20px 80px}
+    section.card{background:var(--card);border-radius:12px;padding:22px;margin:32px 0;box-shadow:0 10px 30px rgba(0,0,0,0.45);transition:transform .28s}
+    section.card:hover{transform:translateY(-6px)}
+    section.card h2{margin-bottom:8px}
+    .muted{color:var(--muted)}
+
+    /* ===== Carousel (modern) ===== */
+    .carousel{
+      position:relative;overflow:hidden;border-radius:10px;margin-top:14px;background:linear-gradient(180deg,rgba(0,0,0,0.06),transparent);
+    }
+    .track{display:flex;transition:transform .55s cubic-bezier(.2,.9,.2,1);will-change:transform}
+    .slide{min-width:100%;flex-shrink:0;padding:18px;display:flex;align-items:center;justify-content:center}
+    .card-media{width:100%;height:420px;border-radius:10px;overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,0.35)}
+    .card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+    .slide:hover .card-media img{transform:scale(1.03)}
+
+    .arrow{
+      position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;padding:10px;border-radius:999px;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;width:44px;height:44px;backdrop-filter:blur(4px)
+    }
+    .arrow.left{left:14px}
+    .arrow.right{right:14px}
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.22);cursor:pointer}
+    .dot.active{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+    /* ===== Contact form simple styles ===== */
+    form{display:flex;flex-direction:column;gap:10px}
+    input,textarea{padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--text)}
+    textarea{min-height:120px;resize:vertical}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.45)}
+
+    /* ===== Back to top ===== */
+    #toTop{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,0.35);display:none;z-index:1200}
+
+    /* ===== Reveal helper (used by JS) ===== */
+    .hidden-obs{opacity:0;transform:translateY(22px);transition:all .7s cubic-bezier(.2,.9,.2,1)}
+    .reveal{opacity:1;transform:none}
 
     /* ===== Responsive ===== */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .carousel-btn {
-        font-size: 1.5rem;
-        padding: 6px;
-      }
+    @media (max-width:980px){ .card-media{height:320px} .hero h1{font-size:2.1rem} }
+    @media (max-width:680px){
+      nav .nav-links{display:none;position:absolute;right:14px;top:64px;background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 22px rgba(0,0,0,0.35)}
+      .hamburger{display:block}
+      .profile-pic{width:130px;height:130px}
+      .card-media{height:220px}
     }
   </style>
 </head>
 <body>
+  <!-- NAV -->
+  <nav role="navigation" aria-label="Main navigation">
+    <div class="brand" aria-hidden="true">[Your] Portfolio</div>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <div id="particles-js"></div>
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <img src="images/your-face.jpg" alt="My Photo" class="profile">
-      <h1>Hi, I'm Your Name</h1>
-      <p class="typing"></p>
-      <button class="mode-toggle">Toggle Light/Dark Mode</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="controls" aria-hidden="false">
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Toggle light/dark">🌓</button>
+      <button id="downloadResume" class="icon-btn" title="Download resume" aria-label="Download resume" onclick="location.href='resume.pdf'">📄</button>
+      <button id="burger" class="hamburger" aria-label="Open menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="hero" role="banner" aria-label="Intro">
+    <div class="hero-inner">
+      <div class="profile">
+        <!-- Replace with `images/me.jpg` or your own portrait -->
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=3f4a53c1f1ba82f3f8d0d5b1a0aef59d"
+             alt="Portrait of [Your Name]" class="profile-pic" width="320" height="320" loading="lazy">
+
+        <h1>Hi — I'm <span class="name">[Your Name]</span></h1>
+        <h2><span class="typing" id="typing" aria-live="polite" aria-atomic="true"></span></h2>
+
+        <div class="cta" role="group" aria-label="Primary actions">
+          <button class="btn primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View My Work</button>
+          <a class="btn ghost" href="resume.pdf" download>📄 Download Resume</a>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- Projects Section -->
-  <section id="projects" class="hidden">
-    <h2>My Work</h2>
-    <div class="carousel">
-      <button class="carousel-btn prev">❮</button>
-      <div class="carousel-track">
-        <div class="carousel-slide"><img src="images/project1.jpg" alt="Project 1"></div>
-        <div class="carousel-slide"><img src="images/project2.jpg" alt="Project 2"></div>
-        <div class="carousel-slide"><img src="images/project3.jpg" alt="Project 3"></div>
-        <div class="carousel-slide"><img src="images/project4.jpg" alt="Project 4"></div>
+  <!-- MAIN -->
+  <main>
+    <!-- PROJECTS -->
+    <section id="projects" class="card" aria-labelledby="projectsTitle">
+      <h2 id="projectsTitle">Featured Projects</h2>
+      <p class="muted">A selection of visual work — click or swipe to explore.</p>
+
+      <div class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Featured projects">
+        <button class="arrow left" id="prev" aria-label="Previous slide">‹</button>
+        <div class="track" id="track" role="list">
+          <!-- Replace these images with your project images -->
+          <div class="slide" role="listitem" aria-roledescription="slide" aria-label="Project 1">
+            <div class="card-media"><img src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172" alt="Project 1" loading="lazy"></div>
+          </div>
+
+          <div class="slide" role="listitem" aria-roledescription="slide" aria-label="Project 2">
+            <div class="card-media"><img src="https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476" alt="Project 2" loading="lazy"></div>
+          </div>
+
+          <div class="slide" role="listitem" aria-roledescription="slide" aria-label="Project 3">
+            <div class="card-media"><img src="https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2" alt="Project 3" loading="lazy"></div>
+          </div>
+
+          <div class="slide" role="listitem" aria-roledescription="slide" aria-label="Project 4">
+            <div class="card-media"><img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e" alt="Project 4" loading="lazy"></div>
+          </div>
+        </div>
+
+        <button class="arrow right" id="next" aria-label="Next slide">›</button>
       </div>
-      <button class="carousel-btn next">❯</button>
-    </div>
-  </section>
 
-  <!-- About Section -->
-  <section class="about hidden">
-    <h2>About Me</h2>
-    <p>I specialize in graphic design, digital illustrations, and creating visual stories. Passionate about blending creativity with modern design trends.</p>
-    <a href="resume.pdf" class="resume-btn" download>Download Resume</a>
-  </section>
+      <div class="dots" id="dots" role="tablist" aria-label="Slide indicators"></div>
+    </section>
 
-  <!-- Contact Section -->
-  <section class="contact hidden">
-    <h2>Contact</h2>
-    <form action="https://formspree.io/f/yourformid" method="POST">
-      <input type="text" name="name" placeholder="Your Name" required><br>
-      <input type="email" name="email" placeholder="Your Email" required><br>
-      <textarea name="message" placeholder="Your Message" required></textarea><br>
-      <button type="submit" class="contact-btn">Send Message</button>
-    </form>
-  </section>
+    <!-- ABOUT -->
+    <section id="about" class="card" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle">About Me</h2>
+      <p class="muted">I design brand identities, digital illustrations, and visuals that tell stories. I blend conceptual thinking with clean execution — from concept to pixel-perfect final files.</p>
+      <p style="margin-top:8px">Tools: Photoshop · Illustrator · Figma · Procreate · Blender (basic) · HTML/CSS</p>
+      <a class="btn primary" href="resume.pdf" download style="margin-top:12px;display:inline-block">Download Resume</a>
+    </section>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- CONTACT -->
+    <section id="contact" class="card" aria-labelledby="contactTitle">
+      <h2 id="contactTitle">Contact</h2>
+      <p class="muted">Want to work together? Send a short message — I’ll reply within a few days.</p>
+
+      <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="margin-top:12px">
+        <input name="name" placeholder="Your name" required aria-label="Your name">
+        <input type="email" name="_replyto" placeholder="Your email" required aria-label="Your email">
+        <textarea name="message" placeholder="Tell me about your project" required aria-label="Your message"></textarea>
+
+        <div style="display:flex;gap:12px;align-items:center;margin-top:8px;flex-wrap:wrap">
+          <button type="submit" class="btn primary">Send Message</button>
+          <div id="formStatus" class="muted" aria-live="polite"></div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align:center;color:var(--muted);padding:18px 6px">
+    © <span id="year"></span> [Your Name] — Made with care · accessibility-minded
+  </footer>
+
+  <!-- Back to top -->
+  <button id="toTop" title="Back to top" aria-label="Back to top">↑</button>
+
+  <!-- ===== Scripts ===== -->
   <script>
-    /* ===== Particles Background ===== */
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80 },
-        "color": { "value": "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.5 },
-        "size": { "value": 3 },
-        "move": { "speed": 2 }
-      }
+    /*********************
+     * Basic UI & states *
+     *********************/
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      if (navLinks.style.display === 'flex') navLinks.style.display = 'none';
+      else navLinks.style.display = 'flex';
+    });
+    // auto-hide on link click (mobile)
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if (window.innerWidth <= 680) navLinks.style.display = 'none';
+    }));
+
+    /***********************
+     * Theme persistence   *
+     ***********************/
+    const themeToggle = document.getElementById('themeToggle');
+    const storedTheme = localStorage.getItem('pref-theme');
+    if (storedTheme === 'light') document.body.classList.add('light');
+
+    function updateThemeIcon(){
+      themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
+    }
+    updateThemeIcon();
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateThemeIcon();
     });
 
-    // Typing effect
-    const texts = ["Graphic Designer", "Digital Artist", "Visual Storyteller"];
-    let count = 0, index = 0, currentText = "", letter = "";
-    (function type() {
-      if (count === texts.length) count = 0;
-      currentText = texts[count];
-      letter = currentText.slice(0, ++index);
-      document.querySelector(".typing").textContent = letter;
-      if (letter.length === currentText.length) {
-        count++;
-        index = 0;
-        setTimeout(type, 1500);
+    /***********************
+     * Typing animation    *
+     ***********************/
+    const typingEl = document.getElementById('typing');
+    const phrases = ["Graphic Designer", "Digital Illustrator", "Brand Strategist", "Creative Problem Solver"];
+    let pI = 0, cI = 0, fwd = true;
+
+    function typeLoop(){
+      const cur = phrases[pI];
+      if (fwd){
+        cI++;
+        typingEl.textContent = cur.slice(0, cI);
+        if (cI === cur.length){ fwd = false; setTimeout(typeLoop, 900); return; }
       } else {
-        setTimeout(type, 100);
+        cI--;
+        typingEl.textContent = cur.slice(0, cI);
+        if (cI === 0){ fwd = true; pI = (pI+1) % phrases.length; setTimeout(typeLoop, 300); return; }
       }
-    })();
+      setTimeout(typeLoop, fwd ? 110 : 40);
+    }
+    setTimeout(typeLoop, 700);
 
-    // Light/Dark mode toggle
-    document.querySelector(".mode-toggle").addEventListener("click", () => {
-      document.body.classList.toggle("light");
-    });
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("show");
+    /***********************
+     * Scroll reveal       *
+     ***********************/
+    const reveals = document.querySelectorAll('main section, header.hero');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('reveal');
       });
-    });
-    document.querySelectorAll(".hidden").forEach(el => observer.observe(el));
+    }, {threshold: 0.12});
+    reveals.forEach(r => { r.classList.add('hidden-obs'); obs.observe(r); });
 
-    // Carousel
-    const track = document.querySelector('.carousel-track');
+    /***********************
+     * Carousel core       *
+     ***********************/
+    const track = document.getElementById('track');
     const slides = Array.from(track.children);
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    let indexSlide = 0;
-    let interval = setInterval(moveNext, 4000);
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const dotsContainer = document.getElementById('dots');
+    let index = 0;
+    let autoTimer = null;
+    const slideCount = slides.length;
 
-    function updateCarousel() {
-      track.style.transform = `translateX(-${indexSlide * 100}%)`;
-    }
-    function moveNext() {
-      indexSlide = (indexSlide + 1) % slides.length;
-      updateCarousel();
-    }
-    function movePrev() {
-      indexSlide = (indexSlide - 1 + slides.length) % slides.length;
-      updateCarousel();
-    }
-    nextBtn.addEventListener('click', () => { moveNext(); resetAutoPlay(); });
-    prevBtn.addEventListener('click', () => { movePrev(); resetAutoPlay(); });
-    track.addEventListener('mouseenter', () => clearInterval(interval));
-    track.addEventListener('mouseleave', () => resetAutoPlay());
-    function resetAutoPlay() {
-      clearInterval(interval);
-      interval = setInterval(moveNext, 4000);
-    }
-    // Swipe support
-    let startX = 0;
-    track.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    track.addEventListener('touchend', e => {
-      let diff = startX - e.changedTouches[0].clientX;
-      if (diff > 50) moveNext();
-      else if (diff < -50) movePrev();
+    // create dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      d.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(d);
     });
+    const dots = Array.from(dotsContainer.children);
+
+    function update(){
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d,i) => d.classList.toggle('active', i === index));
+    }
+
+    function goTo(i){
+      index = (i + slideCount) % slideCount;
+      update();
+      resetAuto();
+    }
+
+    prev.addEventListener('click', () => { index = (index - 1 + slideCount) % slideCount; update(); resetAuto(); });
+    next.addEventListener('click', () => { index = (index + 1) % slideCount; update(); resetAuto(); });
+
+    // autoplay with pause on hover/focus
+    function startAuto(){ if (!autoTimer) autoTimer = setInterval(()=>{ index = (index + 1) % slideCount; update(); }, 4200); }
+    function stopAuto(){ if (autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
+    function resetAuto(){ stopAuto(); startAuto(); }
+
+    const carousel = document.getElementById('carousel');
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+    carousel.addEventListener('focusin', stopAuto);
+    carousel.addEventListener('focusout', startAuto);
+
+    // touch swipe support
+    let startX = 0, moved = false;
+    track.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; moved = false; stopAuto(); }, {passive:true});
+    track.addEventListener('touchmove', ()=>{ moved = true }, {passive:true});
+    track.addEventListener('touchend', (e)=>{
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 40){
+        if (diff > 0) index = (index + 1) % slideCount;
+        else index = (index - 1 + slideCount) % slideCount;
+        update();
+      }
+      resetAuto();
+    });
+
+    // keyboard navigation
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'ArrowRight') next.click();
+      if (e.key === 'ArrowLeft') prev.click();
+    });
+
+    // init track widths (keeps slides full width)
+    window.addEventListener('load', () => {
+      track.style.width = `${slideCount * 100}%`;
+      slides.forEach(s => s.style.width = `${100/slideCount}%`);
+      update();
+      startAuto();
+    });
+
+    /***********************
+     * Contact form submit *
+     ***********************/
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = 'Sending…';
+      const data = new FormData(form);
+      try{
+        const res = await fetch(form.action, {method:'POST',body:data,headers:{'Accept':'application/json'}});
+        if (res.ok){ status.textContent = 'Thanks — I will reply soon!'; form.reset(); }
+        else { status.textContent = 'Something went wrong. Try again later.'; }
+      } catch(err){ status.textContent = 'Network error. Please try again.'; }
+    });
+
+    /***********************
+     * Back to top button   *
+     ***********************/
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > window.innerHeight/2) toTop.style.display = 'block';
+      else toTop.style.display = 'none';
+    });
+    toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
   </script>
 </body>
 </html>
