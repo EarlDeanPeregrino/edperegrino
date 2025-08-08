@@ -17,7 +17,11 @@
       color: #f0f0f0;
       line-height: 1.6;
       overflow-x: hidden;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-mode {
+      background: #f0f0f0;
+      color: #121212;
     }
     h1, h2 {
       text-align: center;
@@ -29,31 +33,6 @@
       margin: auto;
     }
 
-    /* ===== Light Mode ===== */
-    body.light-mode {
-      background: #f9f9f9;
-      color: #222;
-    }
-    body.light-mode .card {
-      background: #fff;
-    }
-    body.light-mode .carousel-btn {
-      background: rgba(0,0,0,0.5);
-      color: white;
-    }
-
-    /* ===== Theme Toggle ===== */
-    #themeToggle {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 999;
-    }
-
     /* ===== Hero Section ===== */
     .hero {
       height: 100vh;
@@ -61,87 +40,85 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: url('https://via.placeholder.com/1600x900') center/cover no-repeat;
+      background: url('images/hero-bg.jpg') no-repeat center center/cover;
       position: relative;
       text-align: center;
+      padding: 20px;
     }
-    .hero-overlay {
+    .hero::after {
+      content: '';
       position: absolute;
-      inset: 0;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0,0,0,0.5);
     }
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
-    .hero img {
+    .profile-pic {
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      border: 4px solid white;
-      margin-bottom: 20px;
+      border: 4px solid #ff4081;
       object-fit: cover;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: zoomIn 1.2s ease forwards;
+      animation-delay: 0.3s;
     }
-    .hero h1 {
-      font-size: 3rem;
-    }
-    .hero p {
-      font-size: 1.2rem;
+    @keyframes zoomIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* ===== Carousel ===== */
     .carousel {
       position: relative;
       overflow: hidden;
-      max-width: 1000px;
-      margin: auto;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
     }
     .carousel-track {
       display: flex;
-      transition: opacity 1s ease;
-      position: relative;
+      transition: transform 0.5s ease;
     }
     .carousel-slide {
       min-width: 100%;
+      opacity: 0;
       transition: opacity 1s ease;
       position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
+      top: 0; left: 0;
     }
     .carousel-slide.active {
-      position: relative;
       opacity: 1;
+      position: relative;
     }
     .carousel-slide img {
       width: 100%;
+      display: block;
       border-radius: 10px;
     }
     .carousel-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.5);
+      color: white;
       border: none;
       padding: 10px;
       cursor: pointer;
+      z-index: 5;
       border-radius: 50%;
-      font-size: 1.5rem;
-      color: white;
-      z-index: 2;
-      transition: background 0.3s ease;
     }
-    .carousel-btn:hover {
-      background: rgba(255,255,255,0.5);
-    }
-    .carousel-btn.left {
-      left: 10px;
-    }
-    .carousel-btn.right {
-      right: 10px;
-    }
+    .carousel-btn.left { left: 10px; }
+    .carousel-btn.right { right: 10px; }
 
-    /* ===== Button Hover Effect ===== */
+    /* ===== Button ===== */
     .contact-btn {
       background-color: #ff4081;
       color: white;
@@ -155,17 +132,6 @@
     .contact-btn:hover {
       background-color: #e73370;
       transform: scale(1.05);
-    }
-
-    /* ===== Entrance Animations ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    .fade-in.show {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     /* ===== Preloader ===== */
@@ -188,70 +154,63 @@
       animation: spin 1s linear infinite;
     }
     @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      to { transform: rotate(360deg); }
     }
 
     /* ===== Responsive ===== */
     @media (max-width: 600px) {
       .hero h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
       }
       .contact-btn {
         width: 100%;
-      }
-      .hero img {
-        width: 120px;
-        height: 120px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== Theme Toggle ===== -->
-  <button id="themeToggle">☀️</button>
-
   <!-- ===== Preloader ===== -->
   <div id="preloader">
     <div class="loader"></div>
   </div>
 
+  <!-- ===== Theme Toggle ===== -->
+  <button id="themeToggle" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">☀️</button>
+
   <!-- ===== Hero Section ===== -->
   <header class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content fade-in">
-      <!-- Replace src with your own portrait -->
-      <img src="https://via.placeholder.com/150" alt="My Portrait">
+    <div class="hero-content">
+      <img src="images/profile.jpg" alt="My Face" class="profile-pic">
       <h1>Hi, I'm [Your Name]</h1>
       <p>Graphic Designer & Digital Artist</p>
     </div>
   </header>
 
-  <!-- ===== Projects Section ===== -->
-  <section class="projects fade-in">
+  <!-- ===== Projects Section with Carousel ===== -->
+  <section class="projects">
     <h2>My Work</h2>
     <div class="carousel">
       <button class="carousel-btn left">&#10094;</button>
       <div class="carousel-track">
-        <div class="carousel-slide active"><img src="https://via.placeholder.com/800x500" alt="Project 1"></div>
-        <div class="carousel-slide"><img src="https://via.placeholder.com/800x500/ff4081/ffffff" alt="Project 2"></div>
-        <div class="carousel-slide"><img src="https://via.placeholder.com/800x500/222/fff" alt="Project 3"></div>
-        <div class="carousel-slide"><img src="https://via.placeholder.com/800x500/008080/ffffff" alt="Project 4"></div>
+        <div class="carousel-slide active"><img src="images/project1.jpg" alt="Project 1"></div>
+        <div class="carousel-slide"><img src="images/project2.jpg" alt="Project 2"></div>
+        <div class="carousel-slide"><img src="images/project3.jpg" alt="Project 3"></div>
+        <div class="carousel-slide"><img src="images/project4.jpg" alt="Project 4"></div>
+        <div class="carousel-slide"><img src="images/project5.jpg" alt="Project 5"></div>
       </div>
       <button class="carousel-btn right">&#10095;</button>
     </div>
   </section>
 
   <!-- ===== About Section ===== -->
-  <section class="about fade-in">
+  <section class="about">
     <h2>About Me</h2>
     <p>I specialize in graphic design, digital illustrations, and creating visual stories. Passionate about blending creativity with modern design trends.</p>
   </section>
 
   <!-- ===== Contact Section ===== -->
-  <section class="contact fade-in">
+  <section class="contact">
     <h2>Contact</h2>
     <button class="contact-btn">Get in Touch</button>
   </section>
@@ -263,24 +222,14 @@
       document.getElementById("preloader").style.display = "none";
     });
 
-    // Scroll animations
-    const faders = document.querySelectorAll('.fade-in');
-    window.addEventListener('scroll', () => {
-      faders.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) el.classList.add('show');
-      });
-    });
-
-    // Carousel (fade style)
+    // Carousel autoplay with fade
     const slides = document.querySelectorAll('.carousel-slide');
     let index = 0;
     let autoPlayInterval;
 
     function showSlide(i) {
       slides.forEach((slide, idx) => {
-        slide.classList.remove('active');
-        if (idx === i) slide.classList.add('active');
+        slide.classList.toggle('active', idx === i);
       });
     }
     function nextSlide() {
@@ -297,7 +246,6 @@
     function stopAutoPlay() {
       clearInterval(autoPlayInterval);
     }
-
     document.querySelector('.carousel-btn.left').addEventListener('click', prevSlide);
     document.querySelector('.carousel-btn.right').addEventListener('click', nextSlide);
 
@@ -307,7 +255,7 @@
 
     startAutoPlay();
 
-    // Light/Dark mode
+    // Theme toggle
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light-mode');
