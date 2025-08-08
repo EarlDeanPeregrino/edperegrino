@@ -1,181 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Portfolio</title>
-  <style>
-    /* ===== Reset and Base ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #121212;
-      color: #f0f0f0;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    h1, h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Portfolio</title>
+<style>
+  /* ===== Reset and Base ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #121212;
+    color: #f0f0f0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2 { text-align: center; margin-bottom: 20px; }
+  section { padding: 80px 20px; max-width: 1100px; margin: auto; }
+  a { color: inherit; text-decoration: none; }
 
-    /* ===== Hero Section ===== */
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+  /* ===== Navbar ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(18, 18, 18, 0.95);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+  }
+  nav h1 { font-size: 1.5rem; color: #ff4081; }
+  nav ul { list-style: none; display: flex; gap: 20px; }
+  nav ul li a { transition: color 0.3s ease; }
+  nav ul li a:hover { color: #ff4081; }
 
-    /* ===== Project Cards ===== */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: #1e1e1e;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      text-align: center;
-    }
-    .card:hover {
-      transform: scale(1.05);
-    }
-    .card img {
-      width: 100%;
-      display: block;
-    }
+  /* ===== Hero ===== */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #121212, #1e1e1e);
+    padding: 0 20px;
+  }
+  .hero h1 { font-size: 3rem; }
+  .hero p { margin: 20px 0; font-size: 1.2rem; color: #ccc; }
+  .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; }
+  .btn {
+    background-color: #ff4081;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .btn:hover { background-color: #e73370; transform: scale(1.05); }
 
-    /* ===== Button Hover Effect ===== */
-    .contact-btn {
-      background-color: #ff4081;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-    .contact-btn:hover {
-      background-color: #e73370;
-      transform: scale(1.05);
-    }
+  /* ===== Carousel ===== */
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+  .carousel img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(18, 18, 18, 0.7);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 5;
+    border-radius: 50%;
+  }
+  .carousel-btn.left { left: 10px; }
+  .carousel-btn.right { right: 10px; }
 
-    /* ===== Entrance Animations ===== */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease forwards;
-    }
-    .fade-in.delay {
-      animation-delay: 0.3s;
-    }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+  /* ===== About Section ===== */
+  .about p {
+    text-align: center;
+    max-width: 700px;
+    margin: auto;
+    font-size: 1.1rem;
+    color: #ccc;
+  }
 
-    /* ===== Preloader ===== */
-    #preloader {
-      background: #121212;
-      position: fixed;
-      width: 100%;
-      height: 100vh;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .loader {
-      border: 8px solid #333;
-      border-top: 8px solid #ff4081;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
+  /* ===== Contact ===== */
+  .contact {
+    text-align: center;
+  }
+  .social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  .social-links a {
+    font-size: 1.5rem;
+    color: white;
+    transition: color 0.3s ease;
+  }
+  .social-links a:hover {
+    color: #ff4081;
+  }
 
-    /* ===== Responsive ===== */
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .contact-btn {
-        width: 100%;
-      }
-    }
-  </style>
+  /* ===== Animations ===== */
+  .fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+  .fade-in.show { opacity: 1; transform: translateY(0); }
+
+  /* ===== Preloader ===== */
+  #preloader {
+    background: #121212;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loader {
+    border: 8px solid #333;
+    border-top: 8px solid #ff4081;
+    border-radius: 50%;
+    width: 60px; height: 60px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .hero h1 { font-size: 2.3rem; }
+    .hero-buttons { justify-content: center; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- ===== Preloader ===== -->
-  <div id="preloader">
-    <div class="loader"></div>
+<!-- Preloader -->
+<div id="preloader"><div class="loader"></div></div>
+
+<!-- Navbar -->
+<nav>
+  <h1>My Portfolio</h1>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<header id="hero" class="hero">
+  <h1 class="fade-in">Hi, I'm [Your Name]</h1>
+  <p class="fade-in">Graphic Designer & Digital Artist</p>
+  <div class="hero-buttons fade-in">
+    <a href="#projects"><button class="btn">View My Work</button></a>
+    <a href="#contact"><button class="btn">Contact Me</button></a>
   </div>
+</header>
 
-  <!-- ===== Hero Section ===== -->
-  <header class="hero">
-    <h1 class="fade-in">Hi, I'm [Your Name]</h1>
-    <p class="fade-in delay">Graphic Designer & Digital Artist</p>
-  </header>
-
-  <!-- ===== Projects Section ===== -->
-  <section class="projects fade-in delay">
-    <h2>My Work</h2>
-    <div class="gallery">
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200" alt="Project 1"/>
-        <p>Project 1</p>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200" alt="Project 2"/>
-        <p>Project 2</p>
-      </div>
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200" alt="Project 3"/>
-        <p>Project 3</p>
-      </div>
+<!-- Projects -->
+<section id="projects" class="fade-in">
+  <h2>My Work</h2>
+  <div class="carousel">
+    <button class="carousel-btn left">&#10094;</button>
+    <div class="carousel-track">
+      <img src="https://via.placeholder.com/1000x600" alt="Project 1">
+      <img src="https://via.placeholder.com/1000x600" alt="Project 2">
+      <img src="https://via.placeholder.com/1000x600" alt="Project 3">
     </div>
-  </section>
+    <button class="carousel-btn right">&#10095;</button>
+  </div>
+</section>
 
-  <!-- ===== About Section ===== -->
-  <section class="about fade-in delay">
-    <h2>About Me</h2>
-    <p>I specialize in graphic design, digital illustrations, and creating visual stories. Passionate about blending creativity with modern design trends.</p>
-  </section>
+<!-- About -->
+<section id="about" class="about fade-in">
+  <h2>About Me</h2>
+  <p>I specialize in graphic design, digital illustrations, and creating visual stories. Passionate about blending creativity with modern design trends to craft impactful visual experiences.</p>
+</section>
 
-  <!-- ===== Contact Section ===== -->
-  <section class="contact fade-in delay">
-    <h2>Contact</h2>
-    <button class="contact-btn">Get in Touch</button>
-  </section>
+<!-- Contact -->
+<section id="contact" class="contact fade-in">
+  <h2>Contact</h2>
+  <p>Let’s work together! Reach me at <a href="mailto:your@email.com">your@email.com</a></p>
+  <div class="social-links">
+    <a href="#"><i class="fab fa-facebook"></i>🌐</a>
+    <a href="#"><i class="fab fa-instagram"></i>📸</a>
+    <a href="#"><i class="fab fa-linkedin"></i>💼</a>
+  </div>
+</section>
 
-  <!-- ===== Script for Preloader ===== -->
-  <script>
-    window.addEventListener("load", function () {
-      document.getElementById("preloader").style.display = "none";
+<!-- Scripts -->
+<script>
+  // Preloader
+  window.addEventListener("load", () => {
+    document.getElementById("preloader").style.display = "none";
+  });
+
+  // Scroll animations
+  const faders = document.querySelectorAll('.fade-in');
+  window.addEventListener('scroll', () => {
+    faders.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) el.classList.add('show');
     });
-  </script>
+  });
+
+  // Carousel
+  const track = document.querySelector('.carousel-track');
+  const slides = Array.from(track.children);
+  let index = 0;
+  document.querySelector('.carousel-btn.left').addEventListener('click', () => {
+    index = (index <= 0) ? slides.length - 1 : index - 1;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  });
+  document.querySelector('.carousel-btn.right').addEventListener('click', () => {
+    index = (index >= slides.length - 1) ? 0 : index + 1;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  });
+</script>
 </body>
 </html>
