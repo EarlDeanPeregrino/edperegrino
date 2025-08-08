@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Portfolio — [Your Name]</title>
+  <meta name="description" content="Portfolio — Graphic Designer & Digital Artist" />
+
+  <style>
+    /* ===== Reset & variables ===== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#0f0f10; --card:#161617; --text:#f5f5f5; --muted:#bdbdbd; --accent:#ff4081;
+      --accent-2:#00a8ff; --glass: rgba(255,255,255,0.04);
+    }
+    body.light{
+      --bg:#f6f7fb; --card:#ffffff; --text:#111; --muted:#556; --accent:#0b76ff; --accent-2:#ff4081; --glass: rgba(0,0,0,0.03);
+    }
+    body{font-family:Inter, "Segoe UI", system-ui, Arial; background:var(--bg); color:var(--text);
+         -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.5;min-height:100vh;}
+    img{display:block;max-width:100%;height:auto}
+
+    /* ===== Sticky navbar ===== */
+    nav{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;
+        padding:0 20px;background:linear-gradient(180deg,rgba(0,0,0,0.25),transparent);backdrop-filter: blur(6px);z-index:1200}
+    nav .brand{font-weight:700;color:var(--accent);letter-spacing:0.4px}
+    nav .links{display:flex;gap:16px;align-items:center}
+    nav a{color:var(--text);text-decoration:none;font-weight:500}
+    .hamburger{display:none;font-size:22px;cursor:pointer;padding:8px;border-radius:8px;background:transparent}
+
+    /* ===== Hero ===== */
+    header.hero{
+      min-height:100vh;padding-top:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;position:relative;overflow:hidden;
+      background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;
+      animation: gradientShift 18s ease infinite;
+    }
+    @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    .hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.28),rgba(0,0,0,0.18));mix-blend-mode:multiply;pointer-events:none}
+    .hero-inner{position:relative;z-index:2;max-width:1100px;padding:24px}
+    .profile-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:center}
+    .profile-pic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12);
+                 box-shadow:0 10px 30px rgba(0,0,0,0.35);transform:scale(.85);opacity:0;animation:picIn .9s ease forwards .35s}
+    @keyframes picIn{to{transform:scale(1);opacity:1}}
+    .hero h1{font-size:2.4rem;margin-bottom:6px;opacity:0;transform:translateY(10px);animation:fadeUp .7s ease forwards .95s}
+    .hero h2{font-weight:600;color:var(--muted);margin-bottom:16px;opacity:0;transform:translateY(10px);animation:fadeUp .7s ease forwards 1.2s}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+    .hero .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .7s ease forwards 1.5s}
+    .btn{background:var(--card);color:var(--text);padding:10px 16px;border-radius:999px;border:1px solid rgba(255,255,255,0.03);
+         cursor:pointer;transition:transform .18s ease,box-shadow .18s ease}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
+    .btn:active{transform:scale(.98)}
+    .btn.download{display:inline-flex;align-items:center;gap:8px}
+
+    /* typing caret */
+    .typing{display:inline-block;white-space:nowrap;border-right:3px solid rgba(255,255,255,0.14);padding-right:6px}
+
+    /* ===== Main sections ===== */
+    main{padding:36px 20px 100px;max-width:1200px;margin:0 auto}
+    section{margin:48px 0;padding:28px;border-radius:12px;background:var(--card);box-shadow:0 8px 30px rgba(0,0,0,0.35)}
+    section h2{margin-bottom:12px}
+    section p{color:var(--muted)}
+
+    /* ===== Carousel ===== */
+    .carousel-wrap{position:relative;overflow:hidden;border-radius:10px}
+    .carousel-track{display:flex;transition:transform .55s cubic-bezier(.2,.9,.2,1)}
+    .slide{min-width:100%;flex-shrink:0;padding:0}
+    .slide img{width:100%;height:450px;object-fit:cover;border-radius:8px}
+    @media (max-width:900px){ .slide img{height:320px} }
+    @media (max-width:520px){ .slide img{height:220px} }
+
+    .arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;border-radius:999px;border:none;padding:10px;background:rgba(0,0,0,0.45);color:white;cursor:pointer}
+    .arrow.left{left:12px} .arrow.right{right:12px}
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.25);cursor:pointer}
+    .dot.active{background:var(--accent)}
+
+    /* ===== Form ===== */
+    form{display:flex;flex-direction:column;gap:10px}
+    input,textarea{padding:12px;border-radius:8px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--text)}
+    textarea{min-height:120px;resize:vertical}
+    input::placeholder, textarea::placeholder{color:rgba(255,255,255,0.45)}
+
+    /* ===== Footer ===== */
+    footer{margin-top:28px;padding:18px;text-align:center;color:var(--muted);font-size:0.95rem;background:transparent}
+
+    /* ===== Responsive & mobile nav ===== */
+    @media (max-width:760px){
+      nav ul{display:none;position:fixed;right:12px;top:64px;background:var(--card);padding:12px;border-radius:10px;flex-direction:column;gap:8px}
+      nav .hamburger{display:block}
+    }
+
+    /* small helpers */
+    .muted{color:var(--muted);font-size:.95rem}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav role="navigation" aria-label="Main">
+    <div class="brand">
+      <span class="brand"><strong style="color:var(--accent)">[Your]</strong> Portfolio</span>
+    </div>
+
+    <ul id="navLinks" style="display:flex;gap:14px;list-style:none;align-items:center">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button id="themeBtn" class="btn" title="Toggle light/dark" aria-label="Toggle color theme">🌓</button></li>
+    </ul>
+
+    <button class="hamburger" id="burger" aria-label="Open menu">☰</button>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero" class="hero">
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="profile-row">
+        <!-- Replace images/me.jpg with your portrait -->
+        <img src="images/me.jpg" alt="Portrait of [Your Name]" class="profile-pic" loading="lazy" width="280" height="280">
+      </div>
+
+      <h1>Hi — I'm <span style="color:var(--accent)">[Your Name]</span></h1>
+      <h2><span class="typing" aria-live="polite"></span></h2>
+
+      <div class="cta" style="margin-top:14px">
+        <button class="btn primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View My Work</button>
+        <a href="resume.pdf" download class="btn download" title="Download resume">📄 Download Resume</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- PROJECTS -->
+    <section id="projects" aria-labelledby="projectsTitle">
+      <h2 id="projectsTitle">Featured Projects</h2>
+      <p class="muted">A selection of my visual work. Swipe on mobile or use arrows.</p>
+
+      <div class="carousel-wrap" id="carousel">
+        <button class="arrow left" id="prevBtn" aria-label="Previous">◀</button>
+        <div class="carousel-track" id="track" role="list">
+          <!-- slides (use images/project1.jpg ... project10.jpg) -->
+          <div class="slide" role="listitem"><img src="images/project1.jpg" alt="Project 1" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project2.jpg" alt="Project 2" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project3.jpg" alt="Project 3" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project4.jpg" alt="Project 4" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project5.jpg" alt="Project 5" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project6.jpg" alt="Project 6" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project7.jpg" alt="Project 7" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project8.jpg" alt="Project 8" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project9.jpg" alt="Project 9" loading="lazy"></div>
+          <div class="slide" role="listitem"><img src="images/project10.jpg" alt="Project 10" loading="lazy"></div>
+        </div>
+        <button class="arrow right" id="nextBtn" aria-label="Next">▶</button>
+      </div>
+
+      <div class="dots" id="dots" aria-hidden="false" style="margin-top:14px"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="aboutTitle">
+      <h2 id="aboutTitle">About Me</h2>
+      <p class="muted">I design brand identities, digital illustrations, and visuals that tell stories. I blend conceptual thinking with clean execution — from concept to pixel-perfect final files.</p>
+      <p style="margin-top:10px">Tools: Photoshop · Illustrator · Figma · Procreate · Blender (basic) · HTML/CSS</p>
+      <a href="resume.pdf" download class="btn" style="margin-top:12px;display:inline-block">Download Resume</a>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contactTitle">
+      <h2 id="contactTitle">Contact</h2>
+      <p class="muted">Want to work together? Send a short message — I’ll reply within a few days.</p>
+
+      <!-- Replace the action URL below with your Formspree endpoint (or other service) -->
+      <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input name="name" placeholder="Your name" required>
+        <input type="email" name="_replyto" placeholder="Your email" required>
+        <textarea name="message" placeholder="Tell me about your project" required></textarea>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button type="submit" class="btn primary">Send Message</button>
+          <div id="formStatus" class="muted" aria-live="polite"></div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> [Your Name] — <span class="muted">Made with care · accessibility-minded</span>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    /******************************
+     * Utilities & initial states *
+     ******************************/
+    // Update year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger?.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      navLinks.classList.toggle('active');
+    });
+
+    // Auto-hide mobile nav on link click
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if (window.innerWidth <= 760) { navLinks.style.display = 'none'; }
+    }));
+
+    /*********************
+     * Theme persistence *
+     *********************/
+    const themeBtn = document.getElementById('themeBtn');
+    const stored = localStorage.getItem('pref-theme');
+    if (stored === 'light') document.body.classList.add('light');
+
+    function updateThemeUI(){
+      themeBtn.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
+    }
+    updateThemeUI();
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark');
+      updateThemeUI();
+    });
+
+    /*******************
+     * Typing animation *
+     *******************/
+    const typingEl = document.querySelector('.typing');
+    const phrases = ["Graphic Designer", "Digital Illustrator", "Branding & Visuals", "Creative Problem Solver"];
+    let tI = 0, tJ = 0, forward = true;
+    function typeLoop(){
+      const current = phrases[tI];
+      if (forward) {
+        tJ++;
+        typingEl.textContent = current.slice(0, tJ);
+        if (tJ === current.length) { forward=false; setTimeout(typeLoop, 900); return; }
+      } else {
+        tJ--;
+        typingEl.textContent = current.slice(0, tJ);
+        if (tJ === 0) { forward=true; tI=(tI+1)%phrases.length; setTimeout(typeLoop, 300); return; }
+      }
+      setTimeout(typeLoop, forward?110:40);
+    }
+    setTimeout(typeLoop, 800);
+
+    /****************
+     * Scroll reveal *
+     ****************/
+    const sections = document.querySelectorAll('main section, header.hero');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('reveal');
+      });
+    }, { threshold: 0.12 });
+    // apply simple CSS reveal
+    sections.forEach(s => {
+      s.classList.add('hidden-obs');
+      obs.observe(s);
+    });
+    // Add small CSS for reveal (inserted via JS)
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .hidden-obs{opacity:0;transform:translateY(18px);transition:all .7s ease}
+      .reveal{opacity:1;transform:none}
+    `;
+    document.head.appendChild(style);
+
+    /****************
+     * Carousel core *
+     ****************/
+    const track = document.getElementById('track');
+    let slides = Array.from(track.children);
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsCont = document.getElementById('dots');
+    const carousel = document.getElementById('carousel');
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i===0? ' active':'');
+      d.dataset.index = i;
+      d.addEventListener('click', () => goTo(i));
+      dotsCont.appendChild(d);
+    });
+    let dots = Array.from(dotsCont.children);
+
+    // We'll use an index and transform track
+    let idx = 0;
+    let autoPlayTimer = null;
+    const slideCount = slides.length;
+
+    function update(){
+      // clamp index
+      if (idx < 0) idx = slideCount - 1;
+      if (idx >= slideCount) idx = 0;
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d,i)=> d.classList.toggle('active', i===idx));
+    }
+
+    function goTo(i){
+      idx = i;
+      update();
+      resetAuto();
+    }
+
+    nextBtn.addEventListener('click', ()=>{ idx = (idx+1)%slideCount; update(); resetAuto(); });
+    prevBtn.addEventListener('click', ()=>{ idx = (idx-1+slideCount)%slideCount; update(); resetAuto(); });
+
+    // Autoplay
+    function startAuto(){ autoPlayTimer = setInterval(()=>{ idx = (idx+1)%slideCount; update(); }, 4200); }
+    function stopAuto(){ clearInterval(autoPlayTimer); autoPlayTimer = null; }
+    function resetAuto(){ stopAuto(); startAuto(); }
+
+    carousel.addEventListener('mouseenter', stopAuto);
+    carousel.addEventListener('mouseleave', startAuto);
+
+    // Swipe (touch)
+    let startX = 0, moved = false;
+    track.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; moved = false; stopAuto(); });
+    track.addEventListener('touchmove', (e)=>{ moved = true; });
+    track.addEventListener('touchend', (e)=>{
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 40) { if (diff > 0) idx = (idx+1)%slideCount; else idx = (idx-1+slideCount)%slideCount; update(); }
+      resetAuto();
+    });
+
+    // make carousel responsive on load
+    window.addEventListener('load', () => {
+      // normalize track (display flex with translate)
+      track.style.width = `${slideCount * 100}%`;
+      slides.forEach(s => s.style.width = `${100/slideCount}%`); // each slide 100%
+      update();
+      startAuto();
+    });
+
+    /****************
+     * Contact form  *
+     ****************/
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = 'Sending…';
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {method:'POST',body:data,headers:{'Accept':'application/json'}});
+        if (res.ok){ status.textContent = 'Thanks — I will reply soon!'; form.reset(); }
+        else { status.textContent = 'Something went wrong. Try again later.'; }
+      } catch(err){ status.textContent = 'Network error. Please try again.'; }
+    });
+
+    /****************
+     * Accessibility *
+     ****************/
+    // Keyboard support for arrows
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { nextBtn.click(); }
+      if (e.key === 'ArrowLeft') { prevBtn.click(); }
+    });
+
+    /***************
+     * Smooth scroll for nav links
+     ***************/
+    document.querySelectorAll('nav a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (ev)=>{
+        ev.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        t?.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
