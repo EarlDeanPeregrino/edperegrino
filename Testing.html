@@ -1,129 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Your Name | Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #444;
-            padding: 10px 0;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-        }
-        nav a:hover {
-            background-color: #555;
-        }
-        section {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h2 {
-            color: #333;
-        }
-        .projects .project {
-            background-color: #fff;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .project img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <style>
+    /* ===== Reset and Base ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ===== Project Cards ===== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ===== Button Hover Effect ===== */
+    .contact-btn {
+      background-color: #ff4081;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .contact-btn:hover {
+      background-color: #e73370;
+      transform: scale(1.05);
+    }
+
+    /* ===== Entrance Animations ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+    }
+    .fade-in.delay {
+      animation-delay: 0.3s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== Preloader ===== */
+    #preloader {
+      background: #121212;
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .loader {
+      border: 8px solid #333;
+      border-top: 8px solid #ff4081;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .contact-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Your Name</h1>
-        <p>Web Developer | Designer | Problem Solver</p>
-    </header>
 
-    <nav>
-        <a href="#about">About Me</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-    </nav>
+  <!-- ===== Preloader ===== -->
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hello! I am a passionate web developer with a focus on creating interactive, user-friendly web applications. I enjoy solving problems and learning new technologies to improve my skills.</p>
-    </section>
+  <!-- ===== Hero Section ===== -->
+  <header class="hero">
+    <h1 class="fade-in">Hi, I'm [Your Name]</h1>
+    <p class="fade-in delay">Graphic Designer & Digital Artist</p>
+  </header>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>HTML, CSS, JavaScript</li>
-            <li>React, Node.js</li>
-            <li>Git, GitHub</li>
-            <li>Responsive Web Design</li>
-            <li>APIs and Web Services</li>
-            <li>Problem Solving & Algorithm Design</li>
-        </ul>
-    </section>
+  <!-- ===== Projects Section ===== -->
+  <section class="projects fade-in delay">
+    <h2>My Work</h2>
+    <div class="gallery">
+      <div class="card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 1"/>
+        <p>Project 1</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 2"/>
+        <p>Project 2</p>
+      </div>
+      <div class="card">
+        <img src="https://via.placeholder.com/300x200" alt="Project 3"/>
+        <p>Project 3</p>
+      </div>
+    </div>
+  </section>
 
-    <section id="projects" class="projects">
-        <h2>Projects</h2>
-        <div class="project">
-            <h3>Project 1: Portfolio Website</h3>
-            <img src="project1.jpg" alt="Project 1 Screenshot">
-            <p>This is my personal portfolio website built with HTML, CSS, and JavaScript. It showcases my skills, projects, and contact information.</p>
-            <a href="https://github.com/yourusername/portfolio" target="_blank">View on GitHub</a>
-        </div>
-        <div class="project">
-            <h3>Project 2: Weather App</h3>
-            <img src="project2.jpg" alt="Project 2 Screenshot">
-            <p>A weather app built with React that fetches data from a weather API and displays current weather details.</p>
-            <a href="https://github.com/yourusername/weather-app" target="_blank">View on GitHub</a>
-        </div>
-        <!-- Add more projects as needed -->
-    </section>
+  <!-- ===== About Section ===== -->
+  <section class="about fade-in delay">
+    <h2>About Me</h2>
+    <p>I specialize in graphic design, digital illustrations, and creating visual stories. Passionate about blending creativity with modern design trends.</p>
+  </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>If you'd like to get in touch or learn more about my work, feel free to reach out!</p>
-        <ul>
-            <li>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/yourname" target="_blank">linkedin.com/in/yourname</a></li>
-            <li>GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></li>
-        </ul>
-    </section>
+  <!-- ===== Contact Section ===== -->
+  <section class="contact fade-in delay">
+    <h2>Contact</h2>
+    <button class="contact-btn">Get in Touch</button>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Your Name. All rights reserved.</p>
-    </footer>
+  <!-- ===== Script for Preloader ===== -->
+  <script>
+    window.addEventListener("load", function () {
+      document.getElementById("preloader").style.display = "none";
+    });
+  </script>
 </body>
 </html>
