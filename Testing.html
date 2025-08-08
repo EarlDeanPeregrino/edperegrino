@@ -30,17 +30,32 @@
     .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;cursor:pointer;color:var(--text)}
     .hamburger{display:none}
 
-    /* HERO */
+    /* HERO + circles */
     header.hero{min-height:100vh;padding-top:64px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;animation:grad 18s ease infinite;position:relative;overflow:hidden}
     @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    .hero-inner{max-width:1100px;padding:28px;z-index:2}
+    .hero-inner{max-width:1100px;padding:28px;z-index:6;position:relative}
     .profile-pic{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12);box-shadow:var(--shadow);transform:scale(.96);opacity:0;animation:picIn .9s ease forwards .3s}
     @keyframes picIn{to{transform:scale(1);opacity:1}}
-    .hero h1{font-size:2.6rem;margin-top:8px}
-    .hero h2{font-weight:600;color:var(--muted);margin:12px 0 18px}
+    .hero h1{font-size:2.6rem;margin-top:8px;z-index:6;position:relative}
+    .hero h2{font-weight:600;color:var(--muted);margin:12px 0 18px;z-index:6;position:relative}
     .typing{display:inline-block;border-right:3px solid rgba(255,255,255,0.14);padding-right:8px;white-space:nowrap}
 
-    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    /* circles container sits behind hero content */
+    .circle-layer{
+      position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden;
+      display:block;
+    }
+    .circle{
+      position:absolute; border-radius:50%; opacity:.12; transform:translate3d(0,0,0);
+      will-change:transform,opacity;
+      mix-blend-mode:screen;
+    }
+    .circle.outline{background:transparent;border:2px solid rgba(255,255,255,0.12);opacity:.09;mix-blend-mode:normal}
+    .circle.small{opacity:.08}
+    .circle.large{opacity:.09}
+    .circle.glow{filter:blur(12px);opacity:.06}
+
+    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;z-index:6;position:relative}
     .btn{padding:10px 18px;border-radius:999px;border:none;font-weight:700;cursor:pointer}
     .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
     .btn.secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.06)}
@@ -52,22 +67,20 @@
     h2{margin-bottom:8px}
     .muted{color:var(--muted)}
 
-    /* CAROUSEL */
+    /* CAROUSEL: smoother & slower transitions */
     .carousel{position:relative;overflow:hidden;border-radius:12px;margin-top:14px;background:linear-gradient(180deg,rgba(0,0,0,0.05),transparent)}
-    .track{display:flex;transition:transform 1s cubic-bezier(.22,.9,.28,1);will-change:transform}
+    .track{display:flex;transition:transform 1.3s ease-in-out;will-change:transform}
     .slide{min-width:100%;flex-shrink:0;padding:18px;display:flex;align-items:center;justify-content:center}
     .card-media{width:100%;height:420px;border-radius:10px;overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,0.35);background:#111}
     .card-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .9s ease}
     .slide .card-info{margin-top:12px;color:var(--muted);font-size:.95rem;text-align:center}
+    .card-media:hover img{transform:scale(1.03)} /* subtle */
 
     .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;padding:10px;border-radius:999px;cursor:pointer;display:flex;align-items:center;justify-content:center;width:44px;height:44px;backdrop-filter:blur(4px);z-index:30}
     .left{left:12px} .right{right:12px}
     .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
     .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.22);cursor:pointer;border:none}
     .dot.active{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-
-    /* subtle hover (reduced) */
-    .card-media:hover img{transform:scale(1.03)}
 
     /* MODAL */
     .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1400;padding:20px}
@@ -79,10 +92,9 @@
     .modal h3{margin-bottom:8px}
     .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .chip{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.04);font-size:.85rem}
-
     .modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--text);font-size:20px;cursor:pointer}
 
-    /* contact form */
+    /* contact */
     form{display:flex;flex-direction:column;gap:10px}
     input,textarea{padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--text)}
     textarea{min-height:120px;resize:vertical}
@@ -125,6 +137,9 @@
 
   <!-- HERO -->
   <header id="hero" class="hero" role="banner" aria-label="Intro">
+    <!-- floating circles layer -->
+    <div class="circle-layer" id="circleLayer" aria-hidden="true"></div>
+
     <div class="hero-inner">
       <img class="profile-pic" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&s=3f4a53c1f1ba82f3f8d0d5b1a0aef59d" alt="Portrait of [Your Name]" loading="lazy" width="320" height="320">
       <h1>Hi — I'm <span style="color:var(--accent)">[Your Name]</span></h1>
@@ -202,55 +217,28 @@
   <script>
     /**********************
      * Project Data (EDIT)
-     * Add your projects here. Keys: id, title, image, alt, short, desc, stack(array), url
      **********************/
     const projects = [
-      {
-        id: 'p1',
-        title: 'Brand Identity — Aurora',
-        image: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172',
-        alt: 'Aurora branding mockup',
-        short: 'A full brand identity for a boutique studio.',
-        desc: 'Created visual identity, logo system, stationery, social templates, and brand guidelines for a boutique creative studio focusing on minimal, elegant visuals.',
-        stack: ['Logo Design','Illustrator','Photoshop','Figma'],
-        url: '#'
-      },
-      {
-        id: 'p2',
-        title: 'Campaign Illustrations',
-        image: 'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2',
-        alt: 'Campaign illustrations',
-        short: 'Illustration series for a social campaign.',
-        desc: 'Produced a cohesive illustration series used for both online and print campaign material, focusing on accessibility and emotional clarity.',
-        stack: ['Procreate','Photoshop','Composition'],
-        url: '#'
-      },
-      {
-        id: 'p3',
-        title: 'Packaging Design',
-        image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e',
-        alt: 'Packaging concept',
-        short: 'Sustainable packaging concept',
-        desc: 'Concept and mockups for sustainable packaging solutions, including dielines and eco-friendly material recommendations.',
-        stack: ['Packaging','Blender','Illustrator'],
-        url: '#'
-      },
-      {
-        id: 'p4',
-        title: 'UI Visuals',
-        image: 'https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476',
-        alt: 'UI visual design',
-        short: 'App UI micro-interactions',
-        desc: 'Micro-interaction screens and high-fidelity UI visuals for a mobile app prototype emphasizing clarity and motion.',
-        stack: ['Figma','Framer','After Effects'],
-        url: '#'
-      }
+      { id: 'p1', title: 'Brand Identity — Aurora', image: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172', alt: 'Aurora branding mockup', short: 'A full brand identity for a boutique studio.', desc: 'Created visual identity, logo system, stationery, social templates, and guidelines.', stack: ['Logo','Illustrator','Photoshop','Figma'], url: '#' },
+      { id: 'p2', title: 'Campaign Illustrations', image: 'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2', alt: 'Campaign illustrations', short: 'Illustration series for a social campaign.', desc: 'A cohesive illustration series for web and print focusing on emotional clarity.', stack: ['Procreate','Photoshop','Composition'], url: '#' },
+      { id: 'p3', title: 'Packaging Design', image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e', alt: 'Packaging concept', short: 'Sustainable packaging concept', desc: 'Concept and mockups for sustainable packaging solutions.', stack: ['Packaging','Blender','Illustrator'], url: '#' },
+      { id: 'p4', title: 'UI Visuals', image: 'https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476', alt: 'UI visual design', short: 'App UI micro-interactions', desc: 'Micro-interaction screens and high-fidelity visuals for a prototype.', stack: ['Figma','Framer','After Effects'], url: '#' }
     ];
 
     /**********************
-     * Simple helpers
+     * Year & basic UI
      **********************/
-    const yearEl = document.getElementById('year'); yearEl.textContent = new Date().getFullYear();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+    burger.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if (window.innerWidth <= 680) navLinks.style.display = 'none';
+    }));
 
     /**********************
      * Build carousel DOM
@@ -258,14 +246,11 @@
     const track = document.getElementById('track');
     const dotsWrap = document.getElementById('dots');
 
-    // Preload images for perceived speed
-    projects.forEach(p => {
-      const img = new Image(); img.src = p.image;
-    });
+    // Preload images
+    projects.forEach(p => { const img = new Image(); img.src = p.image; });
 
-    // create slides & dots dynamically
+    // create slides & dots
     projects.forEach((p, i) => {
-      // slide
       const slide = document.createElement('div');
       slide.className = 'slide';
       slide.setAttribute('role', 'listitem');
@@ -282,7 +267,6 @@
         </div>`;
       track.appendChild(slide);
 
-      // dot
       const dot = document.createElement('button');
       dot.className = 'dot';
       dot.setAttribute('aria-label', `Go to slide ${i+1}`);
@@ -290,56 +274,55 @@
       dotsWrap.appendChild(dot);
     });
 
-    // cache slides/dots
     let slides = Array.from(track.children);
     let dots = Array.from(dotsWrap.children);
 
     /**********************
-     * Carousel behavior
+     * Carousel logic
      **********************/
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
     const slideCount = slides.length;
     let idx = 0;
     let autoTimer = null;
+    const AUTO_INTERVAL = 6000; // 6s
 
     function setWidths(){
+      slides = Array.from(track.children);
       track.style.width = `${slideCount * 100}%`;
       slides.forEach(s => s.style.width = `${100/slideCount}%`);
     }
+
     function render(){
       if (idx < 0) idx = slideCount - 1;
       if (idx >= slideCount) idx = 0;
       track.style.transform = `translateX(-${idx * 100}%)`;
+      dots = Array.from(dotsWrap.children);
       dots.forEach((d,i) => d.classList.toggle('active', i === idx));
     }
 
-    // robust arrow handlers (always work)
     prevBtn.addEventListener('click', () => { idx = (idx - 1 + slideCount) % slideCount; render(); resetAuto(); });
     nextBtn.addEventListener('click', () => { idx = (idx + 1) % slideCount; render(); resetAuto(); });
-
-    // dots click
-    dots.forEach(d => d.addEventListener('click', (ev) => { idx = Number(ev.currentTarget.dataset.index); render(); resetAuto(); }));
+    dotsWrap.addEventListener('click', (e) => {
+      const b = e.target.closest('.dot'); if (!b) return;
+      idx = Number(b.dataset.index); render(); resetAuto();
+    });
 
     // click slide image to open modal
     track.addEventListener('click', (ev) => {
       const media = ev.target.closest('[data-project]');
       if (!media) return;
-      const pid = media.dataset.project;
-      openModal(pid);
+      openModal(media.dataset.project);
     });
-
-    // keyboard accessibility: allow Enter/Space on card-media
+    // keyboard accessibility for slides
     track.addEventListener('keydown', (ev) => {
       if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.closest('[data-project]')) {
         ev.preventDefault();
-        const pid = ev.target.closest('[data-project]').dataset.project;
-        openModal(pid);
+        openModal(ev.target.closest('[data-project]').dataset.project);
       }
     });
 
-    // autoplay with pause on hover/focus
-    function startAuto(){ if (!autoTimer) autoTimer = setInterval(()=>{ idx = (idx + 1) % slideCount; render(); }, 4200); }
+    function startAuto(){ if (!autoTimer) autoTimer = setInterval(()=>{ idx = (idx + 1) % slideCount; render(); }, AUTO_INTERVAL); }
     function stopAuto(){ if (autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
     function resetAuto(){ stopAuto(); startAuto(); }
 
@@ -349,7 +332,7 @@
     carouselEl.addEventListener('focusin', stopAuto);
     carouselEl.addEventListener('focusout', startAuto);
 
-    // swipe support
+    // swipe support (simple)
     let startX = 0;
     track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stopAuto(); }, {passive:true});
     track.addEventListener('touchend', (e) => {
@@ -363,21 +346,17 @@
       resetAuto();
     }, {passive:true});
 
-    // keyboard arrows for slide nav
+    // keyboard nav
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') nextBtn.click();
       if (e.key === 'ArrowLeft') prevBtn.click();
     });
 
-    // init sizes and autoplay on load
-    window.addEventListener('load', () => {
-      setWidths(); slides = Array.from(track.children); dots = Array.from(dotsWrap.children);
-      render(); startAuto();
-    });
+    window.addEventListener('load', () => { setWidths(); render(); startAuto(); });
     window.addEventListener('resize', setWidths);
 
     /**********************
-     * Modal implementation (dynamic)
+     * Modal (dynamic)
      **********************/
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modal = document.getElementById('modal');
@@ -396,36 +375,16 @@
       modalMedia.src = p.image;
       modalMedia.alt = p.alt || p.title;
       modalLink.href = p.url || '#';
-      // stack
-      modalStack.innerHTML = '';
-      (p.stack || []).forEach(s => {
-        const c = document.createElement('span'); c.className = 'chip'; c.textContent = s; modalStack.appendChild(c);
-      });
-
-      modalBackdrop.style.display = 'flex';
-      modalBackdrop.setAttribute('aria-hidden', 'false');
+      modalStack.innerHTML = ''; (p.stack || []).forEach(s => { const c = document.createElement('span'); c.className='chip'; c.textContent = s; modalStack.appendChild(c); });
+      modalBackdrop.style.display = 'flex'; modalBackdrop.setAttribute('aria-hidden','false');
       requestAnimationFrame(()=> modal.classList.add('show'));
-      // trap focus simply: focus close button
       modalClose.focus();
       stopAuto();
     }
-
-    function closeModal(){
-      modal.classList.remove('show');
-      modalBackdrop.setAttribute('aria-hidden', 'true');
-      setTimeout(()=> modalBackdrop.style.display = 'none', 280);
-      startAuto();
-    }
-
+    function closeModal(){ modal.classList.remove('show'); modalBackdrop.setAttribute('aria-hidden','true'); setTimeout(()=> modalBackdrop.style.display='none', 300); startAuto(); }
     modalClose.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', (ev) => {
-      if (ev.target === modalBackdrop) closeModal();
-    });
-
-    // handle ESC
-    document.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Escape' && modalBackdrop.style.display === 'flex') closeModal();
-    });
+    modalBackdrop.addEventListener('click', (ev) => { if (ev.target === modalBackdrop) closeModal(); });
+    document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && modalBackdrop.style.display === 'flex') closeModal(); });
 
     /**********************
      * Typing animation
@@ -435,13 +394,8 @@
     let pI = 0, cI = 0, forward = true;
     function typeLoop(){
       const cur = phrases[pI];
-      if (forward){
-        cI++; typingEl.textContent = cur.slice(0,cI);
-        if (cI === cur.length){ forward = false; setTimeout(typeLoop, 900); return; }
-      } else {
-        cI--; typingEl.textContent = cur.slice(0,cI);
-        if (cI === 0){ forward=true; pI=(pI+1)%phrases.length; setTimeout(typeLoop,300); return; }
-      }
+      if (forward){ cI++; typingEl.textContent = cur.slice(0,cI); if (cI === cur.length){ forward=false; setTimeout(typeLoop, 900); return; } }
+      else { cI--; typingEl.textContent = cur.slice(0,cI); if (cI === 0){ forward=true; pI=(pI+1)%phrases.length; setTimeout(typeLoop,300); return; } }
       setTimeout(typeLoop, forward?110:40);
     }
     setTimeout(typeLoop,700);
@@ -454,14 +408,10 @@
     if (saved === 'light') document.body.classList.add('light');
     function updateThemeIcon(){ themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓'; }
     updateThemeIcon();
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark');
-      updateThemeIcon();
-    });
+    themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark'); updateThemeIcon(); });
 
     /**********************
-     * Contact form handler
+     * Contact form
      **********************/
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
@@ -480,19 +430,96 @@
      * Back to top
      **********************/
     const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > window.innerHeight/2) toTop.style.display = 'block'; else toTop.style.display = 'none';
-    });
+    window.addEventListener('scroll', () => { if (window.scrollY > window.innerHeight/2) toTop.style.display = 'block'; else toTop.style.display = 'none'; });
     toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
     /**********************
      * Scroll reveal
      **********************/
     const reveals = document.querySelectorAll('main section, header.hero');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('reveal'); });
-    }, {threshold: 0.12});
+    const observer = new IntersectionObserver((entries) => { entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('reveal'); }); }, {threshold: 0.12});
     reveals.forEach(r => { r.classList.add('hidden-obs'); observer.observe(r); });
+
+    /**********************
+     * Floating circles: create + animate + parallax
+     **********************/
+    (function initCircles(){
+      const layer = document.getElementById('circleLayer');
+      const circleDefs = [
+        {size:220, left:'8%', top:'12%', type:'filled', dur:18, delay:0},
+        {size:140, left:'72%', top:'8%', type:'outline', dur:22, delay:3},
+        {size:320, left:'50%', top:'60%', type:'glow', dur:26, delay:5},
+        {size:90, left:'20%', top:'70%', type:'filled', dur:20, delay:2},
+        {size:60, left:'84%', top:'48%', type:'outline', dur:24, delay:6},
+        {size:180, left:'6%', top:'48%', type:'filled', dur:30, delay:4}
+      ];
+      // Create CSS keyframes per circle for subtle random drift (translate)
+      circleDefs.forEach((c, i) => {
+        const el = document.createElement('div');
+        el.className = 'circle';
+        if (c.type === 'outline') el.classList.add('outline');
+        if (c.type === 'glow') el.classList.add('glow');
+        if (c.size < 100) el.classList.add('small');
+        if (c.size > 250) el.classList.add('large');
+
+        // base styles
+        el.style.width = el.style.height = c.size + 'px';
+        el.style.left = c.left;
+        el.style.top = c.top;
+        el.style.opacity = (c.type === 'outline') ? 0.08 : 0.09;
+        // color subtle variants
+        el.style.background = (c.type === 'outline' || c.type === 'glow') ? 'transparent' : 'radial-gradient(circle, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
+        if (c.type === 'outline') el.style.border = '2px solid rgba(255,255,255,0.06)';
+
+        // random drift distances
+        const dx = (Math.random() * 20 + 8) * (Math.random() > 0.5 ? 1 : -1);
+        const dy = (Math.random() * 18 + 6) * (Math.random() > 0.5 ? 1 : -1);
+
+        const key = `drift${i}`;
+        const styleTag = document.createElement('style');
+        // create keyframes for this circle
+        styleTag.innerHTML = `@keyframes ${key} {
+          0% { transform: translate3d(0,0,0); }
+          50% { transform: translate3d(${dx}px, ${dy}px, 0); }
+          100% { transform: translate3d(0,0,0); }
+        }`;
+        document.head.appendChild(styleTag);
+
+        el.style.animation = `${key} ${c.dur}s ease-in-out ${c.delay}s infinite`;
+        // data-depth for parallax responsiveness (smaller = less movement)
+        el.dataset.depth = (c.size / 400).toFixed(2);
+
+        layer.appendChild(el);
+      });
+
+      // Parallax on mouse move - subtle, only on pointer devices
+      let supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (supportsHover) {
+        window.addEventListener('mousemove', (e) => {
+          const cx = window.innerWidth / 2;
+          const cy = window.innerHeight / 2;
+          const dx = (e.clientX - cx) / cx; // -1 to 1
+          const dy = (e.clientY - cy) / cy;
+          const all = layer.children;
+          for (let i = 0; i < all.length; i++){
+            const el = all[i];
+            const depth = parseFloat(el.dataset.depth) || 0.15;
+            // small translate proportional to depth (and scaled down)
+            const tx = dx * depth * 20;
+            const ty = dy * depth * 12;
+            el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+          }
+        }, {passive:true});
+
+        // gently return to center on mouseleave (when pointer leaves window)
+        window.addEventListener('mouseleave', () => {
+          const all = layer.children;
+          for (let i = 0; i < all.length; i++){
+            all[i].style.transform = `translate3d(0,0,0)`;
+          }
+        });
+      }
+    })();
   </script>
 </body>
 </html>
