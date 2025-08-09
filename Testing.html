@@ -6,116 +6,113 @@
   <title>[Your Name] — Portfolio</title>
   <meta name="description" content="Portfolio — Graphic Designer & Digital Artist" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
-
   <style>
-    /* ===== Reset & vars ===== */
+    /* ---------- Reset & vars ---------- */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
       --bg:#0f0f10; --card:#151516; --text:#f5f5f5; --muted:#bdbdbd;
       --accent:#ff4081; --accent-2:#00a8ff; --glass:rgba(255,255,255,0.04);
-      --radius:14px; --shadow:0 10px 30px rgba(0,0,0,0.45)
+      --radius:12px; --shadow:0 14px 40px rgba(0,0,0,0.45)
     }
     body.light{ --bg:#f6f7fb; --card:#fff; --text:#111; --muted:#556; --accent:#0b76ff; --accent-2:#ff4081; --glass:rgba(0,0,0,0.03) }
     html{scroll-behavior:smooth}
-    body{font-family:'Inter',system-ui,Arial; background:var(--bg); color:var(--text); min-height:100vh; -webkit-font-smoothing:antialiased;}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
 
-    /* NAV */
-    nav{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(0,0,0,0.25),transparent);z-index:1200}
-    .brand{font-weight:900;color:var(--accent)}
-    .nav-links{display:flex;gap:16px;list-style:none;align-items:center}
+    /* ---------- Nav ---------- */
+    nav{position:fixed;inset:0 0 auto 0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(0,0,0,0.25),transparent);z-index:1200}
+    .brand{font-weight:900;color:var(--accent);letter-spacing:.5px}
+    .nav-links{display:flex;gap:14px;list-style:none;align-items:center}
     .nav-links a{color:var(--text);font-weight:600;text-decoration:none;padding:6px 2px;position:relative}
-    .nav-links a::after{content:'';position:absolute;left:0;right:0;height:2px;bottom:-6px;background:transparent;transition:background .2s}
-    .nav-links a:hover::after{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
     .controls{display:flex;gap:10px;align-items:center}
     .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;cursor:pointer;color:var(--text)}
     .hamburger{display:none}
 
-    /* HERO + circles */
-    header.hero{min-height:100vh;padding-top:64px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;animation:grad 18s ease infinite;position:relative;overflow:hidden}
+    /* ---------- Hero + circles ---------- */
+    header.hero{
+      min-height:92vh;padding-top:64px;display:flex;align-items:center;justify-content:center;text-align:center;
+      background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;animation:grad 18s linear infinite;position:relative;overflow:hidden;
+    }
     @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     .hero-inner{max-width:1100px;padding:28px;z-index:6;position:relative}
-    .profile-pic{width:150px;height:150px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12);box-shadow:var(--shadow);transform:scale(.96);opacity:0;animation:picIn .9s ease forwards .3s}
-    @keyframes picIn{to{transform:scale(1);opacity:1}}
-    .hero h1{font-size:2.6rem;margin-top:8px;z-index:6;position:relative}
-    .hero h2{font-weight:600;color:var(--muted);margin:12px 0 18px;z-index:6;position:relative}
-    .typing{display:inline-block;border-right:3px solid rgba(255,255,255,0.14);padding-right:8px;white-space:nowrap}
-
-    /* circles container sits behind hero content */
-    .circle-layer{
-      position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden;
-      display:block;
-    }
-    .circle{
-      position:absolute; border-radius:50%; opacity:.12; transform:translate3d(0,0,0);
-      will-change:transform,opacity;
-      mix-blend-mode:screen;
-    }
-    .circle.outline{background:transparent;border:2px solid rgba(255,255,255,0.12);opacity:.09;mix-blend-mode:normal}
-    .circle.small{opacity:.08}
-    .circle.large{opacity:.09}
-    .circle.glow{filter:blur(12px);opacity:.06}
-
-    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;z-index:6;position:relative}
+    .profile-pic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12);box-shadow:var(--shadow);margin:0 auto 14px;display:block}
+    .hero h1{font-size:2.4rem;margin-bottom:6px}
+    .hero .name{color:var(--accent);font-weight:900}
+    .hero h2{font-weight:600;color:var(--muted);margin-bottom:18px}
+    .typing{display:inline-block;border-right:3px solid rgba(255,255,255,0.12);padding-right:8px;white-space:nowrap}
+    .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn{padding:10px 18px;border-radius:999px;border:none;font-weight:700;cursor:pointer}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 8px 30px rgba(0,0,0,0.25)}
-    .btn.secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.06)}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+    .btn.ghost{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.06)}
 
-    /* MAIN & SECTIONS */
-    main{max-width:1200px;margin:30px auto;padding:10px 20px 80px}
-    section.card{background:var(--card);border-radius:12px;padding:22px;margin:32px 0;box-shadow:0 10px 30px rgba(0,0,0,0.45);transition:transform .28s}
+    /* circle layer sits behind hero content */
+    .circle-layer{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+    .circle{position:absolute;border-radius:50%;opacity:.12;will-change:transform,opacity}
+    .circle.outline{background:transparent;border:2px solid rgba(255,255,255,0.08);opacity:.09}
+    .circle.glow{filter:blur(10px);opacity:.06}
+    /* ---------- Main & sections ---------- */
+    main{max-width:1200px;margin:36px auto;padding:10px 20px 80px}
+    section.card{background:var(--card);border-radius:12px;padding:20px;margin:26px 0;box-shadow:0 10px 30px rgba(0,0,0,0.45);transition:transform .28s}
     section.card:hover{transform:translateY(-6px)}
-    h2{margin-bottom:8px}
+    h2{margin-bottom:10px}
     .muted{color:var(--muted)}
 
-    /* CAROUSEL: smoother & slower transitions */
-    .carousel{position:relative;overflow:hidden;border-radius:12px;margin-top:14px;background:linear-gradient(180deg,rgba(0,0,0,0.05),transparent)}
-    .track{display:flex;transition:transform 1.3s ease-in-out;will-change:transform}
-    .slide{min-width:100%;flex-shrink:0;padding:18px;display:flex;align-items:center;justify-content:center}
-    .card-media{width:100%;height:420px;border-radius:10px;overflow:hidden;box-shadow:0 8px 26px rgba(0,0,0,0.35);background:#111}
-    .card-media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .9s ease}
-    .slide .card-info{margin-top:12px;color:var(--muted);font-size:.95rem;text-align:center}
-    .card-media:hover img{transform:scale(1.03)} /* subtle */
-
-    .arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;padding:10px;border-radius:999px;cursor:pointer;display:flex;align-items:center;justify-content:center;width:44px;height:44px;backdrop-filter:blur(4px);z-index:30}
-    .left{left:12px} .right{right:12px}
-    .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.22);cursor:pointer;border:none}
-    .dot.active{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
-
-    /* MODAL */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:1400;padding:20px}
-    .modal{width:100%;max-width:920px;background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);backdrop-filter:blur(8px);border-radius:12px;padding:22px;color:var(--text);box-shadow:0 20px 60px rgba(0,0,0,0.65);transform:scale(.96) translateY(12px);opacity:0;transition:all .28s cubic-bezier(.2,.9,.2,1)}
-    .modal.show{transform:scale(1) translateY(0);opacity:1}
-    .modal-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .modal-media{height:360px;border-radius:10px;overflow:hidden}
-    .modal-media img{width:100%;height:100%;object-fit:cover}
-    .modal h3{margin-bottom:8px}
-    .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .chip{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.04);font-size:.85rem}
-    .modal-close{position:absolute;top:12px;right:12px;background:transparent;border:none;color:var(--text);font-size:20px;cursor:pointer}
-
-    /* contact */
-    form{display:flex;flex-direction:column;gap:10px}
-    input,textarea{padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--text)}
-    textarea{min-height:120px;resize:vertical}
-    input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.45)}
-
-    /* back to top */
-    #toTop{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,0.35);display:none;z-index:1200}
-
-    /* reveal helper */
-    .hidden-obs{opacity:0;transform:translateY(22px);transition:all .7s cubic-bezier(.2,.9,.2,1)}
-    .reveal{opacity:1;transform:none}
-
-    /* responsive */
-    @media (max-width:980px){ .card-media{height:320px} .modal-grid{grid-template-columns:1fr 280px} }
-    @media (max-width:680px){
-      .nav-links{display:none;position:absolute;right:14px;top:64px;background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 22px rgba(0,0,0,0.35)}
-      .hamburger{display:block}
-      .profile-pic{width:130px;height:130px}
-      .modal-grid{grid-template-columns:1fr}
-      .modal-media{height:220px}
+    /* ---------- Collage masonry grid ---------- */
+    .collage{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 10px; /* small base - gives fine-grained control */
+      gap: 10px;
+      margin-top:12px;
     }
+    /* tile size classes - tune heights by row span */
+    .tile{position:relative;overflow:hidden;border-radius:10px;cursor:pointer;transition:transform .35s ease, box-shadow .35s ease;outline:none}
+    .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s ease}
+    .tile .meta{position:absolute;left:12px;bottom:12px;color:#fff;text-shadow:0 6px 20px rgba(0,0,0,0.6);z-index:4}
+    .tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.25));opacity:0;transition:opacity .3s}
+    .tile:hover{transform:translateY(-6px) rotateZ(-0.3deg);box-shadow:0 16px 50px rgba(0,0,0,0.5)}
+    .tile:hover img{transform:scale(1.035)}
+    .tile:hover::after{opacity:1}
+
+    /* responsive tile spans (we'll assign classes) */
+    .tile.s1{grid-column: span 4; grid-row: span 60;}   /* medium */
+    .tile.s2{grid-column: span 6; grid-row: span 60;}   /* wide */
+    .tile.s3{grid-column: span 3; grid-row: span 36;}   /* small */
+    .tile.s4{grid-column: span 12; grid-row: span 42;}  /* full width */
+    .tile.s5{grid-column: span 8; grid-row: span 80;}   /* tall */
+
+    @media (max-width:1100px) {
+      .collage{grid-template-columns: repeat(8,1fr);}
+      .tile.s1{grid-column:span 4}
+      .tile.s2{grid-column:span 8}
+      .tile.s3{grid-column:span 4}
+      .tile.s4{grid-column:span 8}
+      .tile.s5{grid-column:span 8}
+    }
+    @media (max-width:680px){
+      .collage{grid-template-columns:repeat(4,1fr);grid-auto-rows:8px;gap:8px}
+      .tile{border-radius:8px}
+      .tile.s1,.tile.s2,.tile.s3,.tile.s4,.tile.s5{grid-column:span 4}
+    }
+
+    /* ---------- Lightbox modal (full-screen) ---------- */
+    .lightbox-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:1500;padding:20px}
+    .lightbox{width:100%;max-width:1200px;background:transparent;color:var(--text);border-radius:10px;overflow:hidden;transform:scale(.98);opacity:0;transition:all .32s cubic-bezier(.2,.9,.2,1);display:flex;gap:18px;align-items:center}
+    .lightbox.show{transform:scale(1);opacity:1}
+    .lightbox-media{flex:1;min-height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:8px}
+    .lightbox-media img{max-width:100%;max-height:82vh;object-fit:contain;display:block}
+    .lightbox-info{width:360px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter: blur(6px);border-radius:8px}
+    .lightbox h3{margin-bottom:8px}
+    .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:.86rem}
+    .close-btn{position:absolute;top:18px;right:18px;background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;color:var(--text);cursor:pointer}
+    .lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#fff;font-size:36px;padding:12px;cursor:pointer}
+    .lb-prev{left:8px} .lb-next{right:8px}
+
+    /* ---------- Small helpers ---------- */
+    footer{color:var(--muted);text-align:center;padding:18px}
+    #toTop{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,0.35);display:none;z-index:1200}
+    .hidden-obs{opacity:0;transform:translateY(22px);transition:all .7s}
+    .reveal{opacity:1;transform:none}
   </style>
 </head>
 <body>
@@ -130,23 +127,22 @@
     </ul>
     <div class="controls">
       <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌓</button>
-      <button id="downloadResume" class="icon-btn" title="Download resume" onclick="location.href='resume.pdf'">📄</button>
+      <button id="resumeBtn" class="icon-btn" onclick="location.href='resume.pdf'" title="Download resume">📄</button>
       <button id="burger" class="hamburger" aria-label="Open menu">☰</button>
     </div>
   </nav>
 
   <!-- HERO -->
   <header id="hero" class="hero" role="banner" aria-label="Intro">
-    <!-- floating circles layer -->
     <div class="circle-layer" id="circleLayer" aria-hidden="true"></div>
-
     <div class="hero-inner">
-      <img class="profile-pic" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&s=3f4a53c1f1ba82f3f8d0d5b1a0aef59d" alt="Portrait of [Your Name]" loading="lazy" width="320" height="320">
-      <h1>Hi — I'm <span style="color:var(--accent)">[Your Name]</span></h1>
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&s=3f4a53c1f1ba82f3f8d0d5b1a0aef59d"
+           alt="Portrait of [Your Name]" class="profile-pic" width="280" height="280" loading="lazy">
+      <h1>Hi — I'm <span class="name">[Your Name]</span></h1>
       <h2><span id="typing" class="typing" aria-live="polite"></span></h2>
       <div class="cta" role="group">
         <button class="btn primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View My Work</button>
-        <a class="btn secondary" href="resume.pdf" download>📄 Download Resume</a>
+        <a class="btn ghost" href="resume.pdf" download>📄 Download Resume</a>
       </div>
     </div>
   </header>
@@ -154,16 +150,10 @@
   <!-- MAIN -->
   <main>
     <section id="projects" class="card" aria-labelledby="projectsTitle">
-      <h2 id="projectsTitle">Featured Projects</h2>
-      <p class="muted">Click or swipe a project to see details.</p>
+      <h2 id="projectsTitle">Featured Works (Collage)</h2>
+      <p class="muted">An abstract collage — hover to preview, click to zoom in and explore details.</p>
 
-      <div class="carousel" id="carousel" aria-roledescription="carousel" aria-label="Featured projects">
-        <button class="arrow left" id="prev" aria-label="Previous slide">‹</button>
-        <div class="track" id="track" role="list"></div>
-        <button class="arrow right" id="next" aria-label="Next slide">›</button>
-      </div>
-
-      <div class="dots" id="dots" role="tablist" aria-label="Slide indicators"></div>
+      <div class="collage" id="collage" aria-live="polite"></div>
     </section>
 
     <section id="about" class="card" aria-labelledby="aboutTitle">
@@ -175,7 +165,6 @@
     <section id="contact" class="card" aria-labelledby="contactTitle">
       <h2 id="contactTitle">Contact</h2>
       <p class="muted">Want to work together? Send a short message — I’ll reply within a few days.</p>
-
       <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="margin-top:12px">
         <input name="name" placeholder="Your name" required aria-label="Your name">
         <input type="email" name="_replyto" placeholder="Your email" required aria-label="Your email">
@@ -188,338 +177,239 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer style="text-align:center;color:var(--muted);padding:18px 6px">© <span id="year"></span> [Your Name] — Made with care · accessibility-minded</footer>
+  <footer>© <span id="year"></span> [Your Name] — Made with care</footer>
 
-  <!-- BACK TO TOP -->
   <button id="toTop" title="Back to top" aria-label="Back to top">↑</button>
 
-  <!-- MODAL -->
-  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document" id="modal" aria-labelledby="modalTitle">
-      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
-      <div class="modal-grid">
-        <div>
-          <div class="modal-media" id="modalMedia"><img src="" alt="" loading="lazy"></div>
-        </div>
-        <div>
-          <h3 id="modalTitle"></h3>
-          <p id="modalDesc" class="muted"></p>
-          <div class="stack" id="modalStack" aria-label="Technologies used"></div>
-          <div style="margin-top:14px">
-            <a id="modalLink" class="btn primary" href="#" target="_blank" rel="noopener">Open Project</a>
-          </div>
-        </div>
-      </div>
+  <!-- LIGHTBOX -->
+  <div class="lightbox-backdrop" id="lbBackdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="close-btn" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <div class="lightbox" id="lightbox" role="document" aria-labelledby="lbTitle">
+      <div class="lightbox-media" id="lbMedia"><img src="" alt="" id="lbImg" loading="lazy"></div>
+      <aside class="lightbox-info" id="lbInfo" aria-live="polite">
+        <h3 id="lbTitle"></h3>
+        <p id="lbDesc" class="muted"></p>
+        <div class="stack" id="lbStack"></div>
+      </aside>
     </div>
+    <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">›</button>
   </div>
 
   <script>
-    /**********************
-     * Project Data (EDIT)
-     **********************/
-    const projects = [
-      { id: 'p1', title: 'Brand Identity — Aurora', image: 'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172', alt: 'Aurora branding mockup', short: 'A full brand identity for a boutique studio.', desc: 'Created visual identity, logo system, stationery, social templates, and guidelines.', stack: ['Logo','Illustrator','Photoshop','Figma'], url: '#' },
-      { id: 'p2', title: 'Campaign Illustrations', image: 'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2', alt: 'Campaign illustrations', short: 'Illustration series for a social campaign.', desc: 'A cohesive illustration series for web and print focusing on emotional clarity.', stack: ['Procreate','Photoshop','Composition'], url: '#' },
-      { id: 'p3', title: 'Packaging Design', image: 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e', alt: 'Packaging concept', short: 'Sustainable packaging concept', desc: 'Concept and mockups for sustainable packaging solutions.', stack: ['Packaging','Blender','Illustrator'], url: '#' },
-      { id: 'p4', title: 'UI Visuals', image: 'https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476', alt: 'UI visual design', short: 'App UI micro-interactions', desc: 'Micro-interaction screens and high-fidelity visuals for a prototype.', stack: ['Figma','Framer','After Effects'], url: '#' }
-    ];
+  /************************
+   * Project data — edit here
+   ************************/
+  const projects = [
+    // include a 'size' hint for layout: 's1'..'s5' - change as you like
+    { id:'a1', title:'Aurora — Brand Identity', image:'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172', alt:'brand mockup', size:'s2', desc:'Full brand identity for a boutique studio — logos, stationery, social templates.', stack:['Logo','Illustrator','Figma'] },
+    { id:'a2', title:'Illustration Series', image:'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2', alt:'illustrations', size:'s1', desc:'Illustration series used for campaigns and print.', stack:['Procreate','Photoshop'] },
+    { id:'a3', title:'Packaging Concept', image:'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e', alt:'packaging', size:'s5', desc:'Sustainable packaging concept and mockups.', stack:['Packaging','Blender'] },
+    { id:'a4', title:'UI Visuals', image:'https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476', alt:'ui visuals', size:'s3', desc:'Micro-interactions and high-fidelity screens.', stack:['Figma','After Effects'] },
+    { id:'a5', title:'Poster Series', image:'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop&s=ef6d9cdf7a6a7a9f3f3e6bd2d9f6f3a4', alt:'posters', size:'s1', desc:'Series of posters for a cultural event.', stack:['Illustrator','Photoshop'] },
+    { id:'a6', title:'Editorial Layouts', image:'https://images.unsplash.com/photo-1520975698515-63b9b3d9b2d8?q=80&w=1600&auto=format&fit=crop&s=4a9f96b0a1d9b9f8d8e6e9c9a8f5b3a2', alt:'editorial', size:'s3', desc:'Magazine spreads and editorial design.', stack:['InDesign','Photoshop'] },
+    // add more projects as desired
+  ];
 
-    /**********************
-     * Year & basic UI
-     **********************/
-    document.getElementById('year').textContent = new Date().getFullYear();
+  /************************
+   * Basic UI & helpers
+   ************************/
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const themeToggle = document.getElementById('themeToggle');
+  const stored = localStorage.getItem('pref-theme');
+  if (stored === 'light') document.body.classList.add('light');
+  const updateThemeIcon = () => themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
+  updateThemeIcon();
+  themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark'); updateThemeIcon(); });
 
-    // Mobile nav toggle
-    const burger = document.getElementById('burger');
-    const navLinks = document.getElementById('navLinks');
-    burger.addEventListener('click', () => {
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      if (window.innerWidth <= 680) navLinks.style.display = 'none';
-    }));
+  // mobile nav
+  const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', ()=> navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex');
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> { if (window.innerWidth <= 680) navLinks.style.display = 'none' }));
 
-    /**********************
-     * Build carousel DOM
-     **********************/
-    const track = document.getElementById('track');
-    const dotsWrap = document.getElementById('dots');
-
-    // Preload images
-    projects.forEach(p => { const img = new Image(); img.src = p.image; });
-
-    // create slides & dots
-    projects.forEach((p, i) => {
-      const slide = document.createElement('div');
-      slide.className = 'slide';
-      slide.setAttribute('role', 'listitem');
-      slide.setAttribute('data-index', i);
-      slide.innerHTML = `
-        <div style="width:100%;max-width:1000px">
-          <div class="card-media" data-project="${p.id}" tabindex="0" role="button" aria-pressed="false" title="Open project details">
-            <img src="${p.image}" alt="${p.alt}">
-          </div>
-          <div class="card-info">
-            <strong style="display:block;margin-bottom:6px">${p.title}</strong>
-            <span class="muted">${p.short}</span>
-          </div>
-        </div>`;
-      track.appendChild(slide);
-
-      const dot = document.createElement('button');
-      dot.className = 'dot';
-      dot.setAttribute('aria-label', `Go to slide ${i+1}`);
-      dot.dataset.index = i;
-      dotsWrap.appendChild(dot);
-    });
-
-    let slides = Array.from(track.children);
-    let dots = Array.from(dotsWrap.children);
-
-    /**********************
-     * Carousel logic
-     **********************/
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
-    const slideCount = slides.length;
-    let idx = 0;
-    let autoTimer = null;
-    const AUTO_INTERVAL = 6000; // 6s
-
-    function setWidths(){
-      slides = Array.from(track.children);
-      track.style.width = `${slideCount * 100}%`;
-      slides.forEach(s => s.style.width = `${100/slideCount}%`);
-    }
-
-    function render(){
-      if (idx < 0) idx = slideCount - 1;
-      if (idx >= slideCount) idx = 0;
-      track.style.transform = `translateX(-${idx * 100}%)`;
-      dots = Array.from(dotsWrap.children);
-      dots.forEach((d,i) => d.classList.toggle('active', i === idx));
-    }
-
-    prevBtn.addEventListener('click', () => { idx = (idx - 1 + slideCount) % slideCount; render(); resetAuto(); });
-    nextBtn.addEventListener('click', () => { idx = (idx + 1) % slideCount; render(); resetAuto(); });
-    dotsWrap.addEventListener('click', (e) => {
-      const b = e.target.closest('.dot'); if (!b) return;
-      idx = Number(b.dataset.index); render(); resetAuto();
-    });
-
-    // click slide image to open modal
-    track.addEventListener('click', (ev) => {
-      const media = ev.target.closest('[data-project]');
-      if (!media) return;
-      openModal(media.dataset.project);
-    });
-    // keyboard accessibility for slides
-    track.addEventListener('keydown', (ev) => {
-      if ((ev.key === 'Enter' || ev.key === ' ') && ev.target.closest('[data-project]')) {
-        ev.preventDefault();
-        openModal(ev.target.closest('[data-project]').dataset.project);
-      }
-    });
-
-    function startAuto(){ if (!autoTimer) autoTimer = setInterval(()=>{ idx = (idx + 1) % slideCount; render(); }, AUTO_INTERVAL); }
-    function stopAuto(){ if (autoTimer){ clearInterval(autoTimer); autoTimer = null; } }
-    function resetAuto(){ stopAuto(); startAuto(); }
-
-    const carouselEl = document.getElementById('carousel');
-    carouselEl.addEventListener('mouseenter', stopAuto);
-    carouselEl.addEventListener('mouseleave', startAuto);
-    carouselEl.addEventListener('focusin', stopAuto);
-    carouselEl.addEventListener('focusout', startAuto);
-
-    // swipe support (simple)
-    let startX = 0;
-    track.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stopAuto(); }, {passive:true});
-    track.addEventListener('touchend', (e) => {
-      const endX = e.changedTouches[0].clientX;
-      const diff = startX - endX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) idx = (idx + 1) % slideCount;
-        else idx = (idx - 1 + slideCount) % slideCount;
-        render();
-      }
-      resetAuto();
-    }, {passive:true});
-
-    // keyboard nav
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextBtn.click();
-      if (e.key === 'ArrowLeft') prevBtn.click();
-    });
-
-    window.addEventListener('load', () => { setWidths(); render(); startAuto(); });
-    window.addEventListener('resize', setWidths);
-
-    /**********************
-     * Modal (dynamic)
-     **********************/
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const modal = document.getElementById('modal');
-    const modalClose = document.getElementById('modalClose');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalStack = document.getElementById('modalStack');
-    const modalMedia = document.querySelector('#modalMedia img');
-    const modalLink = document.getElementById('modalLink');
-
-    function openModal(projectId){
-      const p = projects.find(x => x.id === projectId);
-      if (!p) return;
-      modalTitle.textContent = p.title;
-      modalDesc.textContent = p.desc || p.short || '';
-      modalMedia.src = p.image;
-      modalMedia.alt = p.alt || p.title;
-      modalLink.href = p.url || '#';
-      modalStack.innerHTML = ''; (p.stack || []).forEach(s => { const c = document.createElement('span'); c.className='chip'; c.textContent = s; modalStack.appendChild(c); });
-      modalBackdrop.style.display = 'flex'; modalBackdrop.setAttribute('aria-hidden','false');
-      requestAnimationFrame(()=> modal.classList.add('show'));
-      modalClose.focus();
-      stopAuto();
-    }
-    function closeModal(){ modal.classList.remove('show'); modalBackdrop.setAttribute('aria-hidden','true'); setTimeout(()=> modalBackdrop.style.display='none', 300); startAuto(); }
-    modalClose.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', (ev) => { if (ev.target === modalBackdrop) closeModal(); });
-    document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && modalBackdrop.style.display === 'flex') closeModal(); });
-
-    /**********************
-     * Typing animation
-     **********************/
-    const typingEl = document.getElementById('typing');
+  /************************
+   * Typing animation
+   ************************/
+  (function typing(){
+    const el = document.getElementById('typing');
     const phrases = ["Graphic Designer","Digital Illustrator","Brand Strategist","Creative Problem Solver"];
-    let pI = 0, cI = 0, forward = true;
-    function typeLoop(){
-      const cur = phrases[pI];
-      if (forward){ cI++; typingEl.textContent = cur.slice(0,cI); if (cI === cur.length){ forward=false; setTimeout(typeLoop, 900); return; } }
-      else { cI--; typingEl.textContent = cur.slice(0,cI); if (cI === 0){ forward=true; pI=(pI+1)%phrases.length; setTimeout(typeLoop,300); return; } }
-      setTimeout(typeLoop, forward?110:40);
+    let pi=0, ci=0, forward=true;
+    function loop(){
+      const cur = phrases[pi];
+      if (forward){ ci++; el.textContent = cur.slice(0,ci); if (ci===cur.length){ forward=false; setTimeout(loop,900); return; } }
+      else { ci--; el.textContent = cur.slice(0,ci); if (ci===0){ forward=true; pi=(pi+1)%phrases.length; setTimeout(loop,300); return; } }
+      setTimeout(loop, forward?110:40);
     }
-    setTimeout(typeLoop,700);
+    setTimeout(loop,700);
+  })();
 
-    /**********************
-     * Theme toggle
-     **********************/
-    const themeToggle = document.getElementById('themeToggle');
-    const saved = localStorage.getItem('pref-theme');
-    if (saved === 'light') document.body.classList.add('light');
-    function updateThemeIcon(){ themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓'; }
-    updateThemeIcon();
-    themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark'); updateThemeIcon(); });
-
-    /**********************
-     * Contact form
-     **********************/
-    const form = document.getElementById('contactForm');
-    const status = document.getElementById('formStatus');
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      status.textContent = 'Sending…';
-      const data = new FormData(form);
-      try {
-        const res = await fetch(form.action, { method: 'POST', body: data, headers: {'Accept':'application/json'} });
-        if (res.ok){ status.textContent = 'Thanks — I will reply soon!'; form.reset(); }
-        else { status.textContent = 'Something went wrong. Try again later.'; }
-      } catch(err){ status.textContent = 'Network error. Please try again.'; }
+  /************************
+   * Floating circles
+   ************************/
+  (function circles(){
+    const layer = document.getElementById('circleLayer');
+    const defs = [
+      {sz:220,left:'4%',top:'10%',type:'filled',dur:24,delay:0},
+      {sz:110,left:'78%',top:'6%',type:'outline',dur:28,delay:3},
+      {sz:320,left:'52%',top:'60%',type:'glow',dur:30,delay:5},
+      {sz:90,left:'18%',top:'72%',type:'filled',dur:20,delay:2},
+      {sz:60,left:'86%',top:'46%',type:'outline',dur:26,delay:6},
+      {sz:170,left:'6%',top:'48%',type:'filled',dur:32,delay:4}
+    ];
+    defs.forEach((c,i) => {
+      const el = document.createElement('div'); el.className='circle';
+      if (c.type==='outline') el.classList.add('outline');
+      if (c.type==='glow') el.classList.add('glow');
+      el.style.width = el.style.height = c.sz+'px';
+      el.style.left = c.left; el.style.top = c.top;
+      el.style.opacity = c.type==='outline'?0.09:0.085;
+      if (c.type!=='outline') el.style.background = 'radial-gradient(circle, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
+      if (c.type==='outline') el.style.border = '2px solid rgba(255,255,255,0.06)';
+      // drift keyframes dynamic
+      const dx = (Math.random()*28+6)*(Math.random()>0.5?1:-1);
+      const dy = (Math.random()*20+8)*(Math.random()>0.5?1:-1);
+      const key = `drift${i}`;
+      const st = document.createElement('style');
+      st.innerHTML = `@keyframes ${key}{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(${dx}px,${dy}px,0)}100%{transform:translate3d(0,0,0)}}`;
+      document.head.appendChild(st);
+      el.style.animation = `${key} ${c.dur}s ease-in-out ${c.delay}s infinite`;
+      el.dataset.depth = (c.sz/420).toFixed(2);
+      layer.appendChild(el);
     });
-
-    /**********************
-     * Back to top
-     **********************/
-    const toTop = document.getElementById('toTop');
-    window.addEventListener('scroll', () => { if (window.scrollY > window.innerHeight/2) toTop.style.display = 'block'; else toTop.style.display = 'none'; });
-    toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-
-    /**********************
-     * Scroll reveal
-     **********************/
-    const reveals = document.querySelectorAll('main section, header.hero');
-    const observer = new IntersectionObserver((entries) => { entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('reveal'); }); }, {threshold: 0.12});
-    reveals.forEach(r => { r.classList.add('hidden-obs'); observer.observe(r); });
-
-    /**********************
-     * Floating circles: create + animate + parallax
-     **********************/
-    (function initCircles(){
-      const layer = document.getElementById('circleLayer');
-      const circleDefs = [
-        {size:220, left:'8%', top:'12%', type:'filled', dur:18, delay:0},
-        {size:140, left:'72%', top:'8%', type:'outline', dur:22, delay:3},
-        {size:320, left:'50%', top:'60%', type:'glow', dur:26, delay:5},
-        {size:90, left:'20%', top:'70%', type:'filled', dur:20, delay:2},
-        {size:60, left:'84%', top:'48%', type:'outline', dur:24, delay:6},
-        {size:180, left:'6%', top:'48%', type:'filled', dur:30, delay:4}
-      ];
-      // Create CSS keyframes per circle for subtle random drift (translate)
-      circleDefs.forEach((c, i) => {
-        const el = document.createElement('div');
-        el.className = 'circle';
-        if (c.type === 'outline') el.classList.add('outline');
-        if (c.type === 'glow') el.classList.add('glow');
-        if (c.size < 100) el.classList.add('small');
-        if (c.size > 250) el.classList.add('large');
-
-        // base styles
-        el.style.width = el.style.height = c.size + 'px';
-        el.style.left = c.left;
-        el.style.top = c.top;
-        el.style.opacity = (c.type === 'outline') ? 0.08 : 0.09;
-        // color subtle variants
-        el.style.background = (c.type === 'outline' || c.type === 'glow') ? 'transparent' : 'radial-gradient(circle, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
-        if (c.type === 'outline') el.style.border = '2px solid rgba(255,255,255,0.06)';
-
-        // random drift distances
-        const dx = (Math.random() * 20 + 8) * (Math.random() > 0.5 ? 1 : -1);
-        const dy = (Math.random() * 18 + 6) * (Math.random() > 0.5 ? 1 : -1);
-
-        const key = `drift${i}`;
-        const styleTag = document.createElement('style');
-        // create keyframes for this circle
-        styleTag.innerHTML = `@keyframes ${key} {
-          0% { transform: translate3d(0,0,0); }
-          50% { transform: translate3d(${dx}px, ${dy}px, 0); }
-          100% { transform: translate3d(0,0,0); }
-        }`;
-        document.head.appendChild(styleTag);
-
-        el.style.animation = `${key} ${c.dur}s ease-in-out ${c.delay}s infinite`;
-        // data-depth for parallax responsiveness (smaller = less movement)
-        el.dataset.depth = (c.size / 400).toFixed(2);
-
-        layer.appendChild(el);
-      });
-
-      // Parallax on mouse move - subtle, only on pointer devices
-      let supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      if (supportsHover) {
-        window.addEventListener('mousemove', (e) => {
-          const cx = window.innerWidth / 2;
-          const cy = window.innerHeight / 2;
-          const dx = (e.clientX - cx) / cx; // -1 to 1
-          const dy = (e.clientY - cy) / cy;
-          const all = layer.children;
-          for (let i = 0; i < all.length; i++){
-            const el = all[i];
-            const depth = parseFloat(el.dataset.depth) || 0.15;
-            // small translate proportional to depth (and scaled down)
-            const tx = dx * depth * 20;
-            const ty = dy * depth * 12;
-            el.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
-          }
-        }, {passive:true});
-
-        // gently return to center on mouseleave (when pointer leaves window)
-        window.addEventListener('mouseleave', () => {
-          const all = layer.children;
-          for (let i = 0; i < all.length; i++){
-            all[i].style.transform = `translate3d(0,0,0)`;
-          }
+    // parallax (subtle) for pointer devices
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+      window.addEventListener('mousemove', e => {
+        const cx = innerWidth/2, cy = innerHeight/2;
+        const dx = (e.clientX - cx)/cx, dy = (e.clientY - cy)/cy;
+        [...layer.children].forEach(el => {
+          const depth = parseFloat(el.dataset.depth)||0.12;
+          const tx = dx * depth * 18;
+          const ty = dy * depth * 10;
+          el.style.transform = `translate3d(${tx}px,${ty}px,0)`;
         });
-      }
-    })();
+      }, {passive:true});
+      window.addEventListener('mouseleave', ()=> [...layer.children].forEach(el => el.style.transform='translate3d(0,0,0)'));
+    }
+  })();
+
+  /************************
+   * Build collage grid
+   ************************/
+  const collage = document.getElementById('collage');
+  // mapping size hints to classes (change mapping if you want different layout)
+  const sizeMap = { s1:'s1', s2:'s2', s3:'s3', s4:'s4', s5:'s5' };
+  projects.forEach((p, i) => {
+    const tile = document.createElement('button');
+    tile.className = `tile ${sizeMap[p.size] || 's1'}`;
+    tile.setAttribute('data-idx', i);
+    tile.setAttribute('aria-label', `${p.title} — open details`);
+    tile.innerHTML = `
+      <img loading="lazy" src="${p.image}" alt="${p.alt || p.title}">
+      <div class="meta"><strong>${p.title}</strong></div>
+    `;
+    // click opens lightbox
+    tile.addEventListener('click', () => openLightbox(i));
+    // keyboard accessible
+    tile.addEventListener('keydown', e => { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(i); } });
+    collage.appendChild(tile);
+  });
+
+  // mild entrance animation (staggered)
+  function revealTiles(){
+    const tiles = Array.from(document.querySelectorAll('.tile'));
+    tiles.forEach((t, i) => { t.style.opacity = 0; t.style.transform = 'translateY(24px)'; setTimeout(()=>{ t.style.transition = 'all .6s cubic-bezier(.2,.9,.2,1)'; t.style.opacity = 1; t.style.transform = 'translateY(0)'; }, 120*i); });
+  }
+  window.addEventListener('load', revealTiles);
+
+  /************************
+   * Lightbox/Modal logic
+   ************************/
+  const lbBackdrop = document.getElementById('lbBackdrop');
+  const lbImg = document.getElementById('lbImg');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbDesc = document.getElementById('lbDesc');
+  const lbStack = document.getElementById('lbStack');
+  const lbClose = document.getElementById('lbClose');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
+  const lightbox = document.getElementById('lightbox');
+
+  let currentIndex = 0;
+
+  function openLightbox(idx){
+    currentIndex = idx;
+    const p = projects[idx];
+    lbImg.src = p.image;
+    lbImg.alt = p.alt || p.title;
+    lbTitle.textContent = p.title;
+    lbDesc.textContent = p.desc || '';
+    lbStack.innerHTML = '';
+    (p.stack||[]).forEach(s => { const sp = document.createElement('span'); sp.className='chip'; sp.textContent = s; lbStack.appendChild(sp); });
+    lbBackdrop.style.display = 'flex';
+    lbBackdrop.setAttribute('aria-hidden','false');
+    requestAnimationFrame(()=> lightbox.classList.add('show'));
+    lbClose.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox(){
+    lightbox.classList.remove('show');
+    lbBackdrop.setAttribute('aria-hidden','true');
+    setTimeout(()=> { lbBackdrop.style.display = 'none'; document.body.style.overflow = ''; }, 320);
+  }
+
+  function showNext(){ currentIndex = (currentIndex + 1) % projects.length; openLightbox(currentIndex); }
+  function showPrev(){ currentIndex = (currentIndex - 1 + projects.length) % projects.length; openLightbox(currentIndex); }
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
+  lbPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
+  lbBackdrop.addEventListener('click', (e)=> { if (e.target === lbBackdrop) closeLightbox(); });
+
+  // keyboard navigation for lightbox
+  document.addEventListener('keydown', (e) => {
+    if (lbBackdrop.style.display === 'flex'){
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'ArrowLeft') showPrev();
+    }
+  });
+
+  // swipe in lightbox
+  (function lbSwipe(){
+    let sx=0;
+    const media = document.querySelector('.lightbox-media');
+    media.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+    media.addEventListener('touchend', e => {
+      const ex = e.changedTouches[0].clientX, d = sx - ex;
+      if (Math.abs(d) > 50) { if (d>0) showNext(); else showPrev(); }
+    }, {passive:true});
+  })();
+
+  /************************
+   * Scroll reveal + back to top
+   ************************/
+  const reveals = document.querySelectorAll('main section, header.hero');
+  const obs = new IntersectionObserver((entries) => { entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('reveal'); }); }, {threshold:0.12});
+  reveals.forEach(r => { r.classList.add('hidden-obs'); obs.observe(r); });
+
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => { toTop.style.display = window.scrollY > innerHeight/2 ? 'block' : 'none' });
+  toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+  /************************
+   * Contact form (simple)
+   ************************/
+  const form = document.getElementById('contactForm'), formStatus = document.getElementById('formStatus');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault(); formStatus.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} });
+      formStatus.textContent = res.ok ? 'Thanks — I will reply soon!' : 'Something went wrong. Try again later.';
+      if (res.ok) form.reset();
+    } catch (err) { formStatus.textContent = 'Network error. Please try again.'; }
+  });
+
   </script>
 </body>
 </html>
