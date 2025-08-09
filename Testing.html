@@ -3,112 +3,106 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>[Your Name] — Portfolio</title>
-  <meta name="description" content="Portfolio — Graphic Designer & Digital Artist" />
+  <title>[Your Name] — Portfolio (Adaptive Collage)</title>
+  <meta name="description" content="Portfolio — cascading adaptive collage gallery with cinematic modal." />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
   <style>
-    /* ---------- Reset & vars ---------- */
+    /* ===== Reset & variables ===== */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
       --bg:#0f0f10; --card:#151516; --text:#f5f5f5; --muted:#bdbdbd;
-      --accent:#ff4081; --accent-2:#00a8ff; --glass:rgba(255,255,255,0.04);
-      --radius:12px; --shadow:0 14px 40px rgba(0,0,0,0.45)
+      --accent:#ff4081; --accent-2:#00a8ff;
+      --radius:12px; --gap:12px;
+      --rowHeight:8px; /* grid auto-row base: smaller = finer control */
     }
-    body.light{ --bg:#f6f7fb; --card:#fff; --text:#111; --muted:#556; --accent:#0b76ff; --accent-2:#ff4081; --glass:rgba(0,0,0,0.03) }
+    body.light{ --bg:#f6f7fb; --card:#fff; --text:#111; --muted:#556; --accent:#0b76ff; --accent-2:#ff4081 }
     html{scroll-behavior:smooth}
-    body{font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+    body{font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.45}
 
-    /* ---------- Nav ---------- */
-    nav{position:fixed;inset:0 0 auto 0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;backdrop-filter:blur(8px);background:linear-gradient(180deg,rgba(0,0,0,0.25),transparent);z-index:1200}
+    /* ===== NAV ===== */
+    nav{position:fixed;inset:0 0 auto 0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:linear-gradient(180deg,rgba(0,0,0,0.24),transparent);backdrop-filter:blur(8px);z-index:1200}
     .brand{font-weight:900;color:var(--accent);letter-spacing:.5px}
     .nav-links{display:flex;gap:14px;list-style:none;align-items:center}
-    .nav-links a{color:var(--text);font-weight:600;text-decoration:none;padding:6px 2px;position:relative}
+    .nav-links a{color:var(--text);font-weight:600;text-decoration:none;padding:6px 2px}
     .controls{display:flex;gap:10px;align-items:center}
     .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;cursor:pointer;color:var(--text)}
-    .hamburger{display:none}
 
-    /* ---------- Hero + circles ---------- */
-    header.hero{
-      min-height:92vh;padding-top:64px;display:flex;align-items:center;justify-content:center;text-align:center;
-      background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;animation:grad 18s linear infinite;position:relative;overflow:hidden;
-    }
+    /* ===== HERO (typing + circles) ===== */
+    header.hero{min-height:88vh;padding-top:64px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(-45deg,var(--accent),var(--accent-2),#ff8c00,#6ef);background-size:400% 400%;animation:grad 18s linear infinite;position:relative;overflow:hidden}
     @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     .hero-inner{max-width:1100px;padding:28px;z-index:6;position:relative}
-    .profile-pic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12);box-shadow:var(--shadow);margin:0 auto 14px;display:block}
-    .hero h1{font-size:2.4rem;margin-bottom:6px}
-    .hero .name{color:var(--accent);font-weight:900}
-    .hero h2{font-weight:600;color:var(--muted);margin-bottom:18px}
+    .profile-pic{width:140px;height:140px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,0.12);box-shadow:0 14px 40px rgba(0,0,0,0.45);margin:0 auto 14px;display:block}
+    h1{font-size:2.4rem;margin-bottom:6px}
+    .name{color:var(--accent);font-weight:900}
+    h2{font-weight:600;color:var(--muted);margin-bottom:18px}
     .typing{display:inline-block;border-right:3px solid rgba(255,255,255,0.12);padding-right:8px;white-space:nowrap}
     .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn{padding:10px 18px;border-radius:999px;border:none;font-weight:700;cursor:pointer}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.25)}
+    .btn{padding:10px 16px;border-radius:999px;border:none;font-weight:700;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
     .btn.ghost{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.06)}
 
-    /* circle layer sits behind hero content */
+    /* floating circles layer */
     .circle-layer{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
     .circle{position:absolute;border-radius:50%;opacity:.12;will-change:transform,opacity}
     .circle.outline{background:transparent;border:2px solid rgba(255,255,255,0.08);opacity:.09}
     .circle.glow{filter:blur(10px);opacity:.06}
-    /* ---------- Main & sections ---------- */
+
+    /* ===== MAIN / SECTIONS ===== */
     main{max-width:1200px;margin:36px auto;padding:10px 20px 80px}
     section.card{background:var(--card);border-radius:12px;padding:20px;margin:26px 0;box-shadow:0 10px 30px rgba(0,0,0,0.45);transition:transform .28s}
     section.card:hover{transform:translateY(-6px)}
     h2{margin-bottom:10px}
     .muted{color:var(--muted)}
 
-    /* ---------- Collage masonry grid ---------- */
+    /* ===== COLLAGE Masonry grid (adaptive) =====
+       Uses CSS Grid + JS to set grid-row spans based on each image's natural height (true aspect ratio).
+       grid-auto-rows is small to allow fine control. */
     .collage{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: 10px; /* small base - gives fine-grained control */
-      gap: 10px;
-      margin-top:12px;
+      grid-auto-rows: var(--rowHeight);
+      gap:var(--gap);
+      margin-top:14px;
     }
-    /* tile size classes - tune heights by row span */
-    .tile{position:relative;overflow:hidden;border-radius:10px;cursor:pointer;transition:transform .35s ease, box-shadow .35s ease;outline:none}
-    .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s ease}
-    .tile .meta{position:absolute;left:12px;bottom:12px;color:#fff;text-shadow:0 6px 20px rgba(0,0,0,0.6);z-index:4}
-    .tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.25));opacity:0;transition:opacity .3s}
-    .tile:hover{transform:translateY(-6px) rotateZ(-0.3deg);box-shadow:0 16px 50px rgba(0,0,0,0.5)}
+
+    /* tile */
+    .tile{
+      position:relative;overflow:hidden;border-radius:10px;cursor:pointer;outline:none;
+      transition:transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s;
+      background:linear-gradient(180deg, rgba(0,0,0,0.05), transparent);
+    }
+    .tile img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform .9s ease,filter .6s ease,opacity .5s}
+    .tile .meta{position:absolute;left:12px;bottom:12px;color:#fff;text-shadow:0 8px 30px rgba(0,0,0,0.6);z-index:4}
+    .tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.22));pointer-events:none;opacity:0;transition:opacity .25s}
+    .tile:hover{transform:translateY(-6px) rotateZ(-0.3deg);box-shadow:0 22px 60px rgba(0,0,0,0.55)}
     .tile:hover img{transform:scale(1.035)}
     .tile:hover::after{opacity:1}
 
-    /* responsive tile spans (we'll assign classes) */
-    .tile.s1{grid-column: span 4; grid-row: span 60;}   /* medium */
-    .tile.s2{grid-column: span 6; grid-row: span 60;}   /* wide */
-    .tile.s3{grid-column: span 3; grid-row: span 36;}   /* small */
-    .tile.s4{grid-column: span 12; grid-row: span 42;}  /* full width */
-    .tile.s5{grid-column: span 8; grid-row: span 80;}   /* tall */
+    /* small screens: fewer columns */
+    @media (max-width:1100px){ .collage{grid-template-columns:repeat(8,1fr)} }
+    @media (max-width:700px){ .collage{grid-template-columns:repeat(4,1fr)} .profile-pic{width:120px;height:120px} }
 
-    @media (max-width:1100px) {
-      .collage{grid-template-columns: repeat(8,1fr);}
-      .tile.s1{grid-column:span 4}
-      .tile.s2{grid-column:span 8}
-      .tile.s3{grid-column:span 4}
-      .tile.s4{grid-column:span 8}
-      .tile.s5{grid-column:span 8}
-    }
-    @media (max-width:680px){
-      .collage{grid-template-columns:repeat(4,1fr);grid-auto-rows:8px;gap:8px}
-      .tile{border-radius:8px}
-      .tile.s1,.tile.s2,.tile.s3,.tile.s4,.tile.s5{grid-column:span 4}
-    }
+    /* ===== BLUR-UP placeholder state =====
+       We start images blurred and slightly scaled; when fully loaded we remove blur class */
+    .img-blur{filter:blur(18px) saturate(.9) contrast(.95);transform:scale(1.02)}
+    .img-loaded{filter:none;transform:scale(1);transition:filter .48s ease, opacity .48s ease, transform .48s ease}
 
-    /* ---------- Lightbox modal (full-screen) ---------- */
-    .lightbox-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:1500;padding:20px}
-    .lightbox{width:100%;max-width:1200px;background:transparent;color:var(--text);border-radius:10px;overflow:hidden;transform:scale(.98);opacity:0;transition:all .32s cubic-bezier(.2,.9,.2,1);display:flex;gap:18px;align-items:center}
-    .lightbox.show{transform:scale(1);opacity:1}
-    .lightbox-media{flex:1;min-height:60vh;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:8px}
-    .lightbox-media img{max-width:100%;max-height:82vh;object-fit:contain;display:block}
-    .lightbox-info{width:360px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter: blur(6px);border-radius:8px}
-    .lightbox h3{margin-bottom:8px}
+    /* ===== LIGHTBOX / MODAL ===== */
+    .lb-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.86);display:none;align-items:center;justify-content:center;z-index:1500;padding:18px}
+    .lb{width:100%;max-width:1200px;display:flex;gap:18px;align-items:flex-start;transform:scale(.98) translateY(8px);opacity:0;transition:all .34s cubic-bezier(.2,.9,.2,1)}
+    .lb.show{transform:scale(1);opacity:1}
+    .lb-media{flex:1;display:flex;align-items:center;justify-content:center;min-height:60vh;overflow:hidden;border-radius:10px}
+    .lb-media img{max-width:100%;max-height:82vh;object-fit:contain;display:block}
+    .lb-info{width:360px;padding:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px);border-radius:10px}
+    .lb h3{margin-bottom:8px}
     .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .chip{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:.86rem}
-    .close-btn{position:absolute;top:18px;right:18px;background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;color:var(--text);cursor:pointer}
-    .lb-arrow{position:absolute;top:50%;transform:translateY(-50%);background:transparent;border:none;color:#fff;font-size:36px;padding:12px;cursor:pointer}
-    .lb-prev{left:8px} .lb-next{right:8px}
+    .lb-close{position:absolute;top:16px;right:16px;background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px;border-radius:10px;color:var(--text);cursor:pointer}
+    .lb-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:34px;color:#fff;background:transparent;border:none;padding:12px;cursor:pointer}
+    .lb-prev{left:10px} .lb-next{right:10px}
 
-    /* ---------- Small helpers ---------- */
+    /* small helpers */
     footer{color:var(--muted);text-align:center;padding:18px}
     #toTop{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:12px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,0.35);display:none;z-index:1200}
     .hidden-obs{opacity:0;transform:translateY(22px);transition:all .7s}
@@ -128,16 +122,15 @@
     <div class="controls">
       <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌓</button>
       <button id="resumeBtn" class="icon-btn" onclick="location.href='resume.pdf'" title="Download resume">📄</button>
-      <button id="burger" class="hamburger" aria-label="Open menu">☰</button>
     </div>
   </nav>
 
   <!-- HERO -->
   <header id="hero" class="hero" role="banner" aria-label="Intro">
     <div class="circle-layer" id="circleLayer" aria-hidden="true"></div>
+
     <div class="hero-inner">
-      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&s=3f4a53c1f1ba82f3f8d0d5b1a0aef59d"
-           alt="Portrait of [Your Name]" class="profile-pic" width="280" height="280" loading="lazy">
+      <img class="profile-pic" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop&s=3f4a53c1f1ba82f3f8d0d5b1a0aef59d" alt="Portrait of [Your Name]" loading="lazy" width="320" height="320">
       <h1>Hi — I'm <span class="name">[Your Name]</span></h1>
       <h2><span id="typing" class="typing" aria-live="polite"></span></h2>
       <div class="cta" role="group">
@@ -150,16 +143,15 @@
   <!-- MAIN -->
   <main>
     <section id="projects" class="card" aria-labelledby="projectsTitle">
-      <h2 id="projectsTitle">Featured Works (Collage)</h2>
-      <p class="muted">An abstract collage — hover to preview, click to zoom in and explore details.</p>
+      <h2 id="projectsTitle">Featured Works — Collage (Adaptive)</h2>
+      <p class="muted">Upload any aspect ratio — the grid adapts. Hover to preview, click to zoom.</p>
 
-      <div class="collage" id="collage" aria-live="polite"></div>
+      <div id="collage" class="collage" aria-live="polite" aria-label="Project collage"></div>
     </section>
 
     <section id="about" class="card" aria-labelledby="aboutTitle">
       <h2 id="aboutTitle">About Me</h2>
       <p class="muted">I design brand identities, digital illustrations, and visuals that tell stories. I blend conceptual thinking with clean execution — from concept to pixel-perfect final files.</p>
-      <p style="margin-top:8px">Tools: Photoshop · Illustrator · Figma · Procreate · Blender (basic) · HTML/CSS</p>
     </section>
 
     <section id="contact" class="card" aria-labelledby="contactTitle">
@@ -182,233 +174,345 @@
   <button id="toTop" title="Back to top" aria-label="Back to top">↑</button>
 
   <!-- LIGHTBOX -->
-  <div class="lightbox-backdrop" id="lbBackdrop" aria-hidden="true" role="dialog" aria-modal="true">
-    <button class="close-btn" id="lbClose" aria-label="Close">✕</button>
-    <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">‹</button>
-    <div class="lightbox" id="lightbox" role="document" aria-labelledby="lbTitle">
-      <div class="lightbox-media" id="lbMedia"><img src="" alt="" id="lbImg" loading="lazy"></div>
-      <aside class="lightbox-info" id="lbInfo" aria-live="polite">
+  <div id="lbBackdrop" class="lb-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+
+    <div class="lb" id="lightbox" role="document" aria-labelledby="lbTitle">
+      <div class="lb-media"><img id="lbImg" src="" alt="" loading="lazy"></div>
+      <aside class="lb-info" id="lbInfo" aria-live="polite">
         <h3 id="lbTitle"></h3>
         <p id="lbDesc" class="muted"></p>
         <div class="stack" id="lbStack"></div>
       </aside>
     </div>
-    <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">›</button>
   </div>
 
   <script>
-  /************************
-   * Project data — edit here
-   ************************/
-  const projects = [
-    // include a 'size' hint for layout: 's1'..'s5' - change as you like
-    { id:'a1', title:'Aurora — Brand Identity', image:'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172', alt:'brand mockup', size:'s2', desc:'Full brand identity for a boutique studio — logos, stationery, social templates.', stack:['Logo','Illustrator','Figma'] },
-    { id:'a2', title:'Illustration Series', image:'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2', alt:'illustrations', size:'s1', desc:'Illustration series used for campaigns and print.', stack:['Procreate','Photoshop'] },
-    { id:'a3', title:'Packaging Concept', image:'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e', alt:'packaging', size:'s5', desc:'Sustainable packaging concept and mockups.', stack:['Packaging','Blender'] },
-    { id:'a4', title:'UI Visuals', image:'https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476', alt:'ui visuals', size:'s3', desc:'Micro-interactions and high-fidelity screens.', stack:['Figma','After Effects'] },
-    { id:'a5', title:'Poster Series', image:'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop&s=ef6d9cdf7a6a7a9f3f3e6bd2d9f6f3a4', alt:'posters', size:'s1', desc:'Series of posters for a cultural event.', stack:['Illustrator','Photoshop'] },
-    { id:'a6', title:'Editorial Layouts', image:'https://images.unsplash.com/photo-1520975698515-63b9b3d9b2d8?q=80&w=1600&auto=format&fit=crop&s=4a9f96b0a1d9b9f8d8e6e9c9a8f5b3a2', alt:'editorial', size:'s3', desc:'Magazine spreads and editorial design.', stack:['InDesign','Photoshop'] },
-    // add more projects as desired
-  ];
-
-  /************************
-   * Basic UI & helpers
-   ************************/
-  document.getElementById('year').textContent = new Date().getFullYear();
-  const themeToggle = document.getElementById('themeToggle');
-  const stored = localStorage.getItem('pref-theme');
-  if (stored === 'light') document.body.classList.add('light');
-  const updateThemeIcon = () => themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
-  updateThemeIcon();
-  themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark'); updateThemeIcon(); });
-
-  // mobile nav
-  const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
-  burger.addEventListener('click', ()=> navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex');
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> { if (window.innerWidth <= 680) navLinks.style.display = 'none' }));
-
-  /************************
-   * Typing animation
-   ************************/
-  (function typing(){
-    const el = document.getElementById('typing');
-    const phrases = ["Graphic Designer","Digital Illustrator","Brand Strategist","Creative Problem Solver"];
-    let pi=0, ci=0, forward=true;
-    function loop(){
-      const cur = phrases[pi];
-      if (forward){ ci++; el.textContent = cur.slice(0,ci); if (ci===cur.length){ forward=false; setTimeout(loop,900); return; } }
-      else { ci--; el.textContent = cur.slice(0,ci); if (ci===0){ forward=true; pi=(pi+1)%phrases.length; setTimeout(loop,300); return; } }
-      setTimeout(loop, forward?110:40);
-    }
-    setTimeout(loop,700);
-  })();
-
-  /************************
-   * Floating circles
-   ************************/
-  (function circles(){
-    const layer = document.getElementById('circleLayer');
-    const defs = [
-      {sz:220,left:'4%',top:'10%',type:'filled',dur:24,delay:0},
-      {sz:110,left:'78%',top:'6%',type:'outline',dur:28,delay:3},
-      {sz:320,left:'52%',top:'60%',type:'glow',dur:30,delay:5},
-      {sz:90,left:'18%',top:'72%',type:'filled',dur:20,delay:2},
-      {sz:60,left:'86%',top:'46%',type:'outline',dur:26,delay:6},
-      {sz:170,left:'6%',top:'48%',type:'filled',dur:32,delay:4}
+    /****************************************
+     * Projects array (edit to add your images)
+     * each project: id, title, image, alt, desc, stack (array)
+     * You can provide multiple resolutions if you want:
+     * image: { src: 'full.jpg', webp: 'full.webp', thumb: 'small.jpg' } OR simple string.
+     ****************************************/
+    const projects = [
+      { id:'p1', title:'Aurora — Brand Identity', image:'https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?q=80&w=1600&auto=format&fit=crop&s=3e2f1c8af54e6db54f0e9fb4d0c7e172', alt:'Aurora brand', desc:'Full brand identity: logos, stationery, social templates.', stack:['Logo','Illustrator','Figma'] },
+      { id:'p2', title:'Campaign Illustrations', image:'https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?q=80&w=1600&auto=format&fit=crop&s=0925a2b5b4e9e4fd9a2fe6a4f9a1a1a2', alt:'Illustration series', desc:'Illustration series for print and web.', stack:['Procreate','Photoshop'] },
+      { id:'p3', title:'Packaging Concept', image:'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1600&auto=format&fit=crop&s=2ef9b6b7b6d6f8cb0b3a7d9d1d9f9d7e', alt:'Packaging', desc:'Sustainable packaging mockups and dielines.', stack:['Blender','Illustrator'] },
+      { id:'p4', title:'UI Visuals', image:'https://images.unsplash.com/photo-1508921931806-c7f5a0f2d1f1?q=80&w=1600&auto=format&fit=crop&s=5eb3b28949f4b5e4b0f0c2f3a3a6b476', alt:'UI visuals', desc:'Micro-interactions and animated UI comps.', stack:['Figma','After Effects'] },
+      { id:'p5', title:'Poster Series', image:'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=1600&auto=format&fit=crop&s=ef6d9cdf7a6a7a9f3f3e6bd2d9f6f3a4', alt:'Posters', desc:'Event posters with bold typography.', stack:['Illustrator','Photoshop'] },
+      { id:'p6', title:'Editorial Layouts', image:'https://images.unsplash.com/photo-1520975698515-63b9b3d9b2d8?q=80&w=1600&auto=format&fit=crop&s=4a9f96b0a1d9b9f8d8e6e9c9a8f5b3a2', alt:'Editorial', desc:'Magazine spreads and layout systems.', stack:['InDesign','Photoshop'] }
     ];
-    defs.forEach((c,i) => {
-      const el = document.createElement('div'); el.className='circle';
-      if (c.type==='outline') el.classList.add('outline');
-      if (c.type==='glow') el.classList.add('glow');
-      el.style.width = el.style.height = c.sz+'px';
-      el.style.left = c.left; el.style.top = c.top;
-      el.style.opacity = c.type==='outline'?0.09:0.085;
-      if (c.type!=='outline') el.style.background = 'radial-gradient(circle, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
-      if (c.type==='outline') el.style.border = '2px solid rgba(255,255,255,0.06)';
-      // drift keyframes dynamic
-      const dx = (Math.random()*28+6)*(Math.random()>0.5?1:-1);
-      const dy = (Math.random()*20+8)*(Math.random()>0.5?1:-1);
-      const key = `drift${i}`;
-      const st = document.createElement('style');
-      st.innerHTML = `@keyframes ${key}{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(${dx}px,${dy}px,0)}100%{transform:translate3d(0,0,0)}}`;
-      document.head.appendChild(st);
-      el.style.animation = `${key} ${c.dur}s ease-in-out ${c.delay}s infinite`;
-      el.dataset.depth = (c.sz/420).toFixed(2);
-      layer.appendChild(el);
+
+    /* ---------- Basic UI ---------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('pref-theme');
+    if (savedTheme === 'light') document.body.classList.add('light');
+    const updateThemeIcon = () => themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
+    updateThemeIcon();
+    themeToggle.addEventListener('click', () => { document.body.classList.toggle('light'); localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark'); updateThemeIcon(); });
+
+    /* ---------- Typing animation (hero) ---------- */
+    (function typing(){
+      const el = document.getElementById('typing');
+      const phrases = ["Graphic Designer","Digital Illustrator","Brand Strategist","Creative Problem Solver"];
+      let p = 0, c = 0, fwd = true;
+      function loop(){
+        const cur = phrases[p];
+        if (fwd){ c++; el.textContent = cur.slice(0,c); if (c === cur.length){ fwd=false; setTimeout(loop,900); return; } }
+        else { c--; el.textContent = cur.slice(0,c); if (c === 0){ fwd=true; p=(p+1)%phrases.length; setTimeout(loop,300); return; } }
+        setTimeout(loop, fwd?110:40);
+      }
+      setTimeout(loop,700);
+    })();
+
+    /* ---------- Floating circles (hero) ---------- */
+    (function makeCircles(){
+      const layer = document.getElementById('circleLayer');
+      const defs = [
+        {sz:220,left:'6%',top:'10%',type:'filled',dur:28,delay:0},
+        {sz:120,left:'78%',top:'6%',type:'outline',dur:32,delay:3},
+        {sz:320,left:'52%',top:'62%',type:'glow',dur:36,delay:5},
+        {sz:88,left:'18%',top:'72%',type:'filled',dur:22,delay:2},
+        {sz:64,left:'86%',top:'44%',type:'outline',dur:26,delay:6},
+        {sz:170,left:'8%',top:'48%',type:'filled',dur:34,delay:4}
+      ];
+      defs.forEach((c,i) => {
+        const el = document.createElement('div'); el.className = 'circle';
+        if (c.type === 'outline') el.classList.add('outline');
+        if (c.type === 'glow') el.classList.add('glow');
+        el.style.width = el.style.height = c.sz + 'px';
+        el.style.left = c.left; el.style.top = c.top;
+        if (c.type !== 'outline') el.style.background = 'radial-gradient(circle, rgba(255,255,255,0.06), rgba(255,255,255,0.02))';
+        if (c.type === 'outline') el.style.border = '2px solid rgba(255,255,255,0.06)';
+        const dx = (Math.random()*28+6)*(Math.random()>0.5?1:-1);
+        const dy = (Math.random()*20+8)*(Math.random()>0.5?1:-1);
+        const key = `drift${i}`;
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes ${key}{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(${dx}px,${dy}px,0)}100%{transform:translate3d(0,0,0)}}`;
+        document.head.appendChild(style);
+        el.style.animation = `${key} ${c.dur}s ease-in-out ${c.delay}s infinite`;
+        el.dataset.depth = (c.sz / 420).toFixed(2);
+        layer.appendChild(el);
+      });
+      // parallax on pointer devices
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+        window.addEventListener('mousemove', (e) => {
+          const cx = innerWidth/2, cy = innerHeight/2;
+          const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
+          [...layer.children].forEach(el => {
+            const depth = parseFloat(el.dataset.depth) || 0.12;
+            const tx = dx * depth * 18; const ty = dy * depth * 10;
+            el.style.transform = `translate3d(${tx}px,${ty}px,0)`;
+          });
+        }, {passive:true});
+        window.addEventListener('mouseleave', () => [...layer.children].forEach(el => el.style.transform = 'translate3d(0,0,0)'));
+      }
+    })();
+
+    /* ---------- Collage building + adaptive row-span calc ---------- */
+    const collage = document.getElementById('collage');
+    // Create tiles with blur-up state and compute grid-row span after image natural size is known
+    projects.forEach((p, idx) => {
+      const tile = document.createElement('button');
+      tile.className = 'tile';
+      tile.type = 'button';
+      tile.setAttribute('data-idx', idx);
+      tile.setAttribute('aria-label', p.title + ' — open details');
+
+      // image element (low-level blur-up technique: start blurred until 'load' fires)
+      const img = document.createElement('img');
+      img.src = typeof p.image === 'string' ? p.image : (p.image.src || p.image);
+      img.alt = p.alt || p.title;
+      img.loading = 'lazy';
+      img.className = 'img-blur';
+
+      // meta overlay
+      const meta = document.createElement('div'); meta.className = 'meta';
+      meta.innerHTML = `<strong>${p.title}</strong>`;
+
+      tile.appendChild(img);
+      tile.appendChild(meta);
+      collage.appendChild(tile);
+
+      // once image loads, calculate desired row span and remove blur
+      img.addEventListener('load', () => {
+        // compute aspect ratio in terms of CSS grid row spans
+        const rowHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rowHeight')) || 8;
+        const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 12;
+        // natural height/width
+        const h = img.naturalHeight, w = img.naturalWidth;
+        if (w === 0) return;
+        // compute the computed height in px when width is set to tile width.
+        // The tile width in px depends on current grid column width: we can approximate by reading tile.clientWidth.
+        // But tile.clientWidth is available now.
+        const tileWidth = tile.clientWidth || (collage.clientWidth / 12);
+        const scaledHeight = (h / w) * tileWidth;
+        // calculate how many rows to span:
+        const rowSpan = Math.ceil((scaledHeight + gap) / (rowHeight + gap));
+        tile.style.gridRowEnd = `span ${rowSpan}`;
+        // remove blur class for smooth transition
+        img.classList.add('img-loaded'); img.classList.remove('img-blur');
+
+        // attempt to extract dominant color for hover glow (best-effort; may fail cross-origin)
+        extractDominantColor(img).then(color => {
+          if (color) {
+            // subtle colored shadow using CSS variable on tile
+            tile.style.boxShadow = `0 18px 50px ${hexToRgba(color, 0.12)}`;
+            // create faint outer glow using pseudo overlay via inline style: border/outline not wanted, so use box-shadow and a soft before via background
+            tile.style.setProperty('--dominant', color);
+            // also add subtle overlay using tile::before not available inline; instead create an overlay element
+            const glow = document.createElement('div');
+            glow.style.position = 'absolute';
+            glow.style.inset = '0';
+            glow.style.borderRadius = '10px';
+            glow.style.zIndex = '2';
+            glow.style.pointerEvents = 'none';
+            glow.style.mixBlendMode = 'screen';
+            glow.style.opacity = '0';
+            glow.style.transition = 'opacity .28s';
+            glow.style.background = `radial-gradient(circle at 30% 20%, ${hexToRgba(color,0.18)}, transparent 30%)`;
+            tile.appendChild(glow);
+            tile.addEventListener('mouseenter', () => { glow.style.opacity = '1'; });
+            tile.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+          }
+        }).catch(()=>{/* ignore color errors */});
+      });
+
+      // open lightbox on click or keyboard
+      tile.addEventListener('click', () => openLightbox(idx));
+      tile.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(idx); } });
     });
-    // parallax (subtle) for pointer devices
-    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches){
-      window.addEventListener('mousemove', e => {
-        const cx = innerWidth/2, cy = innerHeight/2;
-        const dx = (e.clientX - cx)/cx, dy = (e.clientY - cy)/cy;
-        [...layer.children].forEach(el => {
-          const depth = parseFloat(el.dataset.depth)||0.12;
-          const tx = dx * depth * 18;
-          const ty = dy * depth * 10;
-          el.style.transform = `translate3d(${tx}px,${ty}px,0)`;
-        });
+
+    /* When layout may change (resize), recalc grid row spans for still-loaded images */
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('.tile img').forEach(img => {
+        if (!img.complete) return; // skip not loaded images
+        const tile = img.closest('.tile');
+        const rowHeight = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--rowHeight')) || 8;
+        const gap = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 12;
+        const h = img.naturalHeight, w = img.naturalWidth;
+        if (w === 0) return;
+        const tileWidth = tile.clientWidth || (collage.clientWidth / 12);
+        const scaledHeight = (h / w) * tileWidth;
+        const rowSpan = Math.ceil((scaledHeight + gap) / (rowHeight + gap));
+        tile.style.gridRowEnd = `span ${rowSpan}`;
+      });
+    });
+
+    /* ---------- Utility: extract dominant color using a tiny canvas (best-effort) ---------- */
+    async function extractDominantColor(img){
+      try {
+        const cnv = document.createElement('canvas');
+        const ctx = cnv.getContext('2d');
+        const w = 8, h = 8; // tiny sample
+        cnv.width = w; cnv.height = h;
+        // draw image scaled down
+        ctx.drawImage(img, 0, 0, w, h);
+        const data = ctx.getImageData(0,0,w,h).data;
+        let r=0,g=0,b=0,count=0;
+        for (let i=0;i<data.length;i+=4){
+          const alpha = data[i+3];
+          if (alpha < 125) continue;
+          r += data[i]; g += data[i+1]; b += data[i+2]; count++;
+        }
+        if (count === 0) return null;
+        r = Math.round(r/count); g = Math.round(g/count); b = Math.round(b/count);
+        return rgbToHex(r,g,b);
+      } catch(e){
+        return null; // likely cross-origin
+      }
+    }
+    function componentToHex(c){ const hex = c.toString(16); return hex.length==1?'0'+hex:hex; }
+    function rgbToHex(r,g,b){ return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b); }
+    function hexToRgba(hex, alpha){
+      if (!hex) return `rgba(255,255,255,${alpha})`;
+      const h = hex.replace('#','');
+      const bigint = parseInt(h,16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return `rgba(${r},${g},${b},${alpha})`;
+    }
+
+    /* ---------- Lightbox / Modal ---------- */
+    const lbBackdrop = document.getElementById('lbBackdrop');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbDesc = document.getElementById('lbDesc');
+    const lbStack = document.getElementById('lbStack');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    const lightbox = document.getElementById('lightbox');
+
+    let currentIndex = 0;
+    function openLightbox(idx){
+      currentIndex = idx;
+      const p = projects[idx];
+      // show backdrop
+      lbBackdrop.style.display = 'flex';
+      lbBackdrop.setAttribute('aria-hidden','false');
+      // set info
+      lbImg.src = ''; lbImg.alt = '';
+      lbTitle.textContent = p.title;
+      lbDesc.textContent = p.desc || '';
+      lbStack.innerHTML = '';
+      (p.stack || []).forEach(s => { const el = document.createElement('span'); el.className='chip'; el.textContent = s; lbStack.appendChild(el); });
+
+      // pre-load higher-res image (if you have separate high-res URL add p.imageHigh)
+      const high = (typeof p.image === 'string') ? p.image : (p.image.src || p.image);
+      const img = new Image();
+      img.onload = () => {
+        lbImg.src = high; lbImg.alt = p.alt || p.title;
+        // animate in
+        requestAnimationFrame(()=> lightbox.classList.add('show'));
+      };
+      img.onerror = () => {
+        lbImg.src = high; requestAnimationFrame(()=> lightbox.classList.add('show'));
+      };
+      img.src = high;
+      // lock body scroll
+      document.body.style.overflow = 'hidden';
+      // focus close
+      lbClose.focus();
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('show');
+      lbBackdrop.setAttribute('aria-hidden','true');
+      setTimeout(()=> { lbBackdrop.style.display = 'none'; document.body.style.overflow = ''; }, 320);
+    }
+    function showNext(){ currentIndex = (currentIndex + 1) % projects.length; openLightbox(currentIndex); }
+    function showPrev(){ currentIndex = (currentIndex - 1 + projects.length) % projects.length; openLightbox(currentIndex); }
+
+    // event listeners
+    lbClose.addEventListener('click', closeLightbox);
+    lbNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
+    lbPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
+    lbBackdrop.addEventListener('click', (e) => { if (e.target === lbBackdrop) closeLightbox(); });
+
+    // keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lbBackdrop.style.display === 'flex') {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') showNext();
+        if (e.key === 'ArrowLeft') showPrev();
+      }
+    });
+
+    // swipe in lightbox
+    (function lbSwipe(){
+      let sx=0;
+      const media = document.querySelector('.lb-media');
+      media.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+      media.addEventListener('touchend', e => {
+        const ex = e.changedTouches[0].clientX; const d = sx - ex;
+        if (Math.abs(d) > 50) { if (d>0) showNext(); else showPrev(); }
       }, {passive:true});
-      window.addEventListener('mouseleave', ()=> [...layer.children].forEach(el => el.style.transform='translate3d(0,0,0)'));
-    }
-  })();
+    })();
 
-  /************************
-   * Build collage grid
-   ************************/
-  const collage = document.getElementById('collage');
-  // mapping size hints to classes (change mapping if you want different layout)
-  const sizeMap = { s1:'s1', s2:'s2', s3:'s3', s4:'s4', s5:'s5' };
-  projects.forEach((p, i) => {
-    const tile = document.createElement('button');
-    tile.className = `tile ${sizeMap[p.size] || 's1'}`;
-    tile.setAttribute('data-idx', i);
-    tile.setAttribute('aria-label', `${p.title} — open details`);
-    tile.innerHTML = `
-      <img loading="lazy" src="${p.image}" alt="${p.alt || p.title}">
-      <div class="meta"><strong>${p.title}</strong></div>
-    `;
-    // click opens lightbox
-    tile.addEventListener('click', () => openLightbox(i));
-    // keyboard accessible
-    tile.addEventListener('keydown', e => { if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(i); } });
-    collage.appendChild(tile);
-  });
+    /* ---------- Reveal & back-to-top ---------- */
+    const reveals = document.querySelectorAll('main section, header.hero');
+    const obs = new IntersectionObserver((entries) => { entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('reveal'); }); }, {threshold:0.12});
+    reveals.forEach(r => { r.classList.add('hidden-obs'); obs.observe(r); });
 
-  // mild entrance animation (staggered)
-  function revealTiles(){
-    const tiles = Array.from(document.querySelectorAll('.tile'));
-    tiles.forEach((t, i) => { t.style.opacity = 0; t.style.transform = 'translateY(24px)'; setTimeout(()=>{ t.style.transition = 'all .6s cubic-bezier(.2,.9,.2,1)'; t.style.opacity = 1; t.style.transform = 'translateY(0)'; }, 120*i); });
-  }
-  window.addEventListener('load', revealTiles);
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => { toTop.style.display = window.scrollY > innerHeight/2 ? 'block' : 'none'; });
+    toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 
-  /************************
-   * Lightbox/Modal logic
-   ************************/
-  const lbBackdrop = document.getElementById('lbBackdrop');
-  const lbImg = document.getElementById('lbImg');
-  const lbTitle = document.getElementById('lbTitle');
-  const lbDesc = document.getElementById('lbDesc');
-  const lbStack = document.getElementById('lbStack');
-  const lbClose = document.getElementById('lbClose');
-  const lbPrev = document.getElementById('lbPrev');
-  const lbNext = document.getElementById('lbNext');
-  const lightbox = document.getElementById('lightbox');
+    /* ---------- Collage entrance animation (stagger) ---------- */
+    window.addEventListener('load', () => {
+      const tiles = Array.from(document.querySelectorAll('.tile'));
+      tiles.forEach((t,i) => {
+        t.style.opacity = 0; t.style.transform = 'translateY(18px)';
+        setTimeout(() => { t.style.transition = 'all .6s cubic-bezier(.2,.9,.2,1)'; t.style.opacity = 1; t.style.transform = 'translateY(0)'; }, 80 * i);
+      });
+    });
 
-  let currentIndex = 0;
+    /* ---------- Contact form (simple) ---------- */
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      formStatus.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{ 'Accept':'application/json' } });
+        formStatus.textContent = res.ok ? 'Thanks — I will reply soon!' : 'Something went wrong. Try again later.';
+        if (res.ok) form.reset();
+      } catch (err) { formStatus.textContent = 'Network error. Please try again.'; }
+    });
 
-  function openLightbox(idx){
-    currentIndex = idx;
-    const p = projects[idx];
-    lbImg.src = p.image;
-    lbImg.alt = p.alt || p.title;
-    lbTitle.textContent = p.title;
-    lbDesc.textContent = p.desc || '';
-    lbStack.innerHTML = '';
-    (p.stack||[]).forEach(s => { const sp = document.createElement('span'); sp.className='chip'; sp.textContent = s; lbStack.appendChild(sp); });
-    lbBackdrop.style.display = 'flex';
-    lbBackdrop.setAttribute('aria-hidden','false');
-    requestAnimationFrame(()=> lightbox.classList.add('show'));
-    lbClose.focus();
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeLightbox(){
-    lightbox.classList.remove('show');
-    lbBackdrop.setAttribute('aria-hidden','true');
-    setTimeout(()=> { lbBackdrop.style.display = 'none'; document.body.style.overflow = ''; }, 320);
-  }
-
-  function showNext(){ currentIndex = (currentIndex + 1) % projects.length; openLightbox(currentIndex); }
-  function showPrev(){ currentIndex = (currentIndex - 1 + projects.length) % projects.length; openLightbox(currentIndex); }
-
-  lbClose.addEventListener('click', closeLightbox);
-  lbNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
-  lbPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
-  lbBackdrop.addEventListener('click', (e)=> { if (e.target === lbBackdrop) closeLightbox(); });
-
-  // keyboard navigation for lightbox
-  document.addEventListener('keydown', (e) => {
-    if (lbBackdrop.style.display === 'flex'){
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') showNext();
-      if (e.key === 'ArrowLeft') showPrev();
-    }
-  });
-
-  // swipe in lightbox
-  (function lbSwipe(){
-    let sx=0;
-    const media = document.querySelector('.lightbox-media');
-    media.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
-    media.addEventListener('touchend', e => {
-      const ex = e.changedTouches[0].clientX, d = sx - ex;
-      if (Math.abs(d) > 50) { if (d>0) showNext(); else showPrev(); }
-    }, {passive:true});
-  })();
-
-  /************************
-   * Scroll reveal + back to top
-   ************************/
-  const reveals = document.querySelectorAll('main section, header.hero');
-  const obs = new IntersectionObserver((entries) => { entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('reveal'); }); }, {threshold:0.12});
-  reveals.forEach(r => { r.classList.add('hidden-obs'); obs.observe(r); });
-
-  const toTop = document.getElementById('toTop');
-  window.addEventListener('scroll', () => { toTop.style.display = window.scrollY > innerHeight/2 ? 'block' : 'none' });
-  toTop.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-
-  /************************
-   * Contact form (simple)
-   ************************/
-  const form = document.getElementById('contactForm'), formStatus = document.getElementById('formStatus');
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault(); formStatus.textContent = 'Sending…';
-    try {
-      const res = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} });
-      formStatus.textContent = res.ok ? 'Thanks — I will reply soon!' : 'Something went wrong. Try again later.';
-      if (res.ok) form.reset();
-    } catch (err) { formStatus.textContent = 'Network error. Please try again.'; }
-  });
+    /* ========== NOTES & TWEAKS ==========
+       - To improve performance in production, provide optimized images:
+         projects[i].image = { src:'full.jpg', webp:'full.webp', thumb:'small.jpg' }
+         and prefer srcset / picture tags.
+       - If your images are cross-origin, dominant color extraction may fail (canvas tainting).
+         Option: provide an explicit 'accent' color per project in the array like {accent:'#bcd'}.
+       - To force a particular composition, you can add p.cols/p.rows hints in the array and map to grid spans.
+       - If you want story mode (auto-play lightbox), I can add it quickly.
+    ===================================== */
 
   </script>
 </body>
