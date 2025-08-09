@@ -10,34 +10,36 @@
     /* Reset and purple-inspired root variables */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f4f3ff; /* light lavender */
-      --card: #ebe9ff; /* very light lavender */
-      --text: #2e026d; /* dark plum */
-      --muted: #6b4eff; /* soft moderate purple */
-      --accent: #7c3aed; /* vivid violet */
-      --accent-2: #9f7aea; /* lighter purple */
+      --bg: #f4f3ff;
+      --card: #ebe9ff;
+      --text: #2e026d;
+      --muted: #6b4eff;
+      --accent: #7c3aed;
+      --accent-2: #9f7aea;
       --radius: 14px;
       --gap: 16px;
       --focus-outline: 3px solid #7c3aed;
       --shadow-glow: rgba(124,58,237, 0.5);
       --shadow-soft: rgba(158,97,255, 0.15);
-      --icon-color: #4c1d95; /* deep purple */
-      --icon-hover-color: #7c3aed; /* violet */
+      --icon-color: #4c1d95;
+      --icon-hover-color: #7c3aed;
     }
     body.dark {
-      --bg: #220e75; /* deep dark purple */
-      --card: #3a1c83; /* dark purple */
-      --text: #e0d7ff; /* pale lavender text */
-      --muted: #b2a9ff; /* muted light purple */
-      --accent: #9f7aea; /* lighter purple */
-      --accent-2: #7c3aed; /* vivid violet */
+      --bg: #220e75;
+      --card: #3a1c83;
+      --text: #e0d7ff;
+      --muted: #b2a9ff;
+      --accent: #9f7aea;
+      --accent-2: #7c3aed;
       --shadow-glow: rgba(158,122,255, 0.5);
       --shadow-soft: rgba(124,58,237, 0.3);
-      --icon-color: #c4b5fd; /* soft lavender */
-      --icon-hover-color: #d8b4fe; /* light violet */
+      --icon-color: #c4b5fd;
+      --icon-hover-color: #d8b4fe;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -53,7 +55,8 @@
       text-decoration: none;
       transition: color 0.3s ease;
     }
-    a:hover, a:focus {
+    a:hover,
+    a:focus {
       color: var(--accent);
       text-decoration: underline;
       outline: none;
@@ -150,7 +153,9 @@
     }
 
     /* Focus outlines */
-    button:focus, a:focus, .tile:focus {
+    button:focus,
+    a:focus,
+    .tile:focus {
       outline: var(--focus-outline);
       outline-offset: 3px;
       box-shadow: 0 0 10px var(--shadow-glow);
@@ -168,7 +173,9 @@
       animation: heroFadeIn 1.8s ease forwards;
     }
     @keyframes heroFadeIn {
-      to { opacity: 0; }
+      to {
+        opacity: 0;
+      }
     }
 
     /* Hero section with animated shapes and cinematic zoom/pulse */
@@ -187,7 +194,12 @@
       opacity: 0;
       transform: translateY(40px);
     }
-    @keyframes heroEntry { to {opacity: 1; transform: translateY(0);} }
+    @keyframes heroEntry {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
     .hero-background-shapes {
       position: absolute;
@@ -198,9 +210,17 @@
       animation: zoomOut 20s linear infinite;
     }
     @keyframes zoomOut {
-      0% { transform: scale(1) translateZ(0); opacity: 1; }
-      50% { opacity: 0.8; }
-      100% { transform: scale(0.95) translateZ(0); opacity: 1; }
+      0% {
+        transform: scale(1) translateZ(0);
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0.95) translateZ(0);
+        opacity: 1;
+      }
     }
     .shape {
       position: absolute;
@@ -239,16 +259,28 @@
       animation-delay: 5s;
     }
     @keyframes floatX {
-      0% {transform: translateX(0);}
-      100% {transform: translateX(32px);}
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(32px);
+      }
     }
     @keyframes floatY {
-      0% {transform: translateY(0);}
-      100% {transform: translateY(-42px);}
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-42px);
+      }
     }
     @keyframes floatXRev {
-      0% {transform: translateX(0);}
-      100% {transform: translateX(-27px);}
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-27px);
+      }
     }
 
     /* Spotlight glow around profile picture with subtle pulsation */
@@ -259,10 +291,10 @@
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      border: 4px solid rgba(255,255,255,0.5);
+      border: 4px solid rgba(255, 255, 255, 0.5);
       box-shadow:
-        0 0 28px 14px rgba(124,58,237,0.85),
-        inset 0 0 30px rgba(255,255,255,1);
+        0 0 28px 14px rgba(124, 58, 237, 0.85),
+        inset 0 0 30px rgba(255, 255, 255, 1);
       margin: 0 auto 28px;
       display: block;
       transition: box-shadow 0.3s ease;
@@ -271,20 +303,21 @@
     .profile-pic:hover,
     .profile-pic:focus {
       box-shadow:
-        0 0 38px 18px rgba(124,58,237,0.95),
-        inset 0 0 38px rgba(255,255,255,1);
+        0 0 38px 18px rgba(124, 58, 237, 0.95),
+        inset 0 0 38px rgba(255, 255, 255, 1);
       outline: none;
     }
     @keyframes spotlightPulse {
-      0%, 100% {
+      0%,
+      100% {
         box-shadow:
-          0 0 28px 14px rgba(124,58,237,0.85),
-          inset 0 0 30px rgba(255,255,255,1);
+          0 0 28px 14px rgba(124, 58, 237, 0.85),
+          inset 0 0 30px rgba(255, 255, 255, 1);
       }
       50% {
         box-shadow:
-          0 0 38px 18px rgba(124,58,237,0.95),
-          inset 0 0 38px rgba(255,255,255,1);
+          0 0 38px 18px rgba(124, 58, 237, 0.95),
+          inset 0 0 38px rgba(255, 255, 255, 1);
       }
     }
 
@@ -296,10 +329,10 @@
       animation-fill-mode: forwards;
     }
     .hero-inner > h1 {
-      animation: slideUpFadeIn 1.2s cubic-bezier(0.2,0,0,1) 1.2s forwards;
+      animation: slideUpFadeIn 1.2s cubic-bezier(0.2, 0, 0, 1) 1.2s forwards;
     }
     .hero-inner > h2 {
-      animation: slideUpFadeIn 1.2s cubic-bezier(0.2,0,0,1) 1.8s forwards;
+      animation: slideUpFadeIn 1.2s cubic-bezier(0.2, 0, 0, 1) 1.8s forwards;
     }
     @keyframes slideUpFadeIn {
       to {
@@ -346,7 +379,7 @@
       font-weight: 700;
       margin-bottom: 8px;
       letter-spacing: 0.06em;
-      text-shadow: 0 0 10px rgba(46,2,109,0.65);
+      text-shadow: 0 0 10px rgba(46, 2, 109, 0.65);
     }
     h1 .name {
       background: linear-gradient(45deg, #7c3aed, #2e026d);
@@ -366,7 +399,7 @@
       font-style: italic;
     }
     .typing {
-      border-right: 3px solid rgba(255,255,255,0.85);
+      border-right: 3px solid rgba(255, 255, 255, 0.85);
       padding-right: 12px;
       white-space: nowrap;
       transition: border-color 0.3s;
@@ -390,7 +423,7 @@
       background: linear-gradient(90deg, var(--accent), var(--accent-2));
       color: #fff;
       letter-spacing: 0.06em;
-      text-shadow: 0 0 5px rgba(0,0,0,0.35);
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.35);
     }
     .btn.primary:hover,
     .btn.primary:focus {
@@ -454,6 +487,21 @@
       opacity: 1;
       transition: opacity 0.6s ease;
     }
+    @media (max-width: 1024px) {
+      #collage {
+        column-count: 3;
+      }
+    }
+    @media (max-width: 700px) {
+      #collage {
+        column-count: 2;
+      }
+    }
+    @media (max-width: 400px) {
+      #collage {
+        column-count: 1;
+      }
+    }
     #collage > * {
       break-inside: avoid;
       -webkit-column-break-inside: avoid;
@@ -491,7 +539,7 @@
       bottom: 16px;
       left: 16px;
       color: white;
-      text-shadow: 0 0 14px rgba(0,0,0,0.75);
+      text-shadow: 0 0 14px rgba(0, 0, 0, 0.75);
       font-weight: 700;
       font-size: 1.3rem;
       pointer-events: none;
@@ -699,8 +747,11 @@
     (function typing() {
       const el = document.getElementById('typing');
       const phrases = ["Graphic Designer", "Digital Illustrator", "Brand Strategist", "Creative Problem Solver"];
-      let p = 0, c = 0, fwd = true;
-      let paused = false, timeoutId;
+      let p = 0,
+        c = 0,
+        fwd = true;
+      let paused = false,
+        timeoutId;
 
       function loop() {
         if (paused) {
@@ -729,10 +780,22 @@
         timeoutId = setTimeout(loop, fwd ? 110 : 40);
       }
 
-      el.addEventListener('mouseenter', () => { paused = true; clearTimeout(timeoutId); });
-      el.addEventListener('mouseleave', () => { paused = false; loop(); });
-      el.addEventListener('focus', () => { paused = true; clearTimeout(timeoutId); });
-      el.addEventListener('blur', () => { paused = false; loop(); });
+      el.addEventListener('mouseenter', () => {
+        paused = true;
+        clearTimeout(timeoutId);
+      });
+      el.addEventListener('mouseleave', () => {
+        paused = false;
+        loop();
+      });
+      el.addEventListener('focus', () => {
+        paused = true;
+        clearTimeout(timeoutId);
+      });
+      el.addEventListener('blur', () => {
+        paused = false;
+        loop();
+      });
 
       setTimeout(loop, 700);
     })();
@@ -837,9 +900,17 @@
     }
 
     lbClose.addEventListener('click', closeLightbox);
-    lbNext.addEventListener('click', e => { e.stopPropagation(); showNext(); });
-    lbPrev.addEventListener('click', e => { e.stopPropagation(); showPrev(); });
-    lbBackdrop.addEventListener('click', e => { if (e.target === lbBackdrop) closeLightbox(); });
+    lbNext.addEventListener('click', e => {
+      e.stopPropagation();
+      showNext();
+    });
+    lbPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      showPrev();
+    });
+    lbBackdrop.addEventListener('click', e => {
+      if (e.target === lbBackdrop) closeLightbox();
+    });
     document.addEventListener('keydown', e => {
       if (lbBackdrop.style.display === 'flex') {
         if (e.key === 'Escape') closeLightbox();
@@ -848,11 +919,13 @@
       }
     });
 
-    (function lbSwipe(){
+    (function lbSwipe() {
       let sx = 0;
       const media = document.querySelector('.lb-media');
       if (!media) return;
-      media.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+      media.addEventListener('touchstart', e => {
+        sx = e.touches[0].clientX;
+      }, { passive: true });
       media.addEventListener('touchend', e => {
         const ex = e.changedTouches[0].clientX;
         const d = sx - ex;
@@ -860,7 +933,7 @@
           if (d > 0) showNext();
           else showPrev();
         }
-      }, {passive:true});
+      }, { passive: true });
     })();
 
     // Reveal animations & back-to-top button
@@ -878,8 +951,9 @@
     window.addEventListener('scroll', () => {
       toTop.style.display = window.scrollY > innerHeight / 2 ? 'block' : 'none';
     });
-    toTop.addEventListener('click', () => { window.scrollTo({ top:0, behavior:'smooth' }); });
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
-
 </body>
 </html>
