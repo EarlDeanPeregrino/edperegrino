@@ -558,6 +558,44 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* Contact form professional styling */
+    form#contactForm label {
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+    form#contactForm input,
+    form#contactForm textarea {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      border: 1px solid #555;
+      background: #222;
+      color: var(--text);
+      width: 100%;
+      transition: border-color 0.3s ease;
+    }
+    body.light form#contactForm input,
+    body.light form#contactForm textarea {
+      background: #fff;
+      border-color: #ccc;
+      color: var(--text);
+    }
+    form#contactForm input:focus,
+    form#contactForm textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+      box-shadow: 0 0 8px var(--accent);
+      background: var(--bg);
+    }
+    form#contactForm small.muted {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
@@ -605,26 +643,44 @@
     </section>
 
     <section id="contact" class="card" aria-labelledby="contactTitle">
-      <h2 id="contactTitle">Contact</h2>
-      <p class="muted">Want to work together? Send a short message — I’ll reply within a few days.</p>
+      <h2 id="contactTitle">Contact Me</h2>
+      <p class="muted">Interested in working together? Please fill out the form or use the alternative contacts below. I’ll respond promptly.</p>
+
       <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-        <label for="contactName" class="sr-only">Your name</label>
-        <input id="contactName" name="name" placeholder="Your name" required aria-label="Your name" aria-describedby="nameHelp" />
-        <div id="nameHelp" class="sr-only">Please enter your full name.</div>
+        <div style="display: flex; flex-direction: column; gap: 16px; max-width: 480px;">
+          <label for="contactName">Name <span aria-hidden="true" style="color: var(--accent)">*</span></label>
+          <input type="text" id="contactName" name="name" placeholder="Your full name" required aria-required="true" aria-describedby="nameHelp" autocomplete="name" />
+          <small id="nameHelp" class="muted">Please enter your full name.</small>
 
-        <label for="contactEmail" class="sr-only">Your email</label>
-        <input id="contactEmail" type="email" name="_replyto" placeholder="Your email" required aria-label="Your email" aria-describedby="emailHelp" />
-        <div id="emailHelp" class="sr-only">Please enter a valid email address.</div>
+          <label for="contactEmail">Email <span aria-hidden="true" style="color: var(--accent)">*</span></label>
+          <input type="email" id="contactEmail" name="_replyto" placeholder="you@example.com" required aria-required="true" aria-describedby="emailHelp" autocomplete="email" />
+          <small id="emailHelp" class="muted">A valid email address so I can reply.</small>
 
-        <label for="contactMessage" class="sr-only">Your message</label>
-        <textarea id="contactMessage" name="message" placeholder="Tell me about your project" required aria-label="Your message" aria-describedby="messageHelp"></textarea>
-        <div id="messageHelp" class="sr-only">Write a brief message about your project.</div>
+          <label for="contactPhone">Phone Number</label>
+          <input type="tel" id="contactPhone" name="phone" placeholder="+1 555 123 4567" pattern="^\+?[0-9\s\-]{7,15}$" aria-describedby="phoneHelp" autocomplete="tel" />
+          <small id="phoneHelp" class="muted">Optional. Include country code.</small>
 
-        <div style="display:flex; gap:12px; align-items:center; margin-top:8px; flex-wrap:wrap;">
-          <button type="submit" class="btn primary">Send Message</button>
-          <div id="formStatus" class="muted" aria-live="polite" aria-atomic="true" role="alert" tabindex="0"></div>
+          <label for="contactMessage">Message <span aria-hidden="true" style="color: var(--accent)">*</span></label>
+          <textarea id="contactMessage" name="message" placeholder="Tell me about your project" required aria-required="true" aria-describedby="messageHelp" rows="6"></textarea>
+          <small id="messageHelp" class="muted">Describe your project or inquiry in brief.</small>
+
+          <button type="submit" class="btn primary" style="align-self: flex-start;">Send Message</button>
+          <div id="formStatus" class="muted" aria-live="polite" aria-atomic="true" role="alert" tabindex="0" style="margin-top: 8px;"></div>
         </div>
       </form>
+
+      <!-- Alternative Contact Info -->
+      <div style="margin-top: 32px; max-width: 480px; font-size: 0.9rem; color: var(--muted);">
+        <p>You can also reach me by:</p>
+        <ul style="list-style: none; padding-left: 0;">
+          <li>Email: <a href="mailto:youremail@example.com" style="color: var(--accent); text-decoration: none;">youremail@example.com</a></li>
+          <li>Phone: <a href="tel:+15551234567" style="color: var(--accent); text-decoration: none;">+1 555 123 4567</a></li>
+          <li>Connect on 
+            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">LinkedIn</a>, 
+            <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none;">Twitter</a>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 
@@ -651,20 +707,24 @@
   </div>
 
   <script>
-    // Project data
+    // Project data for featured gallery (10 images)
     const projects = [
-      { id: 'p1', title: 'Aurora — Brand Identity', image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80', alt: 'Aurora brand', desc: 'Full brand identity: logos, stationery, social templates.', stack: ['Logo', 'Illustrator', 'Figma'] },
-      { id: 'p2', title: 'Campaign Illustrations', image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80', alt: 'Illustration series', desc: 'Illustration series for print and web.', stack: ['Procreate', 'Photoshop'] },
-      { id: 'p3', title: 'Packaging Concept', image: 'https://images.unsplash.com/photo-1516685018646-54917f0a9a2f?auto=format&fit=crop&w=800&q=80', alt: 'Packaging', desc: 'Sustainable packaging mockups and dielines.', stack: ['Blender', 'Illustrator'] },
-      { id: 'p4', title: 'UI Visuals', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80', alt: 'UI visuals', desc: 'Micro-interactions and animated UI comps.', stack: ['Figma', 'After Effects'] },
-      { id: 'p5', title: 'Poster Series', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80', alt: 'Posters', desc: 'Event posters with bold typography.', stack: ['Illustrator', 'Photoshop'] },
-      { id: 'p6', title: 'Editorial Layouts', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800&q=80', alt: 'Editorial', desc: 'Magazine spreads and layout systems.', stack: ['InDesign', 'Photoshop'] }
+      { title: 'Aurora — Brand Identity', image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80', alt: 'Aurora brand' },
+      { title: 'Campaign Illustrations', image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80', alt: 'Illustration series' },
+      { title: 'Packaging Concept', image: 'https://images.unsplash.com/photo-1516685018646-54917f0a9a2f?auto=format&fit=crop&w=800&q=80', alt: 'Packaging' },
+      { title: 'UI Visuals', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80', alt: 'UI visuals' },
+      { title: 'Poster Series', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80', alt: 'Posters' },
+      { title: 'Editorial Layouts', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800&q=80', alt: 'Editorial' },
+      { title: 'Creative Campaign', image: 'https://images.unsplash.com/photo-1496386461643-cd3c1a4084df?auto=format&fit=crop&w=800&q=80', alt: 'Creative campaign' },
+      { title: 'Brand Guidelines', image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80', alt: 'Brand guidelines' },
+      { title: 'Artistic Poster', image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80', alt: 'Artistic poster' },
+      { title: 'UX Wireframes', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80', alt: 'UX wireframes' }
     ];
 
     // Insert current year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Theme toggle
+    // Theme toggle with persistence
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('pref-theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -676,20 +736,18 @@
     } else {
       document.body.classList.add('light');
     }
-
     const updateThemeIcon = () => {
       themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
       themeToggle.setAttribute('aria-label', document.body.classList.contains('light') ? 'Switch to dark theme' : 'Switch to light theme');
     };
     updateThemeIcon();
-
     themeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light');
       localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark');
       updateThemeIcon();
     });
 
-    // Typing animation
+    // Typing animation with pause on hover/focus
     (function typing() {
       const el = document.getElementById('typing');
       const phrases = ["Graphic Designer", "Digital Illustrator", "Brand Strategist", "Creative Problem Solver"];
@@ -731,45 +789,37 @@
       setTimeout(loop, 700);
     })();
 
-    // Build gallery tiles
+    // Build featured projects gallery
     const collage = document.getElementById('collage');
-    projects.forEach((p, idx) => {
+    projects.forEach(proj => {
       const tile = document.createElement('button');
       tile.className = 'tile';
       tile.type = 'button';
-      tile.setAttribute('data-idx', idx);
-      tile.setAttribute('aria-label', p.title + ' — open details');
-      tile.setAttribute('tabindex', '0');
+      tile.setAttribute('aria-label', proj.title + ' — open details');
 
       const img = document.createElement('img');
-      img.src = p.image;
-      img.alt = p.alt || p.title;
+      img.src = proj.image;
+      img.alt = proj.alt || proj.title;
       img.loading = 'lazy';
-      img.className = 'img-blur';
 
       const meta = document.createElement('div');
       meta.className = 'meta';
-      meta.textContent = p.title;
+      meta.textContent = proj.title;
 
       tile.appendChild(img);
       tile.appendChild(meta);
       collage.appendChild(tile);
 
-      img.addEventListener('load', () => {
-        img.classList.add('img-loaded');
-        img.classList.remove('img-blur');
-      });
-
-      tile.addEventListener('click', () => openLightbox(idx));
+      tile.addEventListener('click', () => openLightboxByTitle(proj.title));
       tile.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          openLightbox(idx);
+          openLightboxByTitle(proj.title);
         }
       });
     });
 
-    // Lightbox setup
+    // Lightbox setup with projects array
     const lbBackdrop = document.getElementById('lbBackdrop');
     const lbImg = document.getElementById('lbImg');
     const lbTitle = document.getElementById('lbTitle');
@@ -778,125 +828,140 @@
     const lbClose = document.getElementById('lbClose');
     const lbPrev = document.getElementById('lbPrev');
     const lbNext = document.getElementById('lbNext');
-const lightbox = document.getElementById('lightbox');
+    const lightbox = document.getElementById('lightbox');
 
-let currentIndex = 0;
-function openLightbox(idx){
-  currentIndex = idx;
-  const p = projects[idx];
-  lbBackdrop.style.display = 'flex';
-  lbBackdrop.setAttribute('aria-hidden','false');
+    let currentIndex = -1;
 
-  lbImg.src = '';
-  lbImg.alt = '';
-  lbTitle.textContent = p.title;
-  lbDesc.textContent = p.desc || '';
-  lbStack.innerHTML = '';
-  (p.stack || []).forEach(s => {
-    const el = document.createElement('span');
-    el.className = 'chip';
-    el.textContent = s;
-    lbStack.appendChild(el);
-  });
-
-  const high = p.image;
-  const img = new Image();
-  img.onload = () => {
-    lbImg.src = high;
-    lbImg.alt = p.alt || p.title;
-    requestAnimationFrame(() => lightbox.classList.add('show'));
-  };
-  img.onerror = () => {
-    lbImg.src = high;
-    requestAnimationFrame(() => lightbox.classList.add('show'));
-  };
-  img.src = high;
-  document.body.style.overflow = 'hidden';
-  lbClose.focus();
-}
-function closeLightbox(){
-  lightbox.classList.remove('show');
-  lbBackdrop.setAttribute('aria-hidden','true');
-  setTimeout(() => {
-    lbBackdrop.style.display = 'none';
-    document.body.style.overflow = '';
-    const lastTile = document.querySelector(`.tile[data-idx="${currentIndex}"]`);
-    if (lastTile) lastTile.focus();
-  }, 320);
-}
-function showNext(){
-  currentIndex = (currentIndex + 1) % projects.length;
-  openLightbox(currentIndex);
-}
-function showPrev(){
-  currentIndex = (currentIndex - 1 + projects.length) % projects.length;
-  openLightbox(currentIndex);
-}
-
-lbClose.addEventListener('click', closeLightbox);
-lbNext.addEventListener('click', e => { e.stopPropagation(); showNext(); });
-lbPrev.addEventListener('click', e => { e.stopPropagation(); showPrev(); });
-lbBackdrop.addEventListener('click', e => { if(e.target === lbBackdrop) closeLightbox(); });
-
-document.addEventListener('keydown', e => {
-  if (lbBackdrop.style.display === 'flex') {
-    if (e.key === 'Escape') closeLightbox();
-    else if (e.key === 'ArrowRight') showNext();
-    else if (e.key === 'ArrowLeft') showPrev();
-  }
-});
-
-(function lbSwipe(){
-  let sx = 0;
-  const media = document.querySelector('.lb-media');
-  if (!media) return;
-  media.addEventListener('touchstart', e => { sx = e.touches.clientX; }, {passive:true});
-  media.addEventListener('touchend', e => {
-    const ex = e.changedTouches.clientX;
-    const d = sx - ex;
-    if (Math.abs(d) > 50) {
-      if (d > 0) showNext();
-      else showPrev();
+    function openLightbox(idx) {
+      currentIndex = idx;
+      const p = projects[idx];
+      openLightboxByProject(p);
     }
-  }, {passive:true});
-})();
 
-// Reveal & back-to-top
-const reveals = document.querySelectorAll('main section, header.hero');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(en => {
-    if (en.isIntersecting) en.target.classList.add('reveal');
-  });
-}, { threshold: 0.12 });
-reveals.forEach(r => {
-  r.classList.add('hidden-obs');
-  obs.observe(r);
-});
+    function openLightboxByTitle(title) {
+      const idx = projects.findIndex(p => p.title === title);
+      if (idx !== -1) openLightbox(idx);
+    }
 
-const toTop = document.getElementById('toTop');
-window.addEventListener('scroll', () => {
-  toTop.style.display = window.scrollY > innerHeight / 2 ? 'block' : 'none';
-});
-toTop.addEventListener('click', () => {
-  window.scrollTo({ top:0, behavior:'smooth' });
-});
+    function openLightboxByProject(p) {
+      lbBackdrop.style.display = 'flex';
+      lbBackdrop.setAttribute('aria-hidden', 'false');
 
-// Contact form submission handler
-const form = document.getElementById('contactForm');
-const formStatus = document.getElementById('formStatus');
-form?.addEventListener('submit', async e => {
-  e.preventDefault();
-  formStatus.textContent = 'Sending…';
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
+      lbImg.src = '';
+      lbImg.alt = '';
+      lbTitle.textContent = p.title;
+      lbDesc.textContent = p.desc || '';
+      lbStack.innerHTML = '';
+      (p.stack || []).forEach(s => {
+        const el = document.createElement('span');
+        el.className = 'chip';
+        el.textContent = s;
+        lbStack.appendChild(el);
+      });
+
+      const img = new Image();
+      img.onload = () => {
+        lbImg.src = p.image;
+        lbImg.alt = p.alt || p.title;
+        requestAnimationFrame(() => lightbox.classList.add('show'));
+      };
+      img.onerror = () => {
+        lbImg.src = p.image;
+        requestAnimationFrame(() => lightbox.classList.add('show'));
+      };
+      img.src = p.image;
+
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('show');
+      lbBackdrop.setAttribute('aria-hidden', 'true');
+      setTimeout(() => {
+        lbBackdrop.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 320);
+    }
+
+    function showNext() {
+      if(currentIndex === -1) return;
+      currentIndex = (currentIndex + 1) % projects.length;
+      openLightbox(currentIndex);
+    }
+
+    function showPrev() {
+      if(currentIndex === -1) return;
+      currentIndex = (currentIndex - 1 + projects.length) % projects.length;
+      openLightbox(currentIndex);
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbNext.addEventListener('click', e => { e.stopPropagation(); showNext(); });
+    lbPrev.addEventListener('click', e => { e.stopPropagation(); showPrev(); });
+    lbBackdrop.addEventListener('click', e => { if(e.target === lbBackdrop) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (lbBackdrop.style.display === 'flex') {
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowRight') showNext();
+        else if (e.key === 'ArrowLeft') showPrev();
+      }
     });
-    formStatus.textContent = res.ok ? 'Thanks — I will reply soon!' : 'Something went wrong. Try again later.';
-    if (res.ok) form.reset();
-  } catch(e) {
-    formStatus.textContent = 'Network error. Please try again.';
-  }
-});
-</script> </body> </html> ```
+
+    (function lbSwipe(){
+      let sx = 0;
+      const media = document.querySelector('.lb-media');
+      if (!media) return;
+      media.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+      media.addEventListener('touchend', e => {
+        const ex = e.changedTouches[0].clientX;
+        const d = sx - ex;
+        if (Math.abs(d) > 50) {
+          if (d > 0) showNext();
+          else showPrev();
+        }
+      }, {passive:true});
+    })();
+
+    // Reveal & back-to-top
+    const reveals = document.querySelectorAll('main section, header.hero');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) en.target.classList.add('reveal');
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(r => {
+      r.classList.add('hidden-obs');
+      obs.observe(r);
+    });
+
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', () => {
+      toTop.style.display = window.scrollY > innerHeight / 2 ? 'block' : 'none';
+    });
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+
+    // Contact form submission handler
+    const form = document.getElementById('contactForm');
+    const formStatus = document.getElementById('formStatus');
+    form?.addEventListener('submit', async e => {
+      e.preventDefault();
+      formStatus.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        formStatus.textContent = res.ok ? 'Thanks — I will reply soon!' : 'Something went wrong. Try again later.';
+        if (res.ok) form.reset();
+      } catch(e) {
+        formStatus.textContent = 'Network error. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
