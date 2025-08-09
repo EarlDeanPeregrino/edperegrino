@@ -1,902 +1,580 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>[Your Name] — Portfolio</title>
-  <meta name="description" content="Portfolio website featuring a Pinterest-style collage gallery and cinematic hero." />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio | Digital Artist & Graphic Designer</title>
   <style>
-    /* Basic Reset & Variables */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0f0f10;
-      --card: #151516;
-      --text: #f5f5f5;
-      --muted: #bdbdbd;
-      --accent: #ff4081;
-      --accent-2: #00a8ff;
-      --radius: 12px;
-      --gap: 12px;
-      --focus-outline: 3px solid var(--accent);
-    }
-    body.light {
-      --bg: #f6f7fb;
-      --card: #fff;
-      --text: #111;
-      --muted: #556;
-      --accent: #0b76ff;
-      --accent-2: #ff4081;
-    }
-    html {
-      scroll-behavior: smooth;
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
     body {
-      font-family: 'Inter', system-ui, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.45;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      color: #222;
+      transition: background 0.3s, color 0.3s;
     }
-
-    /* Skip to content */
-    .skip-link {
-      position: absolute;
-      top: -40px;
-      left: 0;
-      background: var(--accent);
-      color: #fff;
-      padding: 8px 16px;
-      z-index: 1300;
-      font-weight: 600;
+    a {
+      color: inherit;
       text-decoration: none;
-      border-radius: 0 0 6px 0;
-      transition: top 0.3s ease-in-out;
+      transition: color 0.3s;
     }
-    .skip-link:focus {
-      top: 0;
-      outline: var(--focus-outline);
-      outline-offset: 3px;
+    a:hover {
+      color: #0078D7;
     }
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      inset: 0 0 auto 0;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.24), transparent);
-      backdrop-filter: blur(8px);
-      z-index: 1200;
+    /* Light/Dark mode toggle */
+    body.dark {
+      background: #121212;
+      color: #e0e0e0;
     }
-    .brand {
-      font-weight: 900;
-      color: var(--accent);
-      letter-spacing: 0.5px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      list-style: none;
-      align-items: center;
-    }
-    .nav-links a {
-      color: var(--text);
-      font-weight: 600;
-      text-decoration: none;
-      padding: 6px 2px;
-      transition: color 0.3s ease;
-    }
-    .nav-links a:hover,
-    .nav-links a:focus {
-      color: var(--accent-2);
-      outline: none;
-      text-decoration: underline;
-    }
-    .controls {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-    .icon-btn {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 8px;
-      border-radius: 10px;
-      cursor: pointer;
-      color: var(--text);
-      font-size: 1.1rem;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-    .icon-btn:hover,
-    .icon-btn:focus {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      outline: none;
+    body.dark a:hover {
+      color: #66aaff;
     }
 
-    /* Focus outlines for accessibility */
-    button:focus, a:focus, .tile:focus {
-      outline: var(--focus-outline);
-      outline-offset: 3px;
-      box-shadow: 0 0 6px var(--accent);
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5em;
     }
 
-    /* Hero section - cinematic entrance animation with gradient background */
-    header.hero {
-      min-height: 88vh;
-      padding-top: 64px;
+    /* Hero Section */
+    #hero {
+      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      background: linear-gradient(-45deg, var(--accent), var(--accent-2), #ff8c00, #6ef);
-      background-size: 400% 400%;
-      animation: grad 18s linear infinite;
+      min-height: 90vh;
+      background: linear-gradient(120deg, #1e3c72, #2a5298);
+      color: #fff;
       overflow: hidden;
+      text-align: center;
+      padding: 1em;
+    }
 
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255 255 255 / 0.15), transparent 80%);
+      animation: pulse 6s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.05) translate(5%, 5%); }
+    }
+
+    #profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 5px solid rgba(255 255 255 / 0.75);
+      box-shadow: 0 0 15px rgba(255 255 255 / 0.6);
+      object-fit: cover;
+      z-index: 1;
+      animation: fadeInScale 1.2s ease forwards;
+      background: #eee;
+    }
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.75);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    #hero h1 {
+      margin: 0.75em 0 0.25em;
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+      animation: fadeInUp 1s 0.8s ease forwards;
       opacity: 0;
-      transform: translateY(40px);
-      animation: heroFadeSlide 1.2s cubic-bezier(0.2,0.8,0.2,1) forwards 0.5s;
-      position: relative;
+      transform: translateY(20px);
+      z-index: 1;
     }
-    @keyframes grad {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    #hero p.tagline {
+      font-size: 1.3rem;
+      font-weight: 300;
+      letter-spacing: 1.2px;
+      color: rgba(255 255 255 / 0.8);
+      margin: 0;
+      animation: fadeInUp 1s 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
+      z-index: 1;
     }
-    @keyframes heroFadeSlide {
+    @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    .hero-inner {
-      max-width: 1100px;
-      padding: 28px;
-      z-index: 6;
-      position: relative;
-    }
-    .profile-pic {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid rgba(255,255,255,0.12);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-      margin: 0 auto 14px;
-      display: block;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeSlide 1.2s ease forwards;
-      animation-delay: 1.2s;
-    }
-    h1 {
-      font-size: 2.4rem;
-      margin-bottom: 6px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeSlide 1.2s ease forwards;
-      animation-delay: 1.5s;
-    }
-    .name {
-      color: var(--accent);
-      font-weight: 900;
-    }
-    h2 {
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 18px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeSlide 1.2s ease forwards;
-      animation-delay: 1.8s;
-    }
-    .typing {
-      display: inline-block;
-      border-right: 3px solid rgba(255,255,255,0.12);
-      padding-right: 8px;
-      white-space: nowrap;
-      transition: border-color 0.3s;
-    }
-    .typing:hover,
-    .typing:focus {
-      border-color: transparent;
-      outline: none;
-    }
-    .cta {
+
+    /* Resume & Mode Toggle Button Container */
+    #hero-buttons {
+      margin-top: 1.6em;
       display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeSlide 1.2s ease forwards;
-      animation-delay: 2.0s;
+      gap: 1em;
+      z-index: 1;
     }
-    .btn {
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: none;
-      font-weight: 700;
+    button, .btn-link {
       cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      padding: 0.6em 1.2em;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e3c72;
+      background: #f0f8ff;
+      box-shadow: 0 4px 8px rgba(30,60,114,0.2);
+      transition: background-color 0.3s, box-shadow 0.3s;
+      user-select: none;
     }
-    .btn.primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    button:hover, .btn-link:hover {
+      background: #d0e2ff;
+      box-shadow: 0 6px 12px rgba(30,60,114,0.35);
     }
-    .btn.primary:hover,
-    .btn.primary:focus {
-      box-shadow: 0 12px 36px rgba(0,0,0,0.35);
-      outline: none;
+    body.dark button, body.dark .btn-link {
+      color: #cbd5f5;
+      background: #222e50;
+      box-shadow: 0 4px 8px rgba(255 255 255, 0.1);
     }
-    .btn.ghost {
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: color 0.3s ease, border-color 0.3s ease;
-    }
-    body.light .btn.ghost {
-      color: var(--text);
-      border-color: rgba(0,0,0,0.1);
-    }
-    .btn.ghost:hover,
-    .btn.ghost:focus {
-      color: var(--accent);
-      border-color: var(--accent);
-      outline: none;
+    body.dark button:hover, body.dark .btn-link:hover {
+      background: #4060a0;
+      box-shadow: 0 6px 16px rgba(255 255 255, 0.2);
     }
 
-    /* Floating circles (optional) */
-    .circle-layer {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
-    }
-
-    /* Main content */
-    main {
-      max-width: 1200px;
-      margin: 36px auto;
-      padding: 10px 20px 80px;
-      scroll-margin-top: 80px;
-    }
-    section.card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin: 26px 0;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-      transition: transform 0.28s;
-    }
-    section.card:hover,
-    section.card:focus-within {
-      transform: translateY(-6px);
-      outline: none;
-    }
-    h2 {
-      margin-bottom: 10px;
-    }
-    .muted {
-      color: var(--muted);
-    }
-
-    /* Pinterest-style multi-column gallery */
-    #collage {
+    /* Gallery Section */
+    #gallery {
+      margin: 2em auto;
       column-count: 4;
-      column-gap: var(--gap);
-      opacity: 0;
-      animation: fadeIn 1s forwards ease 2.3s;
+      column-gap: 1em;
+      max-width: 1100px;
     }
-    #collage > * {
-      break-inside: avoid;
-      -webkit-column-break-inside: avoid;
-      display: inline-block;
-      width: 100%;
-      margin-bottom: var(--gap);
-    }
-    @media (max-width:1100px) {
-      #collage {
+    @media (max-width: 1024px) {
+      #gallery {
         column-count: 3;
       }
     }
-    @media (max-width:700px) {
-      #collage {
+    @media (max-width: 720px) {
+      #gallery {
         column-count: 2;
       }
     }
-    @media (max-width:400px) {
-      #collage {
+    @media (max-width: 480px) {
+      #gallery {
         column-count: 1;
       }
     }
-    .tile {
+    .gallery-item {
+      margin-bottom: 1em;
+      break-inside: avoid;
       position: relative;
       cursor: pointer;
-      border-radius: var(--radius);
-      color: #fff;
-      background: linear-gradient(180deg, rgba(0,0,0,0.05), transparent);
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      outline: none;
     }
-    .tile:hover,
-    .tile:focus {
-      transform: scale(1.03);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.4);
-      outline: none;
+    .gallery-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+      z-index: 10;
     }
-    .tile img {
+    .gallery-item img {
       width: 100%;
-      border-radius: var(--radius);
+      height: auto;
       display: block;
-      transition: transform 0.4s ease, filter 0.3s ease;
+      border-radius: 12px;
       object-fit: cover;
-      user-select: none;
-      pointer-events: none;
-    }
-    .tile .meta {
-      position: absolute;
-      bottom: 12px;
-      left: 12px;
-      font-weight: 700;
-      font-size: 1.05rem;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      user-select: none;
-      pointer-events: none;
-      z-index: 2;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    /* Blur-up placeholder */
-    .img-blur {
-      filter: blur(18px) saturate(0.9) contrast(0.95);
-      transform: scale(1.02);
-    }
-    .img-loaded {
-      filter: none;
-      transform: scale(1);
-      transition: filter 0.48s ease, opacity 0.48s ease, transform 0.48s ease;
-    }
-
-    /* Lightbox Modal */
-    .lb-backdrop {
+    /* Lightbox */
+    #lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.86);
+      background: rgba(0,0,0,0.85);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 1500;
-      padding: 18px;
+      z-index: 1000;
+      cursor: zoom-out;
     }
-    .lb {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
-      transform: scale(0.98) translateY(8px);
-      opacity: 0;
-      transition: all 0.34s cubic-bezier(0.2, 0.9, 0.2, 1);
-      outline: none;
-      background: var(--card);
-      border-radius: var(--radius);
-    }
-    .lb.show {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-    .lb-media {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 60vh;
-      overflow: hidden;
-      border-radius: var(--radius);
-      position: relative;
-    }
-    .lb-media img {
-      max-width: 100%;
-      max-height: 82vh;
-      object-fit: contain;
-      display: block;
-      border-radius: var(--radius);
-      user-select: none;
-      pointer-events: none;
-    }
-    .lb-info {
-      width: 360px;
-      padding: 14px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      backdrop-filter: blur(6px);
-      border-radius: var(--radius);
-      color: var(--text);
-      user-select: text;
-    }
-    .lb-info h3 {
-      margin-bottom: 8px;
-      font-weight: 900;
-      font-size: 1.5rem;
-    }
-    .lb-info p.muted {
-      color: var(--muted);
-    }
-    .stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .chip {
-      padding: 6px 8px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.03);
-      font-size: 0.86rem;
-      user-select: none;
-    }
-    .lb-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 8px;
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
       border-radius: 10px;
-      color: var(--text);
-      cursor: pointer;
-      font-size: 1.25rem;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
     }
-    .lb-close:hover,
-    .lb-close:focus {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      outline: none;
+    #lightbox:target {
+      display: flex;
     }
-    .lb-nav {
+    #lightbox-close {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 34px;
-      color: #fff;
-      background: transparent;
-      border: none;
-      padding: 12px;
+      top: 1.2em;
+      right: 1.2em;
+      font-size: 2em;
+      color: white;
       cursor: pointer;
       user-select: none;
+      z-index: 1001;
+    }
+
+    /* Sections - About, How I Work, Motivation, Contact */
+    section {
+      background: #fff;
+      margin: 3em 0;
+      padding: 2em 2.5em;
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark section {
+      background: #1f2937;
+      box-shadow: 0 10px 25px rgba(255,255,255,0.07);
+      color: #d1d5db;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1em;
+      border-bottom: 3px solid #0078D7;
+      padding-bottom: 0.25em;
+      width: fit-content;
+    }
+    section p {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin-bottom: 1.1em;
+      white-space: pre-line;
+    }
+
+    /* How I Work - timeline style */
+    #how-i-work ul {
+      list-style: none;
+      padding-left: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    #how-i-work li {
+      position: relative;
+      padding-left: 3em;
+      margin-bottom: 1.5em;
+      font-size: 1.1rem;
+      color: #2d3748;
+    }
+    body.dark #how-i-work li {
+      color: #e2e8f0;
+    }
+    #how-i-work li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5em;
+      width: 1.5em;
+      height: 1.5em;
+      border-radius: 50%;
+      background: #0078D7;
+      box-shadow: 0 0 6px #0078D7;
+    }
+
+    /* Contact Section */
+    #contact {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #contact .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      margin-top: 1em;
+      margin-bottom: 2em;
+    }
+    .social-links a {
+      color: #0078D7;
+      font-size: 1.8rem;
       transition: color 0.3s;
     }
-    .lb-nav:hover,
-    .lb-nav:focus {
-      color: var(--accent);
+    body.dark .social-links a {
+      color: #66aaff;
+    }
+    .social-links a:hover {
+      color: #004a9f;
+    }
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+    #contact input, #contact textarea {
+      padding: 0.8em 1em;
+      border-radius: 6px;
+      border: 1.5px solid #ccc;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: border-color 0.3s;
+    }
+    body.dark #contact input, body.dark #contact textarea {
+      background: #2d3748;
+      color: #e2e8f0;
+      border-color: #4c5c77;
+    }
+    #contact input:focus, #contact textarea:focus {
       outline: none;
+      border-color: #0078D7;
+      box-shadow: 0 0 8px #0078D7;
     }
-    .lb-prev {
-      left: 10px;
+    #contact button {
+      background: #0078D7;
+      color: white;
+      font-weight: 700;
+      padding: 0.75em;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color 0.3s;
     }
-    .lb-next {
-      right: 10px;
+    #contact button:hover {
+      background: #005a9e;
     }
 
     /* Footer */
     footer {
-      color: var(--muted);
       text-align: center;
-      padding: 18px;
-      user-select:none;
+      padding: 1.2em 1em;
       font-size: 0.9rem;
+      color: #777;
+      user-select: none;
     }
 
-    /* Back to top button */
-    #toTop {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: white;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      display: none;
-      z-index: 1200;
-      font-size: 1.3rem;
-      user-select:none;
-      transition: background-color 0.3s ease;
-    }
-    #toTop:hover,
-    #toTop:focus {
-      background: var(--accent-2);
-      outline: none;
-    }
-
-    /* Reveal animations */
-    .hidden-obs {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: all 0.7s ease;
-    }
-    .reveal {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* Screen reader only */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      border: 0;
-    }
-
-    /* Reduced motion preference */
-    @media (prefers-reduced-motion: reduce) {
-      .circle {
-        animation: none !important;
-      }
-      html {
-        scroll-behavior: auto !important;
-      }
-    }
   </style>
 </head>
 <body>
+  <!-- Hero Section -->
+  <section id="hero" role="banner">
+    <img
+      src="https://i.pravatar.cc/140?img=7"
+      alt="Profile Picture"
+      id="profile-pic"
+      loading="lazy"
+    />
+    <h1>Alexandra Doe</h1>
+    <p class="tagline">Digital Artist & Graphic Designer</p>
+    <div id="hero-buttons">
+      <a
+        href="AlexandraDoe_Resume.pdf"
+        download="AlexandraDoe_Resume.pdf"
+        class="btn-link"
+        aria-label="Download Resume"
+      >
+        Download Resume
+      </a>
+      <button id="mode-toggle" aria-pressed="false" aria-label="Toggle Light and Dark Mode">
+        Dark Mode
+      </button>
+    </div>
+  </section>
 
-  <a href="#mainContent" class="skip-link">Skip to main content</a>
+  <!-- Gallery section -->
+  <section id="gallery" aria-label="Portfolio Gallery">
+    <div class="gallery-item" tabindex="0" role="button" aria-pressed="false">
+      <img
+        src="https://source.unsplash.com/400x300/?art,abstract,1"
+        alt="Abstract digital art piece showing vibrant colors and shapes"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item" tabindex="0" role="button" aria-pressed="false">
+      <img
+        src="https://source.unsplash.com/400x500/?graphic,design,2"
+        alt="Graphic design showcasing modern typography and layout"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item" tabindex="0" role="button" aria-pressed="false">
+      <img
+        src="https://source.unsplash.com/350x450/?drawing,digital,3"
+        alt="Digital drawing portrait with expressive strokes"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item" tabindex="0" role="button" aria-pressed="false">
+      <img
+        src="https://source.unsplash.com/400x400/?illustration,vector,4"
+        alt="Vector illustration with clean lines and vivid palette"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item" tabindex="0" role="button" aria-pressed="false">
+      <img
+        src="https://source.unsplash.com/400x350/?design,creative,5"
+        alt="Creative conceptual design with mixed media elements"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item" tabindex="0" role="button" aria-pressed="false">
+      <img
+        src="https://source.unsplash.com/350x400/?digital,artwork,6"
+        alt="High-detail digital artwork featuring dynamic lighting"
+        loading="lazy"
+      />
+    </div>
+  </section>
 
-  <nav aria-label="Main navigation">
-    <div class="brand">[Your] Portfolio</div>
-    <ul class="nav-links" role="menubar">
-      <li role="none"><a role="menuitem" href="#hero">Home</a></li>
-      <li role="none"><a role="menuitem" href="#projects">Projects</a></li>
-      <li role="none"><a role="menuitem" href="#about">About</a></li>
-      <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+  <!-- About Me -->
+  <section id="about-me" class="container" tabindex="0" aria-labelledby="about-me-title">
+    <h2 id="about-me-title">About Me</h2>
+    <p>
+      I'm Alexandra Doe, a passionate digital artist and graphic designer with over 7 years of experience crafting unique visual stories that captivate and inspire. My expertise spans digital painting, vector design, and multimedia projects. I believe in combining creativity with precision to bring artistry to every pixel.
+    </p>
+  </section>
+
+  <!-- How I Work -->
+  <section id="how-i-work" class="container" tabindex="0" aria-labelledby="how-i-work-title">
+    <h2 id="how-i-work-title">How I Work</h2>
+    <ul>
+      <li><strong>Consultation:</strong> I start by understanding your vision and goals to tailor the perfect creative approach.</li>
+      <li><strong>Concept Development:</strong> Sketching and brainstorming ideas to find the best artistic direction.</li>
+      <li><strong>Design & Creation:</strong> Using cutting-edge software to create polished, high-quality artwork and graphics.</li>
+      <li><strong>Feedback & Revisions:</strong> Collaborative iteration to ensure the final product exceeds expectations.</li>
+      <li><strong>Final Delivery:</strong> Delivering optimized files ready for digital or print use.</li>
     </ul>
-    <div class="controls">
-      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Toggle light/dark mode">🌓</button>
-      <button id="resumeBtn" class="icon-btn" onclick="location.href='resume.pdf'" aria-label="Download resume" title="Download resume">📄</button>
+  </section>
+
+  <!-- My Motivation -->
+  <section id="my-motivation" class="container" tabindex="0" aria-labelledby="my-motivation-title">
+    <h2 id="my-motivation-title">My Motivation</h2>
+    <p>
+      What drives me is the power of visual storytelling—to evoke emotions, provoke thought, and create connections. Every blank canvas is an opportunity to explore new ideas and push creative boundaries. I'm inspired by nature, technology, and the human experience, always striving to transform inspiration into impactful art.
+    </p>
+    <p style="font-style: italic; text-align: center; margin-top: 1em;">
+      "Art enables us to find ourselves and lose ourselves at the same time." – Thomas Merton
+    </p>
+  </section>
+
+  <!-- Contact Us -->
+  <section id="contact" class="container" tabindex="0" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contact Me</h2>
+    <div class="social-links" role="list">
+      <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener" aria-label="Instagram" role="listitem" tabindex="0" >
+        &#x1F4F7;
+      </a>
+      <a href="https://behance.net/yourprofile" target="_blank" rel="noopener" aria-label="Behance" role="listitem" tabindex="0" >
+        &#x2728;
+      </a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" aria-label="LinkedIn" role="listitem" tabindex="0">
+        &#x1F465;
+      </a>
+      <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener" aria-label="Twitter" role="listitem" tabindex="0" >
+        &#x1F426;
+      </a>
     </div>
-  </nav>
+    <form id="contact-form" action="mailto:your.email@example.com" method="post" enctype="text/plain" aria-label="Contact form">
+      <input type="text" name="name" placeholder="Your Name" required aria-required="true" />
+      <input type="email" name="email" placeholder="Your Email" required aria-required="true" />
+      <textarea name="message" rows="5" placeholder="Your Message" required aria-required="true"></textarea>
+      <button type="submit" aria-label="Send Message">Send Message</button>
+    </form>
+  </section>
 
-  <header id="hero" class="hero" role="banner" aria-label="Intro">
-    <div class="circle-layer" aria-hidden="true"></div>
+  <footer>
+    &copy; 2025 Alexandra Doe &nbsp;|&nbsp; Digital Artist & Graphic Designer
+  </footer>
 
-    <div class="hero-inner">
-      <img class="profile-pic" src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=320&q=80" alt="Portrait of [Your Name]" loading="lazy" width="320" height="320" aria-describedby="profileName" />
-      <h1>Hi — I'm <span id="profileName" class="name">[Your Name]</span></h1>
-      <h2><span id="typing" class="typing" aria-live="polite" aria-atomic="true" tabindex="0"></span></h2>
-      <div class="cta" role="group" aria-label="Call to action buttons">
-        <button class="btn primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View My Work</button>
-        <a class="btn ghost" href="resume.pdf" download aria-label="Download resume document">📄 Download Resume</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="mainContent" tabindex="-1">
-    <section id="projects" class="card" aria-labelledby="projectsTitle">
-      <h2 id="projectsTitle">Featured Works — Pinterest Style Collage</h2>
-      <p class="muted">Upload any aspect ratio — the gallery adapts naturally. Hover/focus to preview, click to zoom.</p>
-      <div id="collage" aria-live="polite" aria-label="Project collage"></div>
-    </section>
-
-    <section id="about" class="card" aria-labelledby="aboutTitle">
-      <h2 id="aboutTitle">About Me</h2>
-      <p class="muted">I design brand identities, digital illustrations, and visuals that tell stories. I blend conceptual thinking with clean execution — from concept to pixel-perfect final files.</p>
-    </section>
-
-    <section id="contact" class="card" aria-labelledby="contactTitle">
-      <h2 id="contactTitle">Contact</h2>
-      <p class="muted">Want to work together? Send a short message — I’ll reply within a few days.</p>
-      <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-        <label for="contactName" class="sr-only">Your name</label>
-        <input id="contactName" name="name" placeholder="Your name" required aria-label="Your name" aria-describedby="nameHelp" />
-        <div id="nameHelp" class="sr-only">Please enter your full name.</div>
-
-        <label for="contactEmail" class="sr-only">Your email</label>
-        <input id="contactEmail" type="email" name="_replyto" placeholder="Your email" required aria-label="Your email" aria-describedby="emailHelp" />
-        <div id="emailHelp" class="sr-only">Please enter a valid email address.</div>
-
-        <label for="contactMessage" class="sr-only">Your message</label>
-        <textarea id="contactMessage" name="message" placeholder="Tell me about your project" required aria-label="Your message" aria-describedby="messageHelp"></textarea>
-        <div id="messageHelp" class="sr-only">Write a brief message about your project.</div>
-
-        <div style="display:flex; gap:12px; align-items:center; margin-top:8px; flex-wrap:wrap;">
-          <button type="submit" class="btn primary">Send Message</button>
-          <div id="formStatus" class="muted" aria-live="polite" aria-atomic="true" role="alert" tabindex="0"></div>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <footer>© <span id="year"></span> [Your Name] — Made with care</footer>
-
-  <button id="toTop" title="Back to top" aria-label="Back to top">↑</button>
-
-  <!-- Lightbox -->
-  <div id="lbBackdrop" class="lb-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
-    <button id="lbPrev" class="lb-nav lb-prev" aria-label="Previous">‹</button>
-    <button id="lbNext" class="lb-nav lb-next" aria-label="Next">›</button>
-    <button id="lbClose" class="lb-close" aria-label="Close lightbox modal">✕</button>
-
-    <div id="lightbox" class="lb" role="document" aria-labelledby="lbTitle" tabindex="0">
-      <div class="lb-media">
-        <img id="lbImg" src="" alt="" loading="lazy" />
-      </div>
-      <aside id="lbInfo" class="lb-info" aria-live="polite" aria-atomic="true">
-        <h3 id="lbTitle"></h3>
-        <p id="lbDesc" class="muted" tabindex="0"></p>
-        <div id="lbStack" class="stack"></div>
-      </aside>
-    </div>
+  <!-- Lightbox Elements -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <span id="lightbox-close" aria-label="Close preview" tabindex="0">&#x2715;</span>
+    <img src="" alt="Expanded artwork preview" />
   </div>
 
   <script>
-    // Project data
-    const projects = [
-      { id: 'p1', title: 'Aurora — Brand Identity', image: 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=800&q=80', alt: 'Aurora brand', desc: 'Full brand identity: logos, stationery, social templates.', stack: ['Logo', 'Illustrator', 'Figma'] },
-      { id: 'p2', title: 'Campaign Illustrations', image: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80', alt: 'Illustration series', desc: 'Illustration series for print and web.', stack: ['Procreate', 'Photoshop'] },
-      { id: 'p3', title: 'Packaging Concept', image: 'https://images.unsplash.com/photo-1516685018646-54917f0a9a2f?auto=format&fit=crop&w=800&q=80', alt: 'Packaging', desc: 'Sustainable packaging mockups and dielines.', stack: ['Blender', 'Illustrator'] },
-      { id: 'p4', title: 'UI Visuals', image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80', alt: 'UI visuals', desc: 'Micro-interactions and animated UI comps.', stack: ['Figma', 'After Effects'] },
-      { id: 'p5', title: 'Poster Series', image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80', alt: 'Posters', desc: 'Event posters with bold typography.', stack: ['Illustrator', 'Photoshop'] },
-      { id: 'p6', title: 'Editorial Layouts', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=800&q=80', alt: 'Editorial', desc: 'Magazine spreads and layout systems.', stack: ['InDesign', 'Photoshop'] }
-    ];
+    // Light/Dark mode toggle
+    const modeToggle = document.getElementById('mode-toggle');
+    const body = document.body;
 
-    // Insert current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('pref-theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme === 'light') {
-      document.body.classList.add('light');
-    } else if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      document.body.classList.remove('light');
-    } else {
-      document.body.classList.add('light');
+    function setMode(mode) {
+      if (mode === 'dark') {
+        body.classList.add('dark');
+        modeToggle.textContent = 'Light Mode';
+        modeToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        body.classList.remove('dark');
+        modeToggle.textContent = 'Dark Mode';
+        modeToggle.setAttribute('aria-pressed', 'false');
+      }
     }
+    // Load mode from localStorage or default to light
+    const savedMode = localStorage.getItem('mode') || 'light';
+    setMode(savedMode);
 
-    const updateThemeIcon = () => {
-      themeToggle.textContent = document.body.classList.contains('light') ? '🌙' : '🌓';
-      themeToggle.setAttribute('aria-label', document.body.classList.contains('light') ? 'Switch to dark theme' : 'Switch to light theme');
-    };
-    updateThemeIcon();
-
-    themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      localStorage.setItem('pref-theme', document.body.classList.contains('light') ? 'light' : 'dark');
-      updateThemeIcon();
+    modeToggle.addEventListener('click', () => {
+      const newMode = body.classList.contains('dark') ? 'light' : 'dark';
+      setMode(newMode);
+      localStorage.setItem('mode', newMode);
     });
 
-    // Typing animation
-    (function typing() {
-      const el = document.getElementById('typing');
-      const phrases = ["Graphic Designer", "Digital Illustrator", "Brand Strategist", "Creative Problem Solver"];
-      let p = 0, c = 0, fwd = true;
-      let paused = false, timeoutId;
+    // Gallery Lightbox
+    const galleryItems = document.querySelectorAll('#gallery .gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = document.getElementById('lightbox-close');
 
-      function loop() {
-        if (paused) {
-          timeoutId = setTimeout(loop, 300);
-          return;
-        }
-        const cur = phrases[p];
-        if (fwd) {
-          c++;
-          el.textContent = cur.slice(0, c);
-          if (c === cur.length) {
-            fwd = false;
-            timeoutId = setTimeout(loop, 900);
-            return;
-          }
-        } else {
-          c--;
-          el.textContent = cur.slice(0, c);
-          if (c === 0) {
-            fwd = true;
-            p = (p + 1) % phrases.length;
-            timeoutId = setTimeout(loop, 300);
-            return;
-          }
-        }
-        timeoutId = setTimeout(loop, fwd ? 110 : 40);
-      }
+    function openLightbox(e) {
+      const img = e.currentTarget.querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.style.display = 'flex';
+      lightboxClose.focus();
+    }
 
-      el.addEventListener('mouseenter', () => { paused = true; clearTimeout(timeoutId); });
-      el.addEventListener('mouseleave', () => { paused = false; loop(); });
-      el.addEventListener('focus', () => { paused = true; clearTimeout(timeoutId); });
-      el.addEventListener('blur', () => { paused = false; loop(); });
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      lightboxImg.src = '';
+    }
 
-      setTimeout(loop, 700);
-    })();
-
-    // Build gallery tiles
-    const collage = document.getElementById('collage');
-    projects.forEach((p, idx) => {
-      const tile = document.createElement('button');
-      tile.className = 'tile';
-      tile.type = 'button';
-      tile.setAttribute('data-idx', idx);
-      tile.setAttribute('aria-label', p.title + ' — open details');
-      tile.setAttribute('tabindex', '0');
-
-      const img = document.createElement('img');
-      img.src = p.image;
-      img.alt = p.alt || p.title;
-      img.loading = 'lazy';
-      img.className = 'img-blur';
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      meta.textContent = p.title;
-
-      tile.appendChild(img);
-      tile.appendChild(meta);
-      collage.appendChild(tile);
-
-      img.addEventListener('load', () => {
-        img.classList.add('img-loaded');
-        img.classList.remove('img-blur');
-      });
-
-      tile.addEventListener('click', () => openLightbox(idx));
-      tile.addEventListener('keydown', (e) => {
+    galleryItems.forEach(item => {
+      item.addEventListener('click', openLightbox);
+      item.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          openLightbox(idx);
+          openLightbox(e);
         }
       });
     });
 
-    // Lightbox setup
-    const lbBackdrop = document.getElementById('lbBackdrop');
-    const lbImg = document.getElementById('lbImg');
-    const lbTitle = document.getElementById('lbTitle');
-    const lbDesc = document.getElementById('lbDesc');
-    const lbStack = document.getElementById('lbStack');
-    const lbClose = document.getElementById('lbClose');
-    const lbPrev = document.getElementById('lbPrev');
-    const lbNext = document.getElementById('lbNext');
-const lightbox = document.getElementById('lightbox');
-
-let currentIndex = 0;
-function openLightbox(idx){
-  currentIndex = idx;
-  const p = projects[idx];
-  lbBackdrop.style.display = 'flex';
-  lbBackdrop.setAttribute('aria-hidden','false');
-
-  lbImg.src = '';
-  lbImg.alt = '';
-  lbTitle.textContent = p.title;
-  lbDesc.textContent = p.desc || '';
-  lbStack.innerHTML = '';
-  (p.stack || []).forEach(s => {
-    const el = document.createElement('span');
-    el.className = 'chip';
-    el.textContent = s;
-    lbStack.appendChild(el);
-  });
-
-  const high = p.image;
-  const img = new Image();
-  img.onload = () => {
-    lbImg.src = high;
-    lbImg.alt = p.alt || p.title;
-    requestAnimationFrame(() => lightbox.classList.add('show'));
-  };
-  img.onerror = () => {
-    lbImg.src = high;
-    requestAnimationFrame(() => lightbox.classList.add('show'));
-  };
-  img.src = high;
-  document.body.style.overflow = 'hidden';
-  lbClose.focus();
-}
-function closeLightbox(){
-  lightbox.classList.remove('show');
-  lbBackdrop.setAttribute('aria-hidden','true');
-  setTimeout(() => {
-    lbBackdrop.style.display = 'none';
-    document.body.style.overflow = '';
-    const lastTile = document.querySelector(`.tile[data-idx="${currentIndex}"]`);
-    if (lastTile) lastTile.focus();
-  }, 320);
-}
-function showNext(){
-  currentIndex = (currentIndex + 1) % projects.length;
-  openLightbox(currentIndex);
-}
-function showPrev(){
-  currentIndex = (currentIndex - 1 + projects.length) % projects.length;
-  openLightbox(currentIndex);
-}
-
-lbClose.addEventListener('click', closeLightbox);
-lbNext.addEventListener('click', e => { e.stopPropagation(); showNext(); });
-lbPrev.addEventListener('click', e => { e.stopPropagation(); showPrev(); });
-lbBackdrop.addEventListener('click', e => { if(e.target === lbBackdrop) closeLightbox(); });
-
-document.addEventListener('keydown', e => {
-  if (lbBackdrop.style.display === 'flex') {
-    if (e.key === 'Escape') closeLightbox();
-    else if (e.key === 'ArrowRight') showNext();
-    else if (e.key === 'ArrowLeft') showPrev();
-  }
-});
-
-(function lbSwipe(){
-  let sx = 0;
-  const media = document.querySelector('.lb-media');
-  if (!media) return;
-  media.addEventListener('touchstart', e => { sx = e.touches.clientX; }, {passive:true});
-  media.addEventListener('touchend', e => {
-    const ex = e.changedTouches.clientX;
-    const d = sx - ex;
-    if (Math.abs(d) > 50) {
-      if (d > 0) showNext();
-      else showPrev();
-    }
-  }, {passive:true});
-})();
-
-// Reveal & back-to-top
-const reveals = document.querySelectorAll('main section, header.hero');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(en => {
-    if (en.isIntersecting) en.target.classList.add('reveal');
-  });
-}, { threshold: 0.12 });
-reveals.forEach(r => {
-  r.classList.add('hidden-obs');
-  obs.observe(r);
-});
-
-const toTop = document.getElementById('toTop');
-window.addEventListener('scroll', () => {
-  toTop.style.display = window.scrollY > innerHeight / 2 ? 'block' : 'none';
-});
-toTop.addEventListener('click', () => {
-  window.scrollTo({ top:0, behavior:'smooth' });
-});
-
-// Contact form submission handler
-const form = document.getElementById('contactForm');
-const formStatus = document.getElementById('formStatus');
-form?.addEventListener('submit', async e => {
-  e.preventDefault();
-  formStatus.textContent = 'Sending…';
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeLightbox();
+      }
     });
-    formStatus.textContent = res.ok ? 'Thanks — I will reply soon!' : 'Something went wrong. Try again later.';
-    if (res.ok) form.reset();
-  } catch(e) {
-    formStatus.textContent = 'Network error. Please try again.';
-  }
-});
-</script> </body> </html> ```
+    // Close lightbox by clicking outside the image
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Optional: Submit form with mailto fallback if supported
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', (e) => {
+      alert('Thank you for reaching out! Please check your email client to send the message.');
+    });
+  </script>
+</body>
+</html>
