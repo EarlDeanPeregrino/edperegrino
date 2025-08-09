@@ -4,42 +4,39 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Earl Dean Peregrino — Portfolio</title>
-  <meta name="description" content="Earl Dean Peregrino's professional portfolio with a warm, sleek calico-inspired design." />
+  <meta name="description" content="Earl Dean Peregrino's professional portfolio with a sleek purple-inspired design." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* Reset and root variables for calico-inspired theme with dynamic text colors */
+    /* Reset and purple-inspired root variables */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #fdf9f3; /* creamy off-white */
-      --card: #fbf6f0; /* very light cream */
-      --text: #3a363f; /* charcoal gray */
-      --muted: #7c746f; /* soft warm gray */
-      --accent: #de6e32; /* warm orange */
-      --accent-2: #29221f; /* deep brown/black */
-      --icon-color: #29221f;
-      --icon-hover-color: #de6e32;
+      --bg: #f4f3ff; /* light lavender */
+      --card: #ebe9ff; /* very light lavender */
+      --text: #2e026d; /* dark plum */
+      --muted: #6b4eff; /* soft moderate purple */
+      --accent: #7c3aed; /* vivid violet */
+      --accent-2: #9f7aea; /* lighter purple */
       --radius: 14px;
       --gap: 16px;
-      --focus-outline: 3px solid #de6e32;
-      --shadow-glow: rgba(222,110,50,0.4);
-      --shadow-soft: rgba(41,34,31,0.12);
-      --link-color: var(--accent-2);
-      --link-hover-color: var(--accent);
+      --focus-outline: 3px solid #7c3aed;
+      --shadow-glow: rgba(124,58,237, 0.5);
+      --shadow-soft: rgba(158,97,255, 0.15);
+      --icon-color: #4c1d95; /* deep purple */
+      --icon-hover-color: #7c3aed; /* violet */
     }
     body.dark {
-      --bg: #29221f; /* dark brown black */
-      --card: #3a363f; /* dark charcoal */
-      --text: #fdf9f3; /* creamy off-white text */
-      --muted: #b8aa99; /* muted beige */
-      --accent: #f9a03f; /* lighter warm orange */
-      --accent-2: #f1e4d5; /* pale creamy */
-      --icon-color: #f1e4d5;
-      --icon-hover-color: #f9a03f;
-      --shadow-glow: rgba(249,160,63,0.4);
-      --shadow-soft: rgba(222,110,50,0.3);
-      --link-color: var(--accent-2);
-      --link-hover-color: var(--accent);
+      --bg: #220e75; /* deep dark purple */
+      --card: #3a1c83; /* dark purple */
+      --text: #e0d7ff; /* pale lavender text */
+      --muted: #b2a9ff; /* muted light purple */
+      --accent: #9f7aea; /* lighter purple */
+      --accent-2: #7c3aed; /* vivid violet */
+      --shadow-glow: rgba(158,122,255, 0.5);
+      --shadow-soft: rgba(124,58,237, 0.3);
+      --icon-color: #c4b5fd; /* soft lavender */
+      --icon-hover-color: #d8b4fe; /* light violet */
     }
+
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -52,12 +49,12 @@
       -webkit-font-smoothing: antialiased;
     }
     a {
-      color: var(--link-color);
+      color: var(--accent-2);
       text-decoration: none;
       transition: color 0.3s ease;
     }
     a:hover, a:focus {
-      color: var(--link-hover-color);
+      color: var(--accent);
       text-decoration: underline;
       outline: none;
     }
@@ -151,7 +148,7 @@
       outline: none;
       box-shadow: 0 0 12px var(--shadow-glow);
     }
-    
+
     /* Focus outlines */
     button:focus, a:focus, .tile:focus {
       outline: var(--focus-outline);
@@ -159,7 +156,7 @@
       box-shadow: 0 0 10px var(--shadow-glow);
     }
 
-    /* Hero section with animated dynamic shapes and smooth entrance */
+    /* Hero section with animated shapes */
     header.hero {
       position: relative;
       min-height: 90vh;
@@ -246,7 +243,7 @@
       object-fit: cover;
       border: 4px solid rgba(255,255,255,0.5);
       box-shadow:
-        0 0 14px 7px rgba(222,110,50,0.45),
+        0 0 14px 7px rgba(124,58,237,0.45),
         inset 0 0 18px rgba(255,255,255,0.8);
       margin: 0 auto 28px;
       display: block;
@@ -255,7 +252,7 @@
     .profile-pic:hover,
     .profile-pic:focus {
       box-shadow:
-        0 0 28px 14px rgba(222,110,50,0.85),
+        0 0 28px 14px rgba(124,58,237,0.85),
         inset 0 0 30px rgba(255,255,255,1);
       outline: none;
     }
@@ -264,10 +261,10 @@
       font-weight: 700;
       margin-bottom: 8px;
       letter-spacing: 0.06em;
-      text-shadow: 0 0 10px rgba(41,34,31,0.65);
+      text-shadow: 0 0 10px rgba(46,2,109,0.65);
     }
     h1 .name {
-      background: linear-gradient(45deg, #de6e32, #29221f);
+      background: linear-gradient(45deg, #7c3aed, #2e026d);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -589,6 +586,7 @@
 
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Theme toggle with persistence
     const themeToggle = document.getElementById('themeToggle');
     const savedTheme = localStorage.getItem('pref-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -618,6 +616,7 @@
       updateThemeIcon();
     });
 
+    // Typing animation with pause on hover/focus
     (function typing() {
       const el = document.getElementById('typing');
       const phrases = ["Graphic Designer", "Digital Illustrator", "Brand Strategist", "Creative Problem Solver"];
@@ -659,6 +658,7 @@
       setTimeout(loop, 700);
     })();
 
+    // Build featured projects gallery dynamically
     const collage = document.getElementById('collage');
     projects.forEach(proj => {
       const tile = document.createElement('button');
@@ -689,6 +689,7 @@
       });
     });
 
+    // Lightbox modal functions and events
     const lbBackdrop = document.getElementById('lbBackdrop');
     const lbImg = document.getElementById('lbImg');
     const lbTitle = document.getElementById('lbTitle');
@@ -783,6 +784,7 @@
       }, {passive:true});
     })();
 
+    // Reveal animations & back-to-top button
     const reveals = document.querySelectorAll('main section, header.hero');
     const obs = new IntersectionObserver(entries => {
       entries.forEach(en => {
@@ -793,7 +795,6 @@
       r.classList.add('hidden-obs');
       obs.observe(r);
     });
-
     const toTop = document.getElementById('toTop');
     window.addEventListener('scroll', () => {
       toTop.style.display = window.scrollY > innerHeight / 2 ? 'block' : 'none';
