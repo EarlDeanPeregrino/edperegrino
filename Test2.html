@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Earl Dean Peregrino — Portfolio</title>
-  <meta name="description" content="Earl Dean Peregrino's professional portfolio with a sleek purple-inspired design." />
+  <meta name="description" content="Earl Dean Peregrino's professional portfolio with a sleek purple-inspired design and cinematic hero effect." />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     /* Reset and purple-inspired root variables */
@@ -156,7 +156,22 @@
       box-shadow: 0 0 10px var(--shadow-glow);
     }
 
-    /* Hero section with animated shapes */
+    /* Cinematic hero background fade-in overlay */
+    header.hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+      opacity: 1;
+      pointer-events: none;
+      z-index: 1;
+      animation: heroFadeIn 1.8s ease forwards;
+    }
+    @keyframes heroFadeIn {
+      to { opacity: 0; }
+    }
+
+    /* Hero section with animated shapes and cinematic zoom/pulse */
     header.hero {
       position: relative;
       min-height: 90vh;
@@ -172,14 +187,20 @@
       opacity: 0;
       transform: translateY(40px);
     }
-    @keyframes heroEntry { to { opacity: 1; transform: translateY(0);} }
+    @keyframes heroEntry { to {opacity: 1; transform: translateY(0);} }
 
     .hero-background-shapes {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: 0;
       overflow: visible;
+      animation: zoomOut 20s linear infinite;
+    }
+    @keyframes zoomOut {
+      0% { transform: scale(1) translateZ(0); opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { transform: scale(0.95) translateZ(0); opacity: 1; }
     }
     .shape {
       position: absolute;
@@ -218,43 +239,107 @@
       animation-delay: 5s;
     }
     @keyframes floatX {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(32px); }
+      0% {transform: translateX(0);}
+      100% {transform: translateX(32px);}
     }
     @keyframes floatY {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-42px); }
+      0% {transform: translateY(0);}
+      100% {transform: translateY(-42px);}
     }
     @keyframes floatXRev {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-27px); }
+      0% {transform: translateX(0);}
+      100% {transform: translateX(-27px);}
     }
 
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      max-width: 900px;
-      padding: 16px 28px;
-    }
+    /* Spotlight glow around profile picture with subtle pulsation */
     .profile-pic {
+      position: relative;
+      z-index: 3;
       width: 160px;
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid rgba(255,255,255,0.5);
       box-shadow:
-        0 0 14px 7px rgba(124,58,237,0.45),
-        inset 0 0 18px rgba(255,255,255,0.8);
+        0 0 28px 14px rgba(124,58,237,0.85),
+        inset 0 0 30px rgba(255,255,255,1);
       margin: 0 auto 28px;
       display: block;
       transition: box-shadow 0.3s ease;
+      animation: spotlightPulse 6s ease-in-out infinite;
     }
     .profile-pic:hover,
     .profile-pic:focus {
       box-shadow:
-        0 0 28px 14px rgba(124,58,237,0.85),
-        inset 0 0 30px rgba(255,255,255,1);
+        0 0 38px 18px rgba(124,58,237,0.95),
+        inset 0 0 38px rgba(255,255,255,1);
       outline: none;
+    }
+    @keyframes spotlightPulse {
+      0%, 100% {
+        box-shadow:
+          0 0 28px 14px rgba(124,58,237,0.85),
+          inset 0 0 30px rgba(255,255,255,1);
+      }
+      50% {
+        box-shadow:
+          0 0 38px 18px rgba(124,58,237,0.95),
+          inset 0 0 38px rgba(255,255,255,1);
+      }
+    }
+
+    /* Animate headline and subtitle sliding and appearing */
+    .hero-inner > h1,
+    .hero-inner > h2 {
+      opacity: 0;
+      transform: translateY(30px);
+      animation-fill-mode: forwards;
+    }
+    .hero-inner > h1 {
+      animation: slideUpFadeIn 1.2s cubic-bezier(0.2,0,0,1) 1.2s forwards;
+    }
+    .hero-inner > h2 {
+      animation: slideUpFadeIn 1.2s cubic-bezier(0.2,0,0,1) 1.8s forwards;
+    }
+    @keyframes slideUpFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animate call-to-action buttons */
+    .cta {
+      opacity: 0;
+      transform: scale(0.95);
+      animation: fadeInScale 1s ease forwards;
+      animation-delay: 2.4s;
+    }
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Reduce motion preferences respect */
+    @media (prefers-reduced-motion: reduce) {
+      header.hero::before,
+      .hero-background-shapes,
+      .profile-pic,
+      .hero-inner > h1,
+      .hero-inner > h2,
+      .cta {
+        animation: none !important;
+      }
+    }
+
+    /* Hero inner content styling */
+    .hero-inner {
+      position: relative;
+      z-index: 4;
+      max-width: 900px;
+      padding: 16px 28px;
     }
     h1 {
       font-size: 3.4rem;
@@ -291,13 +376,7 @@
       border-color: transparent;
       outline: none;
     }
-    .cta {
-      display: flex;
-      gap: 22px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
+    .cta .btn {
       padding: 14px 26px;
       border-radius: 34px;
       font-weight: 700;
