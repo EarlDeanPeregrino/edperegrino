@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital Artist Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="logo">Your Name</h1>
+      <nav>
+        <a href="#featured">Featured Works</a>
+        <a href="#about">About Me</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="featured" class="featured-section container">
+      <h2>Featured Works</h2>
+      <div class="gallery">
+        <div class="gallery-item" tabindex="0" data-title="Dreamscape" data-description="A surreal digital painting inspired by dreams and imagination.">
+          <img src="https://via.placeholder.com/300x200?text=Dreamscape" alt="Dreamscape" />
+        </div>
+        <div class="gallery-item" tabindex="0" data-title="Urban Vibes" data-description="A graphic design project capturing the pulse of city life.">
+          <img src="https://via.placeholder.com/300x300?text=Urban+Vibes" alt="Urban Vibes" />
+        </div>
+        <div class="gallery-item" tabindex="0" data-title="Nature's Whisper" data-description="Digital art emphasizing the subtle beauty of nature.">
+          <img src="https://via.placeholder.com/300x400?text=Nature%27s+Whisper" alt="Nature's Whisper" />
+        </div>
+        <div class="gallery-item" tabindex="0" data-title="Abstract Energy" data-description="An abstract composition exploring color and motion.">
+          <img src="https://via.placeholder.com/300x250?text=Abstract+Energy" alt="Abstract Energy" />
+        </div>
+        <div class="gallery-item" tabindex="0" data-title="Portrait Study" data-description="A detailed digital portrait focusing on expression and mood.">
+          <img src="https://via.placeholder.com/300x350?text=Portrait+Study" alt="Portrait Study" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal for individual work -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="modal-close" class="close">&times;</span>
+        <h3 id="modal-title"></h3>
+        <p id="modal-description"></p>
+      </div>
+    </div>
+
+    <section id="about" class="about-section container">
+      <h2>About Me</h2>
+      <p><strong>Who I Am:</strong> I am a passionate digital artist and graphic designer committed to creating immersive visual experiences that tell compelling stories through color, shape, and form.</p>
+      <p><strong>How I Work:</strong> I blend creativity with technology, using advanced digital tools and techniques to bring ideas to life with meticulous attention to detail and thoughtful design principles.</p>
+      <p><strong>What Drives Me:</strong> Inspiration comes from everyday moments, nature, and the desire to connect emotions with digital art, constantly pushing boundaries to evolve my craft.</p>
+    </section>
+
+    <section id="contact" class="contact-section container">
+      <h2>Contact Me</h2>
+      <p>Feel free to reach out through any of these channels:</p>
+      <div class="social-links">
+        <a href="mailto:your.email@example.com" aria-label="Email" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/ios-glyphs/30/000000/new-post.png" alt="Email icon" />
+        </a>
+        <a href="https://twitter.com/yourprofile" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/ios-glyphs/30/000000/twitter.png" alt="Twitter icon" />
+        </a>
+        <a href="https://instagram.com/yourprofile" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/ios-glyphs/30/000000/instagram-new.png" alt="Instagram icon" />
+        </a>
+        <a href="https://linkedin.com/in/yourprofile" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/ios-glyphs/30/000000/linkedin.png" alt="LinkedIn icon" />
+        </a>
+        <a href="https://github.com/yourprofile" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+          <img src="https://img.icons8.com/ios-glyphs/30/000000/github.png" alt="GitHub icon" />
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Your Name. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
